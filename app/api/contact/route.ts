@@ -1,9 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 export async function POST(request: NextRequest) {
+  // Initialize Resend at runtime to avoid build-time errors
+  if (!process.env.RESEND_API_KEY) {
+    console.error('RESEND_API_KEY is not configured')
+    return NextResponse.json(
+      { error: 'Email service is not configured. Please contact us directly.' },
+      { status: 503 }
+    )
+  }
+
+  const resend = new Resend(process.env.RESEND_API_KEY)
+
   try {
     const body = await request.json()
     const { name, email, service, message } = body
@@ -37,7 +46,7 @@ export async function POST(request: NextRequest) {
     const serviceName = serviceNames[service] || service
 
     // Send email using Resend
-    const data = await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
       to: process.env.RESEND_TO_EMAIL || 'hello@30degreeseast.com',
       replyTo: email,
@@ -134,8 +143,16 @@ export async function POST(request: NextRequest) {
       `,
     })
 
+    if (error) {
+      console.error('Resend API error:', error)
+      return NextResponse.json(
+        { error: 'Failed to send email. Please try again.' },
+        { status: 500 }
+      )
+    }
+
     return NextResponse.json(
-      { message: 'Email sent successfully', id: data.id },
+      { message: 'Email sent successfully', id: data?.id },
       { status: 200 }
     )
   } catch (error) {
