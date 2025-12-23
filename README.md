@@ -140,21 +140,23 @@ Replace all placeholder video URLs (`YOUR_VIDEO_ID`) with actual Vimeo or YouTub
 - Teaching System Audit explainer video
 - Insights page videos (in `lib/data/videos.ts`)
 
-### Update Contact Email
+### Configure Contact Form (Resend)
 
-Update the contact email in `/app/about/page.tsx`:
+The contact form is integrated with [Resend](https://resend.com) for email delivery.
 
-```typescript
-hello@30degreeseast.com
+**Setup Required:**
+
+1. Create a free Resend account at [resend.com](https://resend.com)
+2. Get your API key from the Resend dashboard
+3. Create a `.env.local` file with your credentials:
+
+```bash
+RESEND_API_KEY=your_api_key_here
+RESEND_FROM_EMAIL=hello@30degreeseast.com
+RESEND_TO_EMAIL=hello@30degreeseast.com
 ```
 
-### Add Form Functionality
-
-The contact form in `/app/about/page.tsx` needs backend integration. Options:
-
-- Use a form service (Formspree, Netlify Forms, etc.)
-- Build a custom API route in Next.js
-- Integrate with an email service
+**Detailed Instructions:** See [RESEND_SETUP.md](./RESEND_SETUP.md) for complete setup guide.
 
 ## Performance Optimizations
 

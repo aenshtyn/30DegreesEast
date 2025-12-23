@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import CTAButton from '@/components/ui/CTAButton'
+import ContactForm from '@/components/ui/ContactForm'
 
 export const metadata: Metadata = {
   title: 'About | 30 Degrees East',
@@ -125,89 +126,7 @@ export default function About() {
             </div>
 
             {/* Contact Form */}
-            <div className="mt-12 rounded-lg border border-neutral-200 bg-white p-8">
-              <form className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-neutral-900">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    className="mt-2 block w-full rounded-md border border-neutral-300 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:border-neutral-900 focus:outline-none focus:ring-1 focus:ring-neutral-900"
-                    placeholder="Your name"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-neutral-900">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    className="mt-2 block w-full rounded-md border border-neutral-300 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:border-neutral-900 focus:outline-none focus:ring-1 focus:ring-neutral-900"
-                    placeholder="your@email.com"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="service" className="block text-sm font-medium text-neutral-900">
-                    What are you interested in?
-                  </label>
-                  <select
-                    id="service"
-                    name="service"
-                    className="mt-2 block w-full rounded-md border border-neutral-300 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-1 focus:ring-neutral-900"
-                    required
-                  >
-                    <option value="">Select a service</option>
-                    <option value="coaching-english">Earn Online by Teaching English</option>
-                    <option value="strategy-session">Thinking / Strategy Session</option>
-                    <option value="teaching-audit">Teaching System Audit</option>
-                    <option value="coaches-educators">Coaching for Coaches & Educators</option>
-                    <option value="other">Other / General Inquiry</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-neutral-900">
-                    Tell me about where you are and what you&apos;re working on
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={6}
-                    className="mt-2 block w-full rounded-md border border-neutral-300 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:border-neutral-900 focus:outline-none focus:ring-1 focus:ring-neutral-900"
-                    placeholder="Share your current situation, challenges, and what you're hoping to achieve..."
-                    required
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full rounded-md bg-neutral-900 px-8 py-4 text-base font-medium text-white transition-colors hover:bg-neutral-800"
-                >
-                  Send Message
-                </button>
-              </form>
-
-              <div className="mt-8 border-t border-neutral-200 pt-8 text-center">
-                <p className="text-sm text-neutral-600">
-                  You can also reach me directly at:{' '}
-                  <a
-                    href="mailto:hello@30degreeseast.com"
-                    className="font-medium text-neutral-900 underline hover:text-neutral-700"
-                  >
-                    hello@30degreeseast.com
-                  </a>
-                </p>
-              </div>
-            </div>
+            <ContactForm />
 
             <div className="mt-8 text-center text-sm text-neutral-600">
               <p>
