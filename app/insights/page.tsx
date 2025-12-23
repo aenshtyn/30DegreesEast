@@ -17,9 +17,9 @@ export default function Insights() {
   return (
     <>
       {/* Header */}
-      <section className="section-padding bg-white">
+      <section className="section-padding section-gradient">
         <div className="container-custom">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="glass-panel mx-auto max-w-3xl text-center">
             <h1 className="text-neutral-900">Insights</h1>
             <p className="mt-6 text-xl text-neutral-600">
               Video insights on teaching, learning, systems, and building sustainable
@@ -30,19 +30,22 @@ export default function Insights() {
       </section>
 
       {/* Videos by Category */}
-      {Object.entries(categories).map(([categoryId, categoryName]) => {
+      {Object.entries(categories).map(([categoryId, categoryName], index) => {
         const categoryVideos = videosByCategory[categoryId]
 
         if (!categoryVideos || categoryVideos.length === 0) return null
 
         return (
-          <section key={categoryId} className="section-padding bg-neutral-50 first:bg-white odd:bg-white">
+          <section
+            key={categoryId}
+            className={`section-padding ${index % 2 === 0 ? 'section-gradient' : 'section-gradient-muted'}`}
+          >
             <div className="container-custom">
               <h2 className="text-neutral-900">{categoryName}</h2>
 
               <div className="mt-12 grid gap-12 md:grid-cols-2">
                 {categoryVideos.map((video) => (
-                  <div key={video.id} className="space-y-4">
+                  <div key={video.id} className="glass-panel-muted space-y-4">
                     <VideoEmbed src={video.videoUrl} title={video.title} />
                     <div>
                       <h3 className="text-xl font-semibold text-neutral-900">
@@ -60,9 +63,9 @@ export default function Insights() {
 
       {/* Empty State (if no videos) */}
       {videos.length === 0 && (
-        <section className="section-padding bg-neutral-50">
+        <section className="section-padding section-gradient-muted">
           <div className="container-custom">
-            <div className="mx-auto max-w-2xl text-center">
+            <div className="glass-panel mx-auto max-w-2xl text-center">
               <p className="text-lg text-neutral-600">
                 New videos coming soon. Check back later.
               </p>

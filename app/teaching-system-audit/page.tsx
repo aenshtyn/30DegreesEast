@@ -11,9 +11,9 @@ export default function TeachingSystemAudit() {
   return (
     <>
       {/* Header */}
-      <section className="section-padding bg-white">
+      <section className="section-padding section-gradient">
         <div className="container-custom">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="glass-panel mx-auto max-w-3xl text-center">
             <h1 className="text-neutral-900">Teaching System Audit</h1>
             <p className="mt-6 text-xl text-neutral-600">
               A paid diagnostic to review your lessons, structure, pricing, and AI use—
@@ -35,9 +35,9 @@ export default function TeachingSystemAudit() {
       </section>
 
       {/* Who This Is For */}
-      <section className="section-padding bg-neutral-50">
+      <section className="section-padding section-gradient-muted">
         <div className="container-custom">
-          <div className="mx-auto max-w-4xl">
+          <div className="glass-panel mx-auto max-w-4xl">
             <h2 className="text-center text-neutral-900">Who this is for</h2>
 
             <div className="mt-12 grid gap-8 md:grid-cols-2">
@@ -90,13 +90,13 @@ export default function TeachingSystemAudit() {
       </section>
 
       {/* What Is Reviewed */}
-      <section className="section-padding bg-white">
+      <section className="section-padding section-gradient">
         <div className="container-custom">
-          <div className="mx-auto max-w-4xl">
+          <div className="glass-panel mx-auto max-w-4xl">
             <h2 className="text-center text-neutral-900">What is reviewed</h2>
 
             <div className="mt-12 grid gap-6 md:grid-cols-2">
-              <div className="rounded-lg border border-neutral-200 bg-white p-6">
+              <div className="glass-panel-muted p-6">
                 <h3 className="text-lg font-semibold text-neutral-900">Lesson Structure</h3>
                 <p className="mt-3 text-neutral-600">
                   How your lessons are organized, delivered, and whether they create
@@ -104,7 +104,7 @@ export default function TeachingSystemAudit() {
                 </p>
               </div>
 
-              <div className="rounded-lg border border-neutral-200 bg-white p-6">
+              <div className="glass-panel-muted p-6">
                 <h3 className="text-lg font-semibold text-neutral-900">Teaching Framework</h3>
                 <p className="mt-3 text-neutral-600">
                   The underlying system and methodology behind your teaching approach
@@ -112,7 +112,7 @@ export default function TeachingSystemAudit() {
                 </p>
               </div>
 
-              <div className="rounded-lg border border-neutral-200 bg-white p-6">
+              <div className="glass-panel-muted p-6">
                 <h3 className="text-lg font-semibold text-neutral-900">Pricing Model</h3>
                 <p className="mt-3 text-neutral-600">
                   Whether your pricing reflects the value you deliver and supports
@@ -120,7 +120,7 @@ export default function TeachingSystemAudit() {
                 </p>
               </div>
 
-              <div className="rounded-lg border border-neutral-200 bg-white p-6">
+              <div className="glass-panel-muted p-6">
                 <h3 className="text-lg font-semibold text-neutral-900">AI Integration</h3>
                 <p className="mt-3 text-neutral-600">
                   How you&apos;re using (or could use) AI tools to enhance delivery,
@@ -133,9 +133,9 @@ export default function TeachingSystemAudit() {
       </section>
 
       {/* How It Works */}
-      <section className="section-padding bg-neutral-50">
+      <section className="section-padding section-gradient-muted">
         <div className="container-custom">
-          <div className="mx-auto max-w-4xl">
+          <div className="glass-panel mx-auto max-w-4xl">
             <h2 className="text-center text-neutral-900">How it works</h2>
 
             <div className="mt-12 space-y-12">
@@ -194,13 +194,13 @@ export default function TeachingSystemAudit() {
       </section>
 
       {/* Outcomes */}
-      <section className="section-padding bg-white">
+      <section className="section-padding section-gradient">
         <div className="container-custom">
-          <div className="mx-auto max-w-4xl">
+          <div className="glass-panel mx-auto max-w-4xl">
             <h2 className="text-center text-neutral-900">What you&apos;ll walk away with</h2>
 
             <div className="mt-12 space-y-4">
-              <div className="flex items-start gap-4 rounded-lg border border-neutral-200 bg-white p-6">
+              <div className="glass-panel-muted flex items-start gap-4 p-6">
                 <svg
                   className="h-6 w-6 shrink-0 text-neutral-900"
                   fill="none"
@@ -214,7 +214,7 @@ export default function TeachingSystemAudit() {
                 </p>
               </div>
 
-              <div className="flex items-start gap-4 rounded-lg border border-neutral-200 bg-white p-6">
+              <div className="glass-panel-muted flex items-start gap-4 p-6">
                 <svg
                   className="h-6 w-6 shrink-0 text-neutral-900"
                   fill="none"
@@ -228,7 +228,7 @@ export default function TeachingSystemAudit() {
                 </p>
               </div>
 
-              <div className="flex items-start gap-4 rounded-lg border border-neutral-200 bg-white p-6">
+              <div className="glass-panel-muted flex items-start gap-4 p-6">
                 <svg
                   className="h-6 w-6 shrink-0 text-neutral-900"
                   fill="none"
@@ -242,7 +242,7 @@ export default function TeachingSystemAudit() {
                 </p>
               </div>
 
-              <div className="flex items-start gap-4 rounded-lg border border-neutral-200 bg-white p-6">
+              <div className="glass-panel-muted flex items-start gap-4 p-6">
                 <svg
                   className="h-6 w-6 shrink-0 text-neutral-900"
                   fill="none"
@@ -261,9 +261,9 @@ export default function TeachingSystemAudit() {
       </section>
 
       {/* CTA */}
-      <section className="section-padding bg-neutral-50">
+      <section className="section-padding section-gradient-muted">
         <div className="container-custom">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="glass-panel mx-auto max-w-3xl text-center">
             <h2 className="text-neutral-900">Ready for an audit?</h2>
             <p className="mt-6 text-lg text-neutral-600">
               If you&apos;re serious about optimizing your teaching system and building

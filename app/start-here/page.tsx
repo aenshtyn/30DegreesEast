@@ -11,9 +11,9 @@ export default function StartHere() {
   return (
     <>
       {/* Welcome Section */}
-      <section className="section-padding bg-white">
+      <section className="section-padding section-gradient">
         <div className="container-custom">
-          <div className="mx-auto max-w-3xl">
+          <div className="glass-panel mx-auto max-w-3xl">
             <h1 className="text-center text-neutral-900">Start Here</h1>
             <p className="mt-6 text-center text-lg text-neutral-600">
               Welcome to 30 Degrees East. If you&apos;re new here, this page will help you
@@ -32,14 +32,14 @@ export default function StartHere() {
       </section>
 
       {/* Choose Your Path */}
-      <section className="section-padding bg-neutral-50">
+      <section className="section-padding section-gradient-muted">
         <div className="container-custom">
           <div className="mx-auto max-w-4xl">
             <h2 className="text-center text-neutral-900">Choose Your Path</h2>
 
             <div className="mt-12 grid gap-8 md:grid-cols-2">
               {/* Path 1: Professionals */}
-              <div className="rounded-lg border-2 border-neutral-300 bg-white p-8">
+              <div className="glass-panel-muted">
                 <h3 className="text-2xl font-semibold text-neutral-900">
                   For Professionals
                 </h3>
@@ -67,7 +67,7 @@ export default function StartHere() {
               </div>
 
               {/* Path 2: Coaches & Educators */}
-              <div className="rounded-lg border-2 border-neutral-300 bg-white p-8">
+              <div className="glass-panel-muted">
                 <h3 className="text-2xl font-semibold text-neutral-900">
                   For Coaches &amp; Educators
                 </h3>
@@ -99,9 +99,9 @@ export default function StartHere() {
       </section>
 
       {/* How to Work With Me */}
-      <section className="section-padding bg-white">
+      <section className="section-padding section-gradient">
         <div className="container-custom">
-          <div className="mx-auto max-w-3xl">
+          <div className="glass-panel mx-auto max-w-3xl">
             <h2 className="text-center text-neutral-900">How to Work With Me</h2>
 
             <div className="mt-12 space-y-8">

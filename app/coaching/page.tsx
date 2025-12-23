@@ -11,9 +11,9 @@ export default function Coaching() {
   return (
     <>
       {/* Header */}
-      <section className="section-padding bg-white">
+      <section className="section-padding section-gradient">
         <div className="container-custom">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="glass-panel mx-auto max-w-3xl text-center">
             <h1 className="text-neutral-900">Coaching</h1>
             <p className="mt-6 text-xl text-neutral-600">
               One-on-one guidance to help you package your expertise, build teaching
@@ -24,9 +24,9 @@ export default function Coaching() {
       </section>
 
       {/* Service A: Earn Online by Teaching English */}
-      <section id="english" className="section-padding bg-neutral-50">
+      <section id="english" className="section-padding section-gradient-muted">
         <div className="container-custom">
-          <div className="mx-auto max-w-4xl">
+          <div className="glass-panel mx-auto max-w-4xl">
             <h2 className="text-neutral-900">Earn Online by Teaching English</h2>
             <p className="mt-4 text-lg text-neutral-700">
               <strong>Note:</strong> This is NOT English language teaching.
@@ -98,9 +98,9 @@ export default function Coaching() {
       </section>
 
       {/* Service B: Thinking / Strategy Sessions */}
-      <section id="strategy" className="section-padding bg-white">
+      <section id="strategy" className="section-padding section-gradient">
         <div className="container-custom">
-          <div className="mx-auto max-w-4xl">
+          <div className="glass-panel mx-auto max-w-4xl">
             <h2 className="text-neutral-900">Thinking / Strategy Sessions</h2>
             <p className="mt-6 text-lg text-neutral-600">
               Paid diagnostic and clarity sessions to help you think through your current
@@ -161,9 +161,9 @@ export default function Coaching() {
       </section>
 
       {/* Service C: For Coaches & Educators */}
-      <section className="section-padding bg-neutral-50">
+      <section className="section-padding section-gradient-muted">
         <div className="container-custom">
-          <div className="mx-auto max-w-4xl">
+          <div className="glass-panel mx-auto max-w-4xl">
             <h2 className="text-neutral-900">For Coaches &amp; Educators</h2>
             <p className="mt-6 text-lg text-neutral-600">
               If you&apos;re already teaching or coaching online, I help you build leverage

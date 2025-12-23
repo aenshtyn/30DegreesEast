@@ -57,7 +57,7 @@ export default function ContactForm() {
   }
 
   return (
-    <div className="mt-12 rounded-lg border border-neutral-200 bg-white p-8">
+    <div className="mt-12 glass-panel">
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-neutral-900">
@@ -67,7 +67,7 @@ export default function ContactForm() {
             type="text"
             id="name"
             name="name"
-            className="mt-2 block w-full rounded-md border border-neutral-300 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:border-neutral-900 focus:outline-none focus:ring-1 focus:ring-neutral-900"
+            className="mt-2 block w-full rounded-xl border border-white/70 bg-white/60 px-4 py-3 text-neutral-900 placeholder-neutral-500 shadow-inner focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
             placeholder="Your name"
             required
             disabled={isSubmitting}
@@ -82,7 +82,7 @@ export default function ContactForm() {
             type="email"
             id="email"
             name="email"
-            className="mt-2 block w-full rounded-md border border-neutral-300 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:border-neutral-900 focus:outline-none focus:ring-1 focus:ring-neutral-900"
+            className="mt-2 block w-full rounded-xl border border-white/70 bg-white/60 px-4 py-3 text-neutral-900 placeholder-neutral-500 shadow-inner focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
             placeholder="your@email.com"
             required
             disabled={isSubmitting}
@@ -96,7 +96,7 @@ export default function ContactForm() {
           <select
             id="service"
             name="service"
-            className="mt-2 block w-full rounded-md border border-neutral-300 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-1 focus:ring-neutral-900"
+            className="mt-2 block w-full rounded-xl border border-white/70 bg-white/60 px-4 py-3 text-neutral-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
             required
             disabled={isSubmitting}
           >
@@ -117,7 +117,7 @@ export default function ContactForm() {
             id="message"
             name="message"
             rows={6}
-            className="mt-2 block w-full rounded-md border border-neutral-300 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:border-neutral-900 focus:outline-none focus:ring-1 focus:ring-neutral-900"
+            className="mt-2 block w-full rounded-xl border border-white/70 bg-white/60 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
             placeholder="Share your current situation, challenges, and what you're hoping to achieve..."
             required
             disabled={isSubmitting}
@@ -139,7 +139,7 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-md bg-neutral-900 px-8 py-4 text-base font-medium text-white transition-colors hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-50"
+          className="w-full rounded-full bg-gradient-to-r from-brand-600 via-brand-500 to-accent-400 px-8 py-4 text-base font-semibold text-white shadow-glow transition-all hover:translate-y-[-1px] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isSubmitting ? 'Sending...' : 'Send Message'}
         </button>
@@ -150,7 +150,7 @@ export default function ContactForm() {
           You can also reach me directly at:{' '}
           <a
             href="mailto:hello@30degreeseast.com"
-            className="font-medium text-neutral-900 underline hover:text-neutral-700"
+            className="font-medium text-brand-700 underline hover:text-brand-900"
           >
             hello@30degreeseast.com
           </a>

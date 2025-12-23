@@ -13,11 +13,14 @@ export default function CTAButton({
   variant = 'primary',
   className = ''
 }: CTAButtonProps) {
-  const baseStyles = 'inline-block px-8 py-4 text-base font-medium rounded-md transition-colors'
+  const baseStyles =
+    'inline-flex items-center justify-center rounded-full px-8 py-3 text-base font-semibold transition-all duration-300'
 
   const variantStyles = {
-    primary: 'bg-neutral-900 text-white hover:bg-neutral-800',
-    secondary: 'bg-white text-neutral-900 border-2 border-neutral-900 hover:bg-neutral-50'
+    primary:
+      'bg-brand-600 text-white shadow-glow hover:bg-brand-700 hover:translate-y-[-1px] hover:shadow-xl',
+    secondary:
+      'border border-brand-200/70 bg-white/70 text-brand-700 hover:bg-white hover:text-brand-800'
   }
 
   return (

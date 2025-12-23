@@ -15,7 +15,7 @@ export default function Header() {
   ]
 
   return (
-    <header className="border-b border-neutral-200 bg-white">
+    <header className="sticky top-0 z-50 border-b border-white/60 bg-white/80 backdrop-blur-xl">
       <nav className="container-custom py-6">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -32,7 +32,7 @@ export default function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-sm font-medium text-neutral-700 transition-colors hover:text-neutral-900"
+                className="text-sm font-medium text-neutral-700 transition-colors hover:text-brand-600"
               >
                 {item.name}
               </Link>
@@ -65,12 +65,12 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="mt-6 flex flex-col gap-4 border-t border-neutral-200 pt-6 md:hidden">
+          <div className="mt-6 flex flex-col gap-4 border-t border-white/60 pt-6 md:hidden">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-base font-medium text-neutral-700 transition-colors hover:text-neutral-900"
+                className="text-base font-medium text-neutral-700 transition-colors hover:text-brand-600"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}

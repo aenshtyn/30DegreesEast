@@ -11,9 +11,9 @@ export default function About() {
   return (
     <>
       {/* About Swaleh */}
-      <section className="section-padding bg-white">
+      <section className="section-padding section-gradient">
         <div className="container-custom">
-          <div className="mx-auto max-w-3xl">
+          <div className="glass-panel mx-auto max-w-3xl">
             <h1 className="text-neutral-900">About Swaleh Kimani</h1>
 
             <div className="prose prose-lg mt-8 max-w-none">
@@ -41,9 +41,9 @@ export default function About() {
       </section>
 
       {/* Why 30 Degrees East Exists */}
-      <section className="section-padding bg-neutral-50">
+      <section className="section-padding section-gradient-muted">
         <div className="container-custom">
-          <div className="mx-auto max-w-3xl">
+          <div className="glass-panel mx-auto max-w-3xl">
             <h2 className="text-neutral-900">Why 30 Degrees East exists</h2>
 
             <div className="mt-8 space-y-6 text-lg leading-relaxed text-neutral-700">
@@ -69,9 +69,9 @@ export default function About() {
       </section>
 
       {/* Who I Work With */}
-      <section className="section-padding bg-white">
+      <section className="section-padding section-gradient">
         <div className="container-custom">
-          <div className="mx-auto max-w-3xl">
+          <div className="glass-panel mx-auto max-w-3xl">
             <h2 className="text-neutral-900">Who I work with</h2>
 
             <div className="mt-8">
@@ -100,7 +100,7 @@ export default function About() {
               </ul>
             </div>
 
-            <div className="mt-12 rounded-lg border-2 border-neutral-200 bg-neutral-50 p-8">
+            <div className="glass-panel-muted mt-12">
               <h3 className="text-xl font-semibold text-neutral-900">Clear boundaries:</h3>
               <p className="mt-4 text-lg text-neutral-700">
                 I don&apos;t work with people looking for quick fixes, motivational content, or
@@ -113,9 +113,9 @@ export default function About() {
       </section>
 
       {/* Work With Me */}
-      <section id="contact" className="section-padding bg-neutral-50">
+      <section id="contact" className="section-padding section-gradient-muted">
         <div className="container-custom">
-          <div className="mx-auto max-w-3xl">
+          <div className="glass-panel mx-auto max-w-3xl">
             <h2 className="text-center text-neutral-900">Work With Me</h2>
 
             <div className="mt-8 text-center">

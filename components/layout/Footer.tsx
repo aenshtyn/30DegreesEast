@@ -4,7 +4,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-neutral-200 bg-white">
+    <footer className="border-t border-white/50 bg-gradient-to-b from-white via-indigo-50 to-white">
       <div className="container-custom py-12">
         <div className="grid gap-12 md:grid-cols-3">
           {/* Brand */}
@@ -68,7 +68,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-12 border-t border-neutral-200 pt-8">
+        <div className="mt-12 border-t border-white/70 pt-8">
           <p className="text-sm text-neutral-600">
             &copy; {currentYear} 30 Degrees East. All rights reserved.
           </p>
