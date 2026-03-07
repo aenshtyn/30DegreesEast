@@ -2,79 +2,61 @@ import Link from 'next/link'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
+  const quickLinks = [
+    { label: 'Teach English Online', href: '/teach-english-online' },
+    { label: 'Co-creation Labs', href: '/co-creation' },
+    { label: 'About', href: '/about' },
+    { label: 'FAQ', href: '/faq' },
+    { label: 'Contact', href: '/contact' },
+  ]
 
   return (
-    <footer className="border-t border-white/50 bg-gradient-to-b from-white via-indigo-50 to-white">
-      <div className="container-custom py-12">
-        <div className="grid gap-12 md:grid-cols-3">
-          {/* Brand */}
+    <footer className="border-t border-white/10 bg-raisin text-white">
+      <div className="container-custom py-16">
+        <div className="grid gap-12 lg:grid-cols-[1.1fr,0.9fr,0.9fr] lg:items-start">
           <div>
+            <p className="text-sm uppercase tracking-[0.3em] text-white/60">30 Degrees East</p>
             <Link href="/" className="flex flex-col">
-              <span className="text-lg font-semibold tracking-tight text-neutral-900">
+              <span className="mt-3 text-2xl font-semibold tracking-tight text-white">
                 30 Degrees East
               </span>
-              <span className="mt-1 text-sm text-neutral-600">by Swaleh Kimani</span>
+              <span className="mt-1 text-sm text-white/60">by Swaleh Kimani</span>
             </Link>
-            <p className="mt-4 text-sm leading-relaxed text-neutral-600">
-              Building leverage through language, thinking, and systems.
+            <p className="mt-6 max-w-md text-base leading-relaxed text-white/75">
+              Helping teachers and thoughtful professionals turn what they already know into
+              clear, structured, sustainable online offers.
             </p>
           </div>
 
-          {/* Navigation */}
           <div>
-            <h3 className="text-sm font-semibold text-neutral-900">Navigation</h3>
-            <ul className="mt-4 space-y-3">
-              <li>
-                <Link href="/start-here" className="text-sm text-neutral-600 hover:text-neutral-900">
-                  Start Here
-                </Link>
-              </li>
-              <li>
-                <Link href="/coaching" className="text-sm text-neutral-600 hover:text-neutral-900">
-                  Coaching
-                </Link>
-              </li>
-              <li>
-                <Link href="/teaching-system-audit" className="text-sm text-neutral-600 hover:text-neutral-900">
-                  Teaching System Audit
-                </Link>
-              </li>
-              <li>
-                <Link href="/insights" className="text-sm text-neutral-600 hover:text-neutral-900">
-                  Insights
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-sm text-neutral-600 hover:text-neutral-900">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/faq" className="text-sm text-neutral-600 hover:text-neutral-900">
-                  FAQ
-                </Link>
-              </li>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-white/60">Quick links</h3>
+            <ul className="mt-6 grid grid-cols-2 gap-3">
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-sm text-white/80 transition hover:text-accent-200">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Contact */}
-          <div>
-            <h3 className="text-sm font-semibold text-neutral-900">Work With Me</h3>
-            <p className="mt-4 text-sm leading-relaxed text-neutral-600">
-              Ready to build your teaching system?
+          <div className="rounded-[28px] border border-white/10 bg-white/5 p-6">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-white/60">Work with me</h3>
+            <p className="mt-4 text-sm leading-relaxed text-white/75">
+              Have a question about the program, audit, or co-creation labs? Start with the contact page.
             </p>
             <Link
-              href="/about#contact"
-              className="mt-4 inline-block text-sm font-medium text-neutral-900 underline hover:text-neutral-700"
+              href="/contact"
+              className="mt-6 inline-flex rounded-full bg-accent-500 px-6 py-3 text-sm font-semibold text-raisin transition hover:bg-accent-400"
             >
-              Get in touch
+              Contact Us
             </Link>
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="mt-12 border-t border-white/70 pt-8">
-          <p className="text-sm text-neutral-600">
+        <div className="mt-12 border-t border-white/10 pt-8">
+          <p className="text-sm text-white/55">
             &copy; {currentYear} 30 Degrees East. All rights reserved.
           </p>
         </div>

@@ -140,9 +140,9 @@ Replace all placeholder video URLs (`YOUR_VIDEO_ID`) with actual Vimeo or YouTub
 - Teaching System Audit explainer video
 - Insights page videos (in `lib/data/videos.ts`)
 
-### Configure Contact Form (Resend)
+### Configure Resend Emails
 
-The contact form is integrated with [Resend](https://resend.com) for email delivery.
+The contact and waitlist forms use [Resend](https://resend.com) for email delivery.
 
 **Setup Required:**
 
@@ -154,6 +154,7 @@ The contact form is integrated with [Resend](https://resend.com) for email deliv
 RESEND_API_KEY=your_api_key_here
 RESEND_FROM_EMAIL=hello@30degreeseast.com
 RESEND_TO_EMAIL=hello@30degreeseast.com
+RESEND_WAITLIST_TO_EMAIL=hello@30degreeseast.com # optional override for waitlist alerts
 ```
 
 **Detailed Instructions:** See [RESEND_SETUP.md](./RESEND_SETUP.md) for complete setup guide.

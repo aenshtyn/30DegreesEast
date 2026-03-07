@@ -16,12 +16,12 @@ export default function Insights() {
 
   return (
     <>
-      {/* Header */}
-      <section className="section-padding section-gradient">
+      <section className="section-padding bg-raisin text-white">
         <div className="container-custom">
-          <div className="glass-panel mx-auto max-w-3xl text-center">
-            <h1 className="text-neutral-900">Insights</h1>
-            <p className="mt-6 text-xl text-neutral-600">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-sm uppercase tracking-[0.3em] text-white/70">Library</p>
+            <h1 className="mt-6 text-white">Insights</h1>
+            <p className="mt-6 text-xl text-white/80">
               Video insights on teaching, learning, systems, and building sustainable
               online work. No blog posts, no feeds—just focused thinking.
             </p>
@@ -29,7 +29,6 @@ export default function Insights() {
         </div>
       </section>
 
-      {/* Videos by Category */}
       {Object.entries(categories).map(([categoryId, categoryName], index) => {
         const categoryVideos = videosByCategory[categoryId]
 
@@ -38,14 +37,14 @@ export default function Insights() {
         return (
           <section
             key={categoryId}
-            className={`section-padding ${index % 2 === 0 ? 'section-gradient' : 'section-gradient-muted'}`}
+            className={`section-padding ${index % 2 === 0 ? 'bg-white' : 'section-gradient-muted'}`}
           >
             <div className="container-custom">
-              <h2 className="text-neutral-900">{categoryName}</h2>
+              <h2 className="section-heading text-center">{categoryName}</h2>
 
               <div className="mt-12 grid gap-12 md:grid-cols-2">
                 {categoryVideos.map((video) => (
-                  <div key={video.id} className="glass-panel-muted space-y-4">
+                  <div key={video.id} className="space-y-4 rounded-[28px] border border-neutral-100 bg-neutral-50/70 p-8 shadow-soft-card">
                     <VideoEmbed src={video.videoUrl} title={video.title} />
                     <div>
                       <h3 className="text-xl font-semibold text-neutral-900">
@@ -61,11 +60,10 @@ export default function Insights() {
         )
       })}
 
-      {/* Empty State (if no videos) */}
       {videos.length === 0 && (
         <section className="section-padding section-gradient-muted">
           <div className="container-custom">
-            <div className="glass-panel mx-auto max-w-2xl text-center">
+            <div className="mx-auto max-w-2xl rounded-[32px] border border-white/70 bg-white/85 p-10 text-center shadow-soft-card">
               <p className="text-lg text-neutral-600">
                 New videos coming soon. Check back later.
               </p>

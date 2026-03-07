@@ -10,36 +10,44 @@ export const metadata: Metadata = {
 export default function StartHere() {
   return (
     <>
-      {/* Welcome Section */}
-      <section className="section-padding section-gradient">
+      <section className="section-padding bg-raisin text-white">
         <div className="container-custom">
-          <div className="glass-panel mx-auto max-w-3xl">
-            <h1 className="text-center text-neutral-900">Start Here</h1>
-            <p className="mt-6 text-center text-lg text-neutral-600">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-sm uppercase tracking-[0.3em] text-white/70">Orientation</p>
+            <h1 className="mt-6 text-white">Start Here</h1>
+            <p className="mt-6 text-center text-lg text-white/80">
               Welcome to 30 Degrees East. If you&apos;re new here, this page will help you
               understand what I do and how I can help you build leverage through teaching.
             </p>
-
-            {/* Intro Video */}
-            <div className="mt-12">
-              <VideoEmbed
-                src="https://player.vimeo.com/video/YOUR_INTRO_VIDEO_ID"
-                title="Start Here Introduction"
-              />
+            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <CTAButton href="/teach-english-online" className="w-full sm:w-auto">
+                Explore the Flagship Program
+              </CTAButton>
+              <CTAButton
+                href="/co-creation"
+                variant="secondary"
+                className="w-full border-white/40 text-white hover:bg-white/10 sm:w-auto"
+              >
+                View Co-creation Labs
+              </CTAButton>
             </div>
+          </div>
+          <div className="mx-auto mt-12 max-w-4xl">
+            <VideoEmbed
+              src="https://player.vimeo.com/video/YOUR_INTRO_VIDEO_ID"
+              title="Start Here Introduction"
+            />
           </div>
         </div>
       </section>
 
-      {/* Choose Your Path */}
-      <section className="section-padding section-gradient-muted">
+      <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-center text-neutral-900">Choose Your Path</h2>
+            <h2 className="section-heading text-center">Choose Your Path</h2>
 
             <div className="mt-12 grid gap-8 md:grid-cols-2">
-              {/* Path 1: Professionals */}
-              <div className="glass-panel-muted">
+              <div className="flex h-full flex-col rounded-[28px] border border-neutral-100 bg-neutral-50/70 p-8 shadow-soft-card">
                 <h3 className="text-2xl font-semibold text-neutral-900">
                   For Professionals
                 </h3>
@@ -61,13 +69,12 @@ export default function StartHere() {
                     Build sustainable teaching systems
                   </li>
                 </ul>
-                <div className="mt-8">
-                  <CTAButton href="/coaching">Explore Coaching</CTAButton>
+                <div className="mt-auto pt-8">
+                  <CTAButton href="/teach-english-online">Explore the Program</CTAButton>
                 </div>
               </div>
 
-              {/* Path 2: Coaches & Educators */}
-              <div className="glass-panel-muted">
+              <div className="flex h-full flex-col rounded-[28px] border border-neutral-100 bg-neutral-50/70 p-8 shadow-soft-card">
                 <h3 className="text-2xl font-semibold text-neutral-900">
                   For Coaches &amp; Educators
                 </h3>
@@ -89,7 +96,7 @@ export default function StartHere() {
                     Optimize pricing and delivery
                   </li>
                 </ul>
-                <div className="mt-8">
+                <div className="mt-auto pt-8">
                   <CTAButton href="/teaching-system-audit">Get an Audit</CTAButton>
                 </div>
               </div>
@@ -98,11 +105,10 @@ export default function StartHere() {
         </div>
       </section>
 
-      {/* How to Work With Me */}
-      <section className="section-padding section-gradient">
+      <section className="section-padding section-gradient-muted">
         <div className="container-custom">
-          <div className="glass-panel mx-auto max-w-3xl">
-            <h2 className="text-center text-neutral-900">How to Work With Me</h2>
+          <div className="mx-auto max-w-4xl rounded-[32px] border border-white/70 bg-white/85 p-10 shadow-soft-card">
+            <h2 className="section-heading text-center">How to Work With Me</h2>
 
             <div className="mt-12 space-y-8">
               <div className="flex items-start gap-4">
@@ -152,7 +158,7 @@ export default function StartHere() {
             </div>
 
             <div className="mt-12 text-center">
-              <CTAButton href="/about#contact">Get in Touch</CTAButton>
+              <CTAButton href="/contact">Get in Touch</CTAButton>
             </div>
           </div>
         </div>

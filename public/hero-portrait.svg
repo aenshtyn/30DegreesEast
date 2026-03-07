@@ -1,0 +1,28 @@
+<svg width="640" height="800" viewBox="0 0 640 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Abstract illustration">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1F1B1E" />
+      <stop offset="100%" stop-color="#2C1F2C" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFAC4A"/>
+      <stop offset="100%" stop-color="#F36F2B"/>
+    </linearGradient>
+    <linearGradient id="circle" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F7D7BA" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FFEBD2" stop-opacity="0.5"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="800" rx="48" fill="url(#bg)" />
+  <circle cx="460" cy="180" r="110" fill="url(#circle)" />
+  <circle cx="220" cy="500" r="160" fill="#211D20" opacity="0.5" />
+  <rect x="80" y="120" width="480" height="560" rx="40" fill="#1C1B25" opacity="0.85" />
+  <path d="M150 260 Q 320 160 490 260" stroke="url(#accent)" stroke-width="6" stroke-linecap="round" fill="none" />
+  <path d="M150 320 Q 320 420 490 320" stroke="#FFCF87" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.5" />
+  <path d="M150 400 Q 320 500 490 400" stroke="#FFE5C0" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.4" />
+  <rect x="210" y="270" width="220" height="240" rx="28" fill="#242230" opacity="0.9" />
+  <rect x="230" y="300" width="180" height="40" rx="20" fill="url(#accent)" opacity="0.85" />
+  <rect x="230" y="360" width="180" height="24" rx="12" fill="#FFB86A" opacity="0.5" />
+  <rect x="230" y="400" width="180" height="24" rx="12" fill="#E28A2F" opacity="0.4" />
+  <rect x="230" y="440" width="180" height="24" rx="12" fill="#FFE0B0" opacity="0.4" />
+</svg>

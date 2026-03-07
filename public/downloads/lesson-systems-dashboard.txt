@@ -1,0 +1,5 @@
+Lesson Systems Dashboard (Placeholder)
+-------------------------------------
+
+When ready, swap this file with a Notion template link or export.
+For now, it explains where the dashboard download will live.

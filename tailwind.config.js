@@ -7,6 +7,19 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        raisin: '#211D20',
+        accent: {
+          50: '#FFF5E7',
+          100: '#FFE7C5',
+          200: '#FFD495',
+          300: '#FFC068',
+          400: '#FFB24E',
+          500: '#FFAC4A',
+          600: '#E28A2F',
+          700: '#B76523',
+          800: '#8B4C1D',
+          900: '#633414',
+        },
         neutral: {
           50: '#f6f7fb',
           100: '#eceef7',
@@ -32,22 +45,12 @@ module.exports = {
           800: '#153a86',
           900: '#0d2658',
         },
-        accent: {
-          50: '#fff6ec',
-          100: '#ffe8d0',
-          200: '#ffd0a1',
-          300: '#ffb36f',
-          400: '#ff9854',
-          500: '#f36f2b',
-          600: '#cf4f1c',
-          700: '#a63815',
-          800: '#7b2612',
-          900: '#55170c',
-        },
       },
       fontFamily: {
         // Use the actual Inter font variable defined in app/layout.tsx
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-caveat)', 'Caveat', 'cursive'],
+        accent: ['var(--font-caveat)', 'Caveat', 'cursive'],
         mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       typography: {

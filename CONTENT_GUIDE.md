@@ -96,7 +96,7 @@ Each page has its own metadata. Review these files:
 
 **Tailwind Config** (`tailwind.config.js`)
 - Current: Neutral color palette (grays)
-- Typography: Inter font via Google Fonts
+- Typography: Inter  via Google Fonts
 - Modify if you want different colors/fonts
 
 ### Navigation

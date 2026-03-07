@@ -11,16 +11,16 @@ export default function CTAButton({
   href,
   children,
   variant = 'primary',
-  className = ''
+  className = '',
 }: CTAButtonProps) {
   const baseStyles =
-    'inline-flex items-center justify-center rounded-full px-8 py-3 text-base font-semibold transition-all duration-300'
+    'inline-flex items-center justify-center rounded-full px-8 py-3 text-base font-semibold uppercase tracking-[0.2em] font-accent transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
 
   const variantStyles = {
     primary:
-      'bg-brand-600 text-white shadow-glow hover:bg-brand-700 hover:translate-y-[-1px] hover:shadow-xl',
+      'bg-accent-500 text-raisin shadow-soft-card hover:bg-accent-400 hover:-translate-y-0.5 focus-visible:outline-accent-500',
     secondary:
-      'border border-brand-200/70 bg-white/70 text-brand-700 hover:bg-white hover:text-brand-800'
+      'border border-raisin/20 bg-transparent text-raisin hover:bg-raisin/5 focus-visible:outline-raisin'
   }
 
   return (

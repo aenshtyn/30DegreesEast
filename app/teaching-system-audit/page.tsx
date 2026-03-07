@@ -10,21 +10,20 @@ export const metadata: Metadata = {
 export default function TeachingSystemAudit() {
   return (
     <>
-      {/* Header */}
-      <section className="section-padding section-gradient">
+      <section className="section-padding bg-raisin text-white">
         <div className="container-custom">
-          <div className="glass-panel mx-auto max-w-3xl text-center">
-            <h1 className="text-neutral-900">Teaching System Audit</h1>
-            <p className="mt-6 text-xl text-neutral-600">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-sm uppercase tracking-[0.3em] text-white/70">Diagnostic offer</p>
+            <h1 className="mt-6 text-white">Teaching System Audit</h1>
+            <p className="mt-6 text-xl text-white/80">
               A paid diagnostic to review your lessons, structure, pricing, and AI use—
               identifying opportunities to build more leverage without burning out.
             </p>
-            <p className="mt-4 text-lg font-medium text-neutral-900">
+            <p className="mt-4 text-lg font-medium text-accent-200">
               This is a paid diagnostic, not a free call.
             </p>
           </div>
 
-          {/* Explainer Video */}
           <div className="mx-auto mt-12 max-w-4xl">
             <VideoEmbed
               src="https://player.vimeo.com/video/YOUR_AUDIT_VIDEO_ID"
@@ -34,11 +33,10 @@ export default function TeachingSystemAudit() {
         </div>
       </section>
 
-      {/* Who This Is For */}
-      <section className="section-padding section-gradient-muted">
+      <section className="section-padding bg-white">
         <div className="container-custom">
-          <div className="glass-panel mx-auto max-w-4xl">
-            <h2 className="text-center text-neutral-900">Who this is for</h2>
+          <div className="mx-auto max-w-5xl rounded-[32px] border border-neutral-100 bg-neutral-50/70 p-10 shadow-soft-card">
+            <h2 className="section-heading text-center">Who this is for</h2>
 
             <div className="mt-12 grid gap-8 md:grid-cols-2">
               <div>
@@ -89,14 +87,13 @@ export default function TeachingSystemAudit() {
         </div>
       </section>
 
-      {/* What Is Reviewed */}
-      <section className="section-padding section-gradient">
+      <section className="section-padding section-gradient-muted">
         <div className="container-custom">
-          <div className="glass-panel mx-auto max-w-4xl">
-            <h2 className="text-center text-neutral-900">What is reviewed</h2>
+          <div className="mx-auto max-w-5xl rounded-[32px] border border-white/70 bg-white/85 p-10 shadow-soft-card">
+            <h2 className="section-heading text-center">What is reviewed</h2>
 
             <div className="mt-12 grid gap-6 md:grid-cols-2">
-              <div className="glass-panel-muted p-6">
+              <div className="rounded-[24px] border border-white/70 bg-white p-6 shadow-soft-card">
                 <h3 className="text-lg font-semibold text-neutral-900">Lesson Structure</h3>
                 <p className="mt-3 text-neutral-600">
                   How your lessons are organized, delivered, and whether they create
@@ -104,7 +101,7 @@ export default function TeachingSystemAudit() {
                 </p>
               </div>
 
-              <div className="glass-panel-muted p-6">
+              <div className="rounded-[24px] border border-white/70 bg-white p-6 shadow-soft-card">
                 <h3 className="text-lg font-semibold text-neutral-900">Teaching Framework</h3>
                 <p className="mt-3 text-neutral-600">
                   The underlying system and methodology behind your teaching approach
@@ -112,7 +109,7 @@ export default function TeachingSystemAudit() {
                 </p>
               </div>
 
-              <div className="glass-panel-muted p-6">
+              <div className="rounded-[24px] border border-white/70 bg-white p-6 shadow-soft-card">
                 <h3 className="text-lg font-semibold text-neutral-900">Pricing Model</h3>
                 <p className="mt-3 text-neutral-600">
                   Whether your pricing reflects the value you deliver and supports
@@ -120,7 +117,7 @@ export default function TeachingSystemAudit() {
                 </p>
               </div>
 
-              <div className="glass-panel-muted p-6">
+              <div className="rounded-[24px] border border-white/70 bg-white p-6 shadow-soft-card">
                 <h3 className="text-lg font-semibold text-neutral-900">AI Integration</h3>
                 <p className="mt-3 text-neutral-600">
                   How you&apos;re using (or could use) AI tools to enhance delivery,
@@ -132,14 +129,12 @@ export default function TeachingSystemAudit() {
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="section-padding section-gradient-muted">
+      <section className="section-padding bg-white">
         <div className="container-custom">
-          <div className="glass-panel mx-auto max-w-4xl">
-            <h2 className="text-center text-neutral-900">How it works</h2>
+          <div className="mx-auto max-w-5xl rounded-[32px] border border-neutral-100 bg-neutral-50/70 p-10 shadow-soft-card">
+            <h2 className="section-heading text-center">How it works</h2>
 
             <div className="mt-12 space-y-12">
-              {/* Before */}
               <div>
                 <div className="flex items-center gap-4">
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-lg font-semibold text-white">
@@ -156,7 +151,6 @@ export default function TeachingSystemAudit() {
                 </div>
               </div>
 
-              {/* During */}
               <div>
                 <div className="flex items-center gap-4">
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-lg font-semibold text-white">
@@ -173,7 +167,6 @@ export default function TeachingSystemAudit() {
                 </div>
               </div>
 
-              {/* After */}
               <div>
                 <div className="flex items-center gap-4">
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-lg font-semibold text-white">
@@ -193,14 +186,13 @@ export default function TeachingSystemAudit() {
         </div>
       </section>
 
-      {/* Outcomes */}
-      <section className="section-padding section-gradient">
+      <section className="section-padding section-gradient-muted">
         <div className="container-custom">
-          <div className="glass-panel mx-auto max-w-4xl">
-            <h2 className="text-center text-neutral-900">What you&apos;ll walk away with</h2>
+          <div className="mx-auto max-w-5xl rounded-[32px] border border-white/70 bg-white/85 p-10 shadow-soft-card">
+            <h2 className="section-heading text-center">What you&apos;ll walk away with</h2>
 
             <div className="mt-12 space-y-4">
-              <div className="glass-panel-muted flex items-start gap-4 p-6">
+              <div className="flex items-start gap-4 rounded-[24px] border border-white/70 bg-white p-6 shadow-soft-card">
                 <svg
                   className="h-6 w-6 shrink-0 text-neutral-900"
                   fill="none"
@@ -214,7 +206,7 @@ export default function TeachingSystemAudit() {
                 </p>
               </div>
 
-              <div className="glass-panel-muted flex items-start gap-4 p-6">
+              <div className="flex items-start gap-4 rounded-[24px] border border-white/70 bg-white p-6 shadow-soft-card">
                 <svg
                   className="h-6 w-6 shrink-0 text-neutral-900"
                   fill="none"
@@ -270,7 +262,7 @@ export default function TeachingSystemAudit() {
               real leverage, let&apos;s talk.
             </p>
             <div className="mt-8">
-              <CTAButton href="/about#contact">Work With Swaleh for Audit</CTAButton>
+              <CTAButton href="/contact">Work With Swaleh for Audit</CTAButton>
             </div>
           </div>
         </div>

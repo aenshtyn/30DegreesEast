@@ -1,0 +1,10 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad-sarah" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFAD84" />
+      <stop offset="100%" stop-color="#FF7A5C" />
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="56" fill="url(#grad-sarah)" />
+  <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="'Inter', 'Helvetica', sans-serif" font-size="40" fill="#1A171B">SL</text>
+</svg>

@@ -8,26 +8,49 @@
 
 # testing
 /coverage
+/.nyc_output
 
 # next.js
 /.next/
 /out/
+/.turbo/
+/.swc/
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
 *.pem
+*.swp
+*.swo
+*.orig
 
-# debug
+# debug / logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# editors and tools
+.idea/
+.vscode/
+.fleet/
+.history/
+*.code-workspace
+
+# linting caches
+.eslintcache
+.stylelintcache
 
 # local env files
-.env*.local
 .env
+.env.*
+!.env.example
+.envrc
+.direnv/
 
 # vercel
 .vercel

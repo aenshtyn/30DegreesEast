@@ -67,12 +67,12 @@ export default function FAQ() {
 
   return (
     <>
-      {/* Header */}
-      <section className="section-padding section-gradient">
+      <section className="section-padding bg-raisin text-white">
         <div className="container-custom">
-          <div className="glass-panel mx-auto max-w-3xl text-center">
-            <h1 className="text-neutral-900">Frequently Asked Questions</h1>
-            <p className="mt-6 text-lg text-neutral-600">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-sm uppercase tracking-[0.3em] text-white/70">Questions</p>
+            <h1 className="mt-6 text-white">Frequently Asked Questions</h1>
+            <p className="mt-6 text-lg text-white/80">
               Common questions about working with 30 Degrees East, my services, and approach to
               teaching and coaching.
             </p>
@@ -80,15 +80,14 @@ export default function FAQ() {
         </div>
       </section>
 
-      {/* FAQ Items */}
-      <section className="section-padding section-gradient-muted">
+      <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="mx-auto max-w-3xl space-y-4">
             {faqs.map((faq, index) => (
-              <div key={index} className="glass-panel-muted overflow-hidden">
+              <div key={index} className="overflow-hidden rounded-[28px] border border-neutral-100 bg-neutral-50/70 p-8 shadow-soft-card">
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className="flex w-full items-start justify-between gap-4 text-left transition-colors hover:text-brand-600"
+                  className="flex w-full items-start justify-between gap-4 text-left transition-colors hover:text-accent-600"
                   aria-expanded={openIndex === index}
                 >
                   <span className="text-lg font-semibold text-neutral-900">
@@ -125,17 +124,16 @@ export default function FAQ() {
         </div>
       </section>
 
-      {/* Still Have Questions */}
-      <section className="section-padding section-gradient">
+      <section className="section-padding section-gradient-muted">
         <div className="container-custom">
-          <div className="glass-panel mx-auto max-w-2xl text-center">
-            <h2 className="text-neutral-900">Still have questions?</h2>
+          <div className="mx-auto max-w-2xl rounded-[32px] border border-white/70 bg-white/85 p-10 text-center shadow-soft-card">
+            <h2 className="section-heading">Still have questions?</h2>
             <p className="mt-4 text-lg text-neutral-600">
               If your question isn&apos;t answered here, feel free to reach out directly.
             </p>
             <div className="mt-8">
               <a
-                href="/about#contact"
+                href="/contact"
                 className="inline-flex items-center justify-center rounded-full bg-brand-600 px-8 py-3 text-base font-semibold text-white shadow-glow transition-all duration-300 hover:bg-brand-700 hover:shadow-glow-lg"
               >
                 Contact Me

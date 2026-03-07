@@ -42,12 +42,14 @@ Create a `.env.local` file in your project root:
 RESEND_API_KEY=re_123456789_your_actual_api_key
 RESEND_FROM_EMAIL=hello@30degreeseast.com
 RESEND_TO_EMAIL=hello@30degreeseast.com
+RESEND_WAITLIST_TO_EMAIL=hello@30degreeseast.com
 ```
 
 **Important:**
 - Replace `re_123456789_your_actual_api_key` with your actual Resend API key
 - Use `onboarding@resend.dev` for `RESEND_FROM_EMAIL` if you haven't verified your domain yet
-- `RESEND_TO_EMAIL` is where form submissions will be sent
+- `RESEND_TO_EMAIL` is where contact form submissions will be sent
+- `RESEND_WAITLIST_TO_EMAIL` (optional) lets you route waitlist alerts to a different inbox; defaults to `RESEND_TO_EMAIL`
 
 ### 5. Test Locally
 
@@ -69,11 +71,12 @@ npm run dev
    - `RESEND_API_KEY`
    - `RESEND_FROM_EMAIL`
    - `RESEND_TO_EMAIL`
+   - `RESEND_WAITLIST_TO_EMAIL` (optional)
 4. Redeploy your site
 
 #### For Netlify:
 1. Go to Site Settings → Environment Variables
-2. Add the same three variables
+2. Add the same variables
 3. Redeploy
 
 ## How It Works
@@ -85,6 +88,14 @@ npm run dev
 3. API route validates the data
 4. Resend sends a formatted email to your inbox
 5. User sees success/error message
+
+### Waitlist Form Flow
+
+1. User fills out the homepage waitlist form
+2. Form data is sent to `/api/waitlist`
+3. API route validates the data
+4. Resend emails are sent to `RESEND_WAITLIST_TO_EMAIL` (or `RESEND_TO_EMAIL` if not set)
+5. User sees success/error confirmation on the page
 
 ### Email Format
 

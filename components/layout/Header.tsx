@@ -7,11 +7,11 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const navigation = [
-    { name: 'Start Here', href: '/start-here' },
-    { name: 'Coaching', href: '/coaching' },
-    { name: 'Teaching System Audit', href: '/teaching-system-audit' },
-    { name: 'Insights', href: '/insights' },
-    { name: 'About', href: '/about' },
+    { name: 'Courses', href: '#courses' },
+    { name: 'Digital Products', href: '#products' },
+    { name: 'Freebies', href: '#freebies' },
+    { name: 'Success Stories', href: '#stories' },
+    { name: 'Waiting List', href: '#waitlist' },
   ]
 
   return (

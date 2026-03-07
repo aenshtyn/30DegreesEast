@@ -35,7 +35,7 @@ export default function VideoEmbed({
               <path d="M8 5v14l11-7z" />
             </svg>
           </div>
-          <p className="mt-4 text-sm uppercase tracking-[0.2em] text-white/80">Video preview</p>
+          <p className="mt-4 text-sm font-accent uppercase tracking-[0.25em] text-white/80">Video preview</p>
           <p className="mt-2 text-xl font-semibold text-white">{title}</p>
           <p className="mt-1 text-sm text-white/70">Upload your final embed to replace this preview.</p>
         </div>

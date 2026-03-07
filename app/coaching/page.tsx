@@ -10,24 +10,35 @@ export const metadata: Metadata = {
 export default function Coaching() {
   return (
     <>
-      {/* Header */}
-      <section className="section-padding section-gradient">
+      <section className="section-padding bg-raisin text-white">
         <div className="container-custom">
-          <div className="glass-panel mx-auto max-w-3xl text-center">
-            <h1 className="text-neutral-900">Coaching</h1>
-            <p className="mt-6 text-xl text-neutral-600">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-sm uppercase tracking-[0.3em] text-white/70">Coaching + strategy</p>
+            <h1 className="mt-6 text-white">Coaching</h1>
+            <p className="mt-6 text-xl text-white/80">
               One-on-one guidance to help you package your expertise, build teaching
               systems, and create sustainable online income.
             </p>
+            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <CTAButton href="/contact" className="w-full sm:w-auto">
+                Apply to Work Together
+              </CTAButton>
+              <CTAButton
+                href="/teaching-system-audit"
+                variant="secondary"
+                className="w-full border-white/40 text-white hover:bg-white/10 sm:w-auto"
+              >
+                View the Audit
+              </CTAButton>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Service A: Earn Online by Teaching English */}
-      <section id="english" className="section-padding section-gradient-muted">
+      <section id="english" className="section-padding bg-white">
         <div className="container-custom">
-          <div className="glass-panel mx-auto max-w-4xl">
-            <h2 className="text-neutral-900">Earn Online by Teaching English</h2>
+          <div className="mx-auto max-w-5xl rounded-[32px] border border-neutral-100 bg-neutral-50/70 p-10 shadow-soft-card">
+            <h2 className="section-heading text-center">Earn Online by Teaching English</h2>
             <p className="mt-4 text-lg text-neutral-700">
               <strong>Note:</strong> This is NOT English language teaching.
             </p>
@@ -91,17 +102,16 @@ export default function Coaching() {
             </div>
 
             <div className="mt-12 text-center">
-              <CTAButton href="/about#contact">Work With Swaleh</CTAButton>
+              <CTAButton href="/teach-english-online">See Program Modules</CTAButton>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Service B: Thinking / Strategy Sessions */}
-      <section id="strategy" className="section-padding section-gradient">
+      <section id="strategy" className="section-padding section-gradient-muted">
         <div className="container-custom">
-          <div className="glass-panel mx-auto max-w-4xl">
-            <h2 className="text-neutral-900">Thinking / Strategy Sessions</h2>
+          <div className="mx-auto max-w-5xl rounded-[32px] border border-white/70 bg-white/85 p-10 shadow-soft-card">
+            <h2 className="section-heading text-center">Thinking / Strategy Sessions</h2>
             <p className="mt-6 text-lg text-neutral-600">
               Paid diagnostic and clarity sessions to help you think through your current
               position, identify blockers, and chart your next strategic moves.
@@ -154,17 +164,16 @@ export default function Coaching() {
             </div>
 
             <div className="mt-12 text-center">
-              <CTAButton href="/about#contact">Work With Swaleh</CTAButton>
+              <CTAButton href="/contact">Work With Swaleh</CTAButton>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Service C: For Coaches & Educators */}
-      <section className="section-padding section-gradient-muted">
+      <section className="section-padding bg-white">
         <div className="container-custom">
-          <div className="glass-panel mx-auto max-w-4xl">
-            <h2 className="text-neutral-900">For Coaches &amp; Educators</h2>
+          <div className="mx-auto max-w-5xl rounded-[32px] border border-neutral-100 bg-neutral-50/70 p-10 shadow-soft-card">
+            <h2 className="section-heading text-center">For Coaches &amp; Educators</h2>
             <p className="mt-6 text-lg text-neutral-600">
               If you&apos;re already teaching or coaching online, I help you build leverage
               through better systems, clearer positioning, and strategic frameworks.
@@ -197,7 +206,7 @@ export default function Coaching() {
             </div>
 
             <div className="mt-12 text-center">
-              <CTAButton href="/teaching-system-audit">Get an Audit</CTAButton>
+              <CTAButton href="/co-creation">Explore Co-creation Labs</CTAButton>
             </div>
           </div>
         </div>

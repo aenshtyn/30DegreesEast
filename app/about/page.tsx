@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import CTAButton from '@/components/ui/CTAButton'
-import ContactForm from '@/components/ui/ContactForm'
 
 export const metadata: Metadata = {
   title: 'About | 30 Degrees East',
@@ -10,12 +9,23 @@ export const metadata: Metadata = {
 export default function About() {
   return (
     <>
-      {/* About Swaleh */}
-      <section className="section-padding section-gradient">
+      <section className="section-padding bg-raisin text-white">
         <div className="container-custom">
-          <div className="glass-panel mx-auto max-w-3xl">
-            <h1 className="text-neutral-900">About Swaleh Kimani</h1>
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-sm uppercase tracking-[0.3em] text-white/70">About the studio</p>
+            <h1 className="mt-6 text-white">About Swaleh Kimani</h1>
+            <p className="mt-6 text-lg text-white/80">
+              30 Degrees East helps educators and thoughtful professionals turn knowledge into
+              structured, sustainable online offers.
+            </p>
+          </div>
+        </div>
+      </section>
 
+      <section className="section-padding bg-white">
+        <div className="container-custom">
+          <div className="mx-auto max-w-4xl rounded-[32px] border border-neutral-100 bg-neutral-50/70 p-10 shadow-soft-card">
+            <h2 className="section-heading text-center">What I help people build</h2>
             <div className="prose prose-lg mt-8 max-w-none">
               <p className="text-lg leading-relaxed text-neutral-700">
                 I help African teachers, professionals, and educators confidently transition
@@ -40,39 +50,39 @@ export default function About() {
         </div>
       </section>
 
-      {/* Why 30 Degrees East Exists */}
       <section className="section-padding section-gradient-muted">
         <div className="container-custom">
-          <div className="glass-panel mx-auto max-w-3xl">
-            <h2 className="text-neutral-900">Why 30 Degrees East exists</h2>
+          <div className="mx-auto max-w-4xl rounded-[32px] border border-white/70 bg-white/85 p-10 shadow-soft-card">
+            <h2 className="section-heading text-center">How I work</h2>
 
-            <div className="mt-8 space-y-6 text-lg leading-relaxed text-neutral-700">
-              <p>
-                30 Degrees East is my personal HQ—a place to communicate my worldview,
-                positioning, and the work I do clearly and without noise.
-              </p>
-
-              <p>
-                This is not a blog, marketplace, or course platform. It&apos;s a focused space
-                for professionals and educators who are serious about building teaching
-                systems that create real leverage.
-              </p>
-
-              <p>
-                The name comes from the longitude line that runs through East Africa—a
-                reference to geography, positioning, and knowing where you stand. That&apos;s
-                what this work is about: clarity, positioning, and strategic thinking.
-              </p>
+            <div className="mt-8 grid gap-6 md:grid-cols-3">
+              <div className="rounded-[24px] border border-white/70 bg-white p-6 shadow-soft-card">
+                <p className="accent-label">Clarity first</p>
+                <p className="mt-3 text-neutral-700">
+                  We start by getting clear on the offer, the learner, and the transformation.
+                </p>
+              </div>
+              <div className="rounded-[24px] border border-white/70 bg-white p-6 shadow-soft-card">
+                <p className="accent-label">Systems over hype</p>
+                <p className="mt-3 text-neutral-700">
+                  The goal is repeatable delivery, not constant posting or personality-driven marketing.
+                </p>
+              </div>
+              <div className="rounded-[24px] border border-white/70 bg-white p-6 shadow-soft-card">
+                <p className="accent-label">Built to last</p>
+                <p className="mt-3 text-neutral-700">
+                  Every program, audit, or lab should leave you with assets you can keep using.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Who I Work With */}
-      <section className="section-padding section-gradient">
+      <section className="section-padding bg-white">
         <div className="container-custom">
-          <div className="glass-panel mx-auto max-w-3xl">
-            <h2 className="text-neutral-900">Who I work with</h2>
+          <div className="mx-auto max-w-4xl rounded-[32px] border border-neutral-100 bg-neutral-50/70 p-10 shadow-soft-card">
+            <h2 className="section-heading text-center">Who I work with</h2>
 
             <div className="mt-8">
               <h3 className="text-xl font-semibold text-neutral-900">I work with people who:</h3>
@@ -99,40 +109,21 @@ export default function About() {
                 </li>
               </ul>
             </div>
-
-            <div className="glass-panel-muted mt-12">
-              <h3 className="text-xl font-semibold text-neutral-900">Clear boundaries:</h3>
-              <p className="mt-4 text-lg text-neutral-700">
-                I don&apos;t work with people looking for quick fixes, motivational content, or
-                generic business coaching. This work requires strategic thinking, patience,
-                and a commitment to building systems that last.
-              </p>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Work With Me */}
-      <section id="contact" className="section-padding section-gradient-muted">
+      <section className="section-padding section-gradient-muted">
         <div className="container-custom">
-          <div className="glass-panel mx-auto max-w-3xl">
-            <h2 className="text-center text-neutral-900">Work With Me</h2>
-
-            <div className="mt-8 text-center">
+          <div className="mx-auto max-w-3xl rounded-[32px] border border-white/70 bg-white/85 p-10 text-center shadow-soft-card">
+            <h2 className="section-heading">Work With Me</h2>
+            <div className="mt-8">
               <p className="text-lg text-neutral-700">
-                If you&apos;re interested in working together, the best way to reach me is
-                through the form below or by email.
+                If the approach fits how you want to build, the best next step is the contact page.
               </p>
             </div>
-
-            {/* Contact Form */}
-            <ContactForm />
-
-            <div className="mt-8 text-center text-sm text-neutral-600">
-              <p>
-                I review all inquiries personally. If it&apos;s a good fit, I&apos;ll respond within
-                2-3 business days.
-              </p>
+            <div className="mt-10">
+              <CTAButton href="/contact">Go to Contact</CTAButton>
             </div>
           </div>
         </div>
