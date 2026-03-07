@@ -1,5 +1,6 @@
 'use client'
 
+import type { ReactElement } from 'react'
 import { useState } from 'react'
 
 import WaitlistForm from '@/components/ui/WaitlistForm'
@@ -17,7 +18,7 @@ type FreebiesWithWaitlistProps = {
   freebies: Freebie[]
 }
 
-const iconMap: Record<IconName, JSX.Element> = {
+const iconMap: Record<IconName, ReactElement> = {
   document: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-6 w-6">
       <path d="M7 3h7l5 5v13H7z" />
