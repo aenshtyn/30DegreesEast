@@ -7,11 +7,13 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const navigation = [
-    { name: 'Courses', href: '#courses' },
-    { name: 'Digital Products', href: '#products' },
-    { name: 'Freebies', href: '#freebies' },
-    { name: 'Success Stories', href: '#stories' },
-    { name: 'Waiting List', href: '#waitlist' },
+    { name: 'Courses', href: '/#courses' },
+    { name: 'Digital Products', href: '/#products' },
+    { name: 'Freebies', href: '/#freebies' },
+    { name: 'Success Stories', href: '/#stories' },
+    { name: 'About Swaleh', href: '/about' },
+    { name: 'Partner with Swaleh', href: '/partner-with-swaleh' },
+    { name: 'Waiting List', href: '/#waitlist' },
   ]
 
   return (
@@ -32,7 +34,11 @@ export default function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-sm font-medium text-neutral-700 transition-colors hover:text-brand-600"
+                className={
+                  item.name === 'Waiting List'
+                    ? 'inline-flex items-center justify-center rounded-full bg-accent-500 px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-raisin shadow-soft-card transition hover:bg-accent-400'
+                    : 'text-sm font-medium text-neutral-700 transition-colors hover:text-brand-600'
+                }
               >
                 {item.name}
               </Link>
@@ -70,7 +76,11 @@ export default function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-base font-medium text-neutral-700 transition-colors hover:text-brand-600"
+                className={
+                  item.name === 'Waiting List'
+                    ? 'inline-flex items-center justify-center rounded-full bg-accent-500 px-5 py-3 text-base font-semibold uppercase tracking-[0.16em] text-raisin shadow-soft-card transition hover:bg-accent-400'
+                    : 'text-base font-medium text-neutral-700 transition-colors hover:text-brand-600'
+                }
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}

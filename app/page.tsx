@@ -170,16 +170,18 @@ const successStories: SuccessStory[] = [
     image: '/testimonials/sarah-l.svg',
   },
   {
-    name: 'A.S.',
-    role: 'Teacher, Nairobi',
-    quote: 'Placeholder story coming soon.',
-    image: '/testimonials/a-s.svg',
+    name: 'Njeri M.',
+    role: 'Educator, Kenya',
+    quote:
+      'I overcame imposter syndrome and the need for perfection. The practical guidance, accountability check-ins, and supportive community helped me grow into online teaching with more confidence, while feeling much more comfortable and natural on camera.',
+    image: '/testimonials/njeri.jpeg',
   },
   {
-    name: 'D.M.',
-    role: 'Facilitator, Kuala Lumpur',
-    quote: 'Placeholder story coming soon.',
-    image: '/testimonials/d-m.svg',
+    name: 'Gishini',
+    role: 'Educator, Kenya',
+    quote:
+      'This program helped me tone down imposter syndrome, stop shying away from teaching opportunities, and gain a much clearer picture of what my teaching business could look like. It felt especially practical because it came from a Kenyan perspective.',
+    image: '/testimonials/gishini.jpeg',
   },
 ]
 
@@ -393,7 +395,7 @@ export default function Home() {
             <TestimonialsCarousel stories={successStories} />
           </div>
           <div className="mt-10 text-center">
-            <CTAButton href="/success-stories">Read More Success Stories</CTAButton>
+            <CTAButton href="/teach-english-online">Read Full Testimonials</CTAButton>
           </div>
         </div>
       </section>

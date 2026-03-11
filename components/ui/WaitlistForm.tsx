@@ -1,6 +1,7 @@
 'use client'
 
 import { FormEvent, useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 type StatusState = {
   type: 'success' | 'error' | null
@@ -13,6 +14,7 @@ type WaitlistFormProps = {
   onValidityChange?: (isValid: boolean) => void
   theme?: 'dark' | 'light'
   submitLabel?: string
+  redirectOnSuccess?: string | null
 }
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -23,7 +25,9 @@ export default function WaitlistForm({
   onValidityChange,
   theme = 'dark',
   submitLabel = 'Join the Waiting List',
+  redirectOnSuccess = '/thank-you',
 }: WaitlistFormProps = {}) {
+  const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [status, setStatus] = useState<StatusState>({ type: null, message: '' })
   const [formValues, setFormValues] = useState({ name: '', email: '' })
@@ -70,6 +74,9 @@ export default function WaitlistForm({
         setFormValues({ name: '', email: '' })
         onValidityChange?.(false)
         onSuccess?.()
+        if (redirectOnSuccess) {
+          router.push(redirectOnSuccess)
+        }
       } else {
         setStatus({
           type: 'error',

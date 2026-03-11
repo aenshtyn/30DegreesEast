@@ -118,6 +118,7 @@ export default function FreebiesWithWaitlist({ freebies }: FreebiesWithWaitlistP
                 setIsDownloadEnabled(true)
               }}
               onValidityChange={setIsFormValid}
+              redirectOnSuccess={null}
             />
             {isDownloadEnabled ? (
               <a
