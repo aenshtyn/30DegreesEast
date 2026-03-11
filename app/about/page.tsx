@@ -112,7 +112,8 @@ export default function About() {
               About Swaleh Kimani
             </span>
             <h1 className="mt-8 max-w-3xl text-white">
-              I built the freedom to come home. Now the work is here.
+              I built the freedom to come home.{' '}
+              <span className="text-accent-300">Now the work is here.</span>
             </h1>
             <p className="mt-6 max-w-3xl text-white/75">
               Kenyan. Trained as an engineer in Turkey. Spent 15 years building a life abroad, then

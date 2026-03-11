@@ -69,15 +69,15 @@ export default function FreebiesWithWaitlist({ freebies }: FreebiesWithWaitlistP
             key={freebie.title}
             type="button"
             onClick={() => openFreebie(freebie)}
-            className="rounded-[28px] border border-white/60 bg-white p-6 text-left shadow-soft-card transition hover:border-accent-200 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500"
+            className="flex h-full flex-col rounded-[28px] border border-white/60 bg-white p-6 text-left shadow-soft-card transition hover:border-accent-200 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500"
             aria-haspopup="dialog"
           >
             <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-50 text-accent-500" aria-hidden="true">
               {iconMap[freebie.icon]}
             </span>
-            <h3 className="mt-4 text-lg font-semibold text-neutral-900">{freebie.title}</h3>
-            <p className="mt-2 text-sm text-neutral-700">{freebie.description}</p>
-            <span className="mt-4 inline-flex text-xs font-accent uppercase tracking-[0.35em] text-accent-500">
+            <h3 className="mt-4 min-h-[3.5rem] text-lg font-semibold text-neutral-900">{freebie.title}</h3>
+            <p className="mt-2 flex-1 text-sm text-neutral-700">{freebie.description}</p>
+            <span className="mt-6 inline-flex text-xs font-accent uppercase tracking-[0.35em] text-accent-500">
               Tap to unlock
             </span>
           </button>

@@ -50,7 +50,7 @@ export default function ThankYouPage() {
           <h1 className="mt-4 text-white">
             You&apos;re on the list.
             <br />
-            Welcome.
+            <span className="text-accent-300">Welcome.</span>
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-white/70">
             Your spot is saved. Keep an eye on your inbox. That&apos;s where everything important

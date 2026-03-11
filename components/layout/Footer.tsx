@@ -4,8 +4,9 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
   const quickLinks = [
     { label: 'Teach English Online', href: '/teach-english-online' },
-    { label: 'Co-creation Labs', href: '/co-creation' },
-    { label: 'About', href: '/about' },
+    { label: 'Freebies', href: '/freebies' },
+    { label: 'About Swaleh', href: '/about' },
+    { label: 'Partner with Swaleh', href: '/partner-with-swaleh' },
     { label: 'FAQ', href: '/faq' },
     { label: 'Contact', href: '/contact' },
   ]
@@ -18,7 +19,7 @@ export default function Footer() {
             <p className="text-sm uppercase tracking-[0.3em] text-white/60">30 Degrees East</p>
             <Link href="/" className="flex flex-col">
               <span className="mt-3 text-2xl font-semibold tracking-tight text-white">
-                30 Degrees East
+                <span className="text-accent-300">30 Degrees</span> East
               </span>
               <span className="mt-1 text-sm text-white/60">by Swaleh Kimani</span>
             </Link>

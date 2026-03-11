@@ -14,7 +14,9 @@ export default function StartHere() {
         <div className="container-custom">
           <div className="mx-auto max-w-4xl text-center">
             <p className="text-sm uppercase tracking-[0.3em] text-white/70">Orientation</p>
-            <h1 className="mt-6 text-white">Start Here</h1>
+            <h1 className="mt-6 text-white">
+              Start here. <span className="text-accent-300">Find your path quickly.</span>
+            </h1>
             <p className="mt-6 text-center text-lg text-white/80">
               Welcome to 30 Degrees East. If you&apos;re new here, this page will help you
               understand what I do and how I can help you build leverage through teaching.

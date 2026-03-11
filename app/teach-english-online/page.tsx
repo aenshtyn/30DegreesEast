@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 
+import TestimonialsCarousel from '@/components/home/TestimonialsCarousel'
 import CTAButton from '@/components/ui/CTAButton'
 
 type IconName =
@@ -179,15 +179,22 @@ const testimonials = [
     name: 'Njeri M.',
     role: 'Educator, Kenya',
     quote:
-      'One major shift for me was overcoming imposter syndrome and letting go of the need for perfection. I have learned to focus on progress and authenticity rather than trying to appear flawless. I now approach online teaching with more confidence and feel much more comfortable and natural on camera.',
+      'One major shift for me was overcoming imposter syndrome and letting go of the need for perfection. The practical guidance, accountability check-ins, and supportive community helped me approach online teaching with more confidence and feel much more natural on camera.',
     image: '/testimonials/njeri.jpeg',
   },
   {
     name: 'Gishini',
     role: 'Educator, Kenya',
     quote:
-      'This program helped me significantly tone down imposter syndrome. I am no longer shying away from applying to teaching opportunities or accepting referrals. I now have a much clearer idea of where to start and what my teaching business could look like, and that boosts my confidence significantly.',
+      'This programme helped me tone down imposter syndrome and stop shying away from teaching opportunities or referrals. I now have a much clearer idea of where to start and what my teaching business could look like, and it feels especially practical coming from a Kenyan perspective.',
     image: '/testimonials/gishini.jpeg',
+  },
+  {
+    name: 'Veronica N.',
+    role: 'Program participant',
+    quote:
+      'This programme helped me realise there is no perfect time to start. I now trust the process more, feel far more confident because I have a plan and clear direction, and I would absolutely recommend it for how practical, relatable, and supportive it is.',
+    image: '/testimonials/veronica.jpeg',
   },
 ]
 
@@ -368,7 +375,8 @@ export default function TeachEnglishOnlineProgram() {
                 </p>
               </div>
               <h1 className="max-w-3xl text-white">
-                Teach English from anywhere, and build a career you own.
+                Teach English from anywhere.{' '}
+                <span className="text-accent-300">Build a career you own.</span>
               </h1>
               <p className="max-w-2xl text-white/75">
                 A complete, step-by-step program for teachers and professionals who want to move
@@ -603,28 +611,8 @@ export default function TeachEnglishOnlineProgram() {
             <p className="accent-label">Real results</p>
             <h2 className="mt-4 section-heading">What students say</h2>
           </div>
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            {testimonials.map((testimonial, index) => (
-              <article key={testimonial.name} className="relative rounded-[28px] bg-raisin p-8 text-white shadow-soft-card">
-                <p className="text-sm tracking-[0.2em] text-accent-400">★★★★★</p>
-                <p className="mt-6 text-lg italic leading-relaxed text-white/85">“{testimonial.quote}”</p>
-                <div className="mt-8 flex items-center gap-4">
-                  <div className="relative h-12 w-12 overflow-hidden rounded-full border border-white/20">
-                    <Image
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      fill
-                      sizes="48px"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-white">{testimonial.name}</p>
-                    <p className="text-sm text-white/60">{testimonial.role}</p>
-                  </div>
-                </div>
-              </article>
-            ))}
+          <div className="mx-auto mt-12 max-w-4xl">
+            <TestimonialsCarousel stories={testimonials} variant="program" />
           </div>
         </div>
       </section>

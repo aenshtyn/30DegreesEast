@@ -42,7 +42,9 @@ export default function ContactPage() {
         <div className="container-custom">
           <div className="mx-auto max-w-4xl text-center">
             <p className="text-sm uppercase tracking-[0.3em] text-white/70">Contact</p>
-            <h1 className="mt-6 text-white">Let&apos;s Talk</h1>
+            <h1 className="mt-6 text-white">
+              Let&apos;s talk. <span className="text-accent-300">Find the right next step.</span>
+            </h1>
             <p className="mt-6 text-lg text-white/80">
               Reach out if you want help building a stronger teaching offer, diagnosing your current
               systems, or finding the right path into the digital space.

@@ -1,135 +1,117 @@
-import Image from 'next/image'
 import Link from 'next/link'
 
-import DigitalProductsShelf, { type DigitalProduct } from '@/components/home/DigitalProductsShelf'
 import FreebiesWithWaitlist, { type Freebie } from '@/components/home/FreebiesWithWaitlist'
 import TestimonialsCarousel from '@/components/home/TestimonialsCarousel'
 import CTAButton from '@/components/ui/CTAButton'
 import WaitlistForm from '@/components/ui/WaitlistForm'
 
-/**
- * Implementation Plan:
- * - app/page.tsx: align homepage sections, copy, and anchors with the redesign brief.
- * - components/ui/CTAButton.tsx: shift CTA styling to the Pastel Orange accent token.
- * - components/ui/WaitlistForm.tsx: keep the waitlist form accessible and on-brand.
- * - tailwind.config.js: add reusable Raisin Black and Pastel Orange theme tokens.
- */
-
-const empathyBullets = [
-  'You have knowledge and skills but struggle to package them into courses.',
-  'You’re teaching online but not getting enough students or clients.',
-  'You feel overwhelmed trying to market yourself and create content.',
-  'You want to grow revenue without burning out.',
-  'You know you can make a bigger impact, but don’t know where to start.',
+const painPoints = [
+  'I have years of knowledge and experience, but I have no idea how to turn it into something people will actually pay for.',
+  'I have tried putting content online, but I am not getting students. I do not know if it is my pricing, my marketing, or the course itself.',
+  'I want to grow my income, but I refuse to become someone posting ten times a day just to be seen.',
+  'I started a course but never finished it because I got stuck and did not know what the next step was.',
+  'I am already teaching online, but my income is unpredictable. I want something more stable and scalable.',
+  'I know I can make a bigger impact. I just need someone who has actually done it to show me the path.',
 ]
 
-const roadmapSteps = [
+const pathSteps = [
   {
-    title: 'Discover Your Path',
+    number: '01',
+    title: 'Clarify your niche and offer',
     description:
-      'Identify your niche, your expertise, and the best way to turn your teaching into an online business.',
+      'We identify the knowledge you already have that people are searching for, then package it into an offer with a clear promise.',
   },
   {
-    title: 'Design your first teaching system or course',
+    number: '02',
+    title: 'Build your first teaching system',
     description:
-      'Turn your lessons into a repeatable framework with clear modules and outcomes.',
+      'Turn lessons into a repeatable framework with strong outcomes, simple delivery, and structure that fits your life.',
   },
   {
-    title: 'Launch with simple, sustainable marketing',
-    description: 'No influencer grind. Use simple funnels, email, and repeatable messages.',
+    number: '03',
+    title: 'Launch with simple marketing',
+    description:
+      'Use a clear message, a practical funnel, and sustainable habits that bring in students without an influencer-style content grind.',
   },
   {
-    title: 'Add systems and co-creation',
+    number: '04',
+    title: 'Add recurring revenue streams',
     description:
-      'Add recurring revenue (memberships, bundles) and co-created lessons or programs.',
-    linkLabel: 'See how co-creation works',
-    href: '/co-creation',
+      'Once the first offer works, layer in digital products, memberships, and co-created programs that compound over time.',
   },
 ]
 
 const courses = [
   {
-    title: 'Teach English Online (Flagship Course)',
-    audience: 'Teachers and professionals who want a full roadmap to teaching English online.',
-    bullets: [
-      'Build a complete teaching system (not random lessons)',
-      'Create pre-recorded and live offers that fit your schedule',
-      'Set prices that reflect your experience and value',
+    tag: 'Flagship Programme',
+    title: 'Teach English Online: The Complete Roadmap',
+    description:
+      'The step-by-step system to go from classroom teacher to confident online English instructor, with income that fits your schedule.',
+    features: [
+      'Build a complete teaching system with clear modules, outcomes, and delivery assets',
+      'Position your teaching identity so the right students understand the value quickly',
+      'Choose the right model for your time, skills, and goals: live, pre-recorded, or hybrid',
+      'Get your first students with a clear message, simple funnel, and repeatable conversion process',
     ],
-    meta: ['Format: Step-by-step program with video lessons, templates, and guided implementation.'],
-    ctaLabel: 'See Program Modules',
+    ctaLabel: 'See Programme Details',
     ctaHref: '/teach-english-online',
+    ctaVariant: 'primary' as const,
   },
   {
+    tag: 'Coming Soon',
     title: 'Build Your Teaching Brand Online',
-    audience: 'Teachers who have content but no audience',
-    bullets: ['Social media strategy', 'Creating lead magnets', 'Branding basics (colors, logo, messaging)'],
-    meta: [
-      'Outcome: Ready-to-promote personal brand',
-      'Format: 3–4 modules, worksheets, optional group coaching',
+    description:
+      'A practical playbook for teachers who want a clear path from “I can teach” to “I have an offer that sells.”',
+    features: [
+      'Pick the best opportunity path for your skills and goals',
+      'Shift from local teacher to global educator with a clear niche and promise',
+      'Build messaging, pricing, and a simple lead magnet to sales funnel',
+      'Launch with systems that compound instead of draining your energy',
     ],
     ctaLabel: 'Join the Waiting List',
     ctaHref: '#waitlist',
+    ctaVariant: 'secondary' as const,
   },
   {
-    title: 'Monetize Your Expertise: Selling Digital Products & Templates',
-    audience: 'Professionals or teachers with teaching materials',
-    bullets: [
-      'Creating PDFs, prerecorded videos, worksheets, and downloadable templates',
-      'Listing on marketplaces or your own platform',
-      'Email marketing and upsells',
+    tag: 'Coming Soon',
+    title: 'Monetise Your Expertise: Digital Products',
+    description:
+      'Turn your teaching materials into passive-income assets like PDFs, templates, worksheets, and mini-courses.',
+    features: [
+      'Create products from resources you already use',
+      'Package templates, worksheets, and mini-trainings for sale',
+      'List on marketplaces or your own platform with quiet email upsells',
     ],
-    meta: ['Outcome: Passive income streams'],
     ctaLabel: 'Join the Waiting List',
     ctaHref: '#waitlist',
+    ctaVariant: 'secondary' as const,
   },
 ]
 
-const digitalProducts: DigitalProduct[] = [
+const digitalProducts = [
   {
     title: 'Curriculum Planning Toolkit',
     format: 'Template pack',
-    description: 'Map every module, lesson, and delivery asset for your next course launch.',
-    ctaLabel: 'View product',
-    longDescription:
-      'Break the blank page problem with guided worksheets that move you from scattered ideas to a full curriculum outline. Ideal for teachers who are ready to turn existing lessons into a structured course.',
-    includes: ['Curriculum runway worksheet', 'Offer promise and outcomes grid', 'Filming + delivery checklist'],
-    downloads: [
-      {
-        label: 'Download the toolkit',
-        href: '/downloads/curriculum-planning-toolkit.txt',
-      },
-    ],
+    description:
+      'Map every module, lesson, and delivery asset for your next course launch with a guided planning toolkit.',
+    href: '/downloads/curriculum-planning-toolkit.txt',
+    ctaLabel: 'Download the toolkit',
   },
   {
     title: 'Lesson Systems Dashboard',
     format: 'Notion workspace',
-    description: 'Track leads, students, and fulfillment in one easy-to-use dashboard.',
-    ctaLabel: 'View product',
-    longDescription:
-      'A Notion workspace to manage funnels, onboarding, and delivery tasks so nothing slips through when you enrol new students.',
-    includes: ['Pipeline Kanban board', 'Offer library + price tracker', 'Student onboarding checklist'],
-    downloads: [
-      {
-        label: 'Duplicate the dashboard',
-        href: '/downloads/lesson-systems-dashboard.txt',
-      },
-    ],
+    description:
+      'Track leads, students, onboarding, and delivery in one focused workspace built for educators.',
+    href: '/downloads/lesson-systems-dashboard.txt',
+    ctaLabel: 'Duplicate the dashboard',
   },
   {
     title: 'Teacher Email Mini-Course',
     format: 'Mini-course',
-    description: 'Templates + swipe copy for nurture emails that convert interested leads.',
-    ctaLabel: 'View product',
-    longDescription:
-      'A week-long drip with scripts for value emails, sales pivots, and launch reminders so you can show up confidently in the inbox.',
-    includes: ['7 ready-to-edit email scripts', 'Call-to-action checklist', 'Deliverability quickstart guide'],
-    downloads: [
-      {
-        label: 'Grab the email scripts',
-        href: '/downloads/teacher-email-mini-course.txt',
-      },
-    ],
+    description:
+      'Use ready-to-edit nurture emails, sales pivots, and launch reminders to convert interested leads.',
+    href: '/downloads/teacher-email-mini-course.txt',
+    ctaLabel: 'Grab the email scripts',
   },
 ]
 
@@ -148,292 +130,340 @@ const freebies: Freebie[] = [
   },
   {
     title: 'Mini-training: From Live Lesson to Pre-Recorded Course',
-    description: 'A short video that shows how to convert one lesson into a course.',
+    description: 'A short video showing how to turn one lesson into a course asset.',
     icon: 'video',
     downloadUrl: '/downloads/live-to-course-mini-training.txt',
   },
 ]
 
-type SuccessStory = {
-  name: string
-  role: string
-  quote: string
-  image: string
-}
+const founderStats = [
+  { value: '6+', label: 'Years teaching' },
+  { value: '100+', label: 'Educators guided' },
+  { value: '3', label: 'Active programmes' },
+]
 
-const successStories: SuccessStory[] = [
+const heroStats = [
+  { value: '100+', label: 'Educators helped' },
+  { value: '3', label: 'Live programmes' },
+  { value: '5★', label: 'Average rating' },
+]
+
+const successStories = [
   {
     name: 'Sarah L.',
     role: 'Teacher, Cape Town',
     quote:
-      'Working with 30 Degrees East helped me turn my one-to-one lessons into a clear package. I launched my first online English program and signed my first 5 students in a month.',
+      'Working with 30 Degrees East helped me turn my one-to-one lessons into a clear package. I launched my first online English programme and signed my first 5 students in a month. I finally feel like I have a real business, not just a side hustle.',
     image: '/testimonials/sarah-l.svg',
   },
   {
     name: 'Njeri M.',
     role: 'Educator, Kenya',
     quote:
-      'I overcame imposter syndrome and the need for perfection. The practical guidance, accountability check-ins, and supportive community helped me grow into online teaching with more confidence, while feeling much more comfortable and natural on camera.',
+      'One major shift for me was overcoming imposter syndrome and letting go of the need for perfection. The practical guidance, accountability check-ins, and supportive community helped me approach online teaching with more confidence and feel much more natural on camera.',
     image: '/testimonials/njeri.jpeg',
   },
   {
     name: 'Gishini',
     role: 'Educator, Kenya',
     quote:
-      'This program helped me tone down imposter syndrome, stop shying away from teaching opportunities, and gain a much clearer picture of what my teaching business could look like. It felt especially practical because it came from a Kenyan perspective.',
+      'This programme helped me tone down imposter syndrome and stop shying away from teaching opportunities or referrals. I now have a much clearer idea of where to start and what my teaching business could look like, and it feels especially practical coming from a Kenyan perspective.',
     image: '/testimonials/gishini.jpeg',
+  },
+  {
+    name: 'Veronica N.',
+    role: 'Program participant',
+    quote:
+      'This programme helped me realise there is no perfect time to start. I now trust the process more, feel far more confident because I have a plan and clear direction, and I would absolutely recommend it for how practical, relatable, and supportive it is.',
+    image: '/testimonials/veronica.jpeg',
   },
 ]
 
 export default function Home() {
   return (
     <>
-      <section id="hero" className="section-padding bg-raisin text-white">
-        <div className="container-custom">
-          <div className="mx-auto max-w-6xl rounded-[32px] border border-white/10 bg-raisin/70 p-8 shadow-soft-card backdrop-blur sm:p-10">
-            <div className="grid gap-12 md:grid-cols-2 md:items-center">
-              <div className="space-y-6 text-center md:text-left">
-                <span className="inline-flex items-center justify-center rounded-full border border-white/30 px-4 py-1 text-sm font-semibold uppercase tracking-[0.25em] text-white/80">
-                  Teaching systems for modern educators
-                </span>
-                <h1 className="font-sans text-2xl font-bold leading-snug sm:text-3xl lg:text-4xl">
-                  I help teachers, professionals, and educators confidently transition into the digital space — turning what they already know into online income, without burnout or influencer pressure.
-                </h1>
-                <p className="text-base text-white/80">
-                  Pre-recorded courses, teaching systems, and guidance to build sustainable online income.
-                </p>
-                <div className="flex flex-col gap-4 md:flex-row">
-                  <CTAButton href="/teach-english-online" className="w-full md:w-auto">
-                    See the Teach English Online Program
-                  </CTAButton>
-                  <CTAButton
-                    href="#waitlist"
-                    variant="secondary"
-                    className="w-full border-white/40 text-white hover:bg-white/10 md:w-auto"
-                  >
-                    Join the Waiting List
-                  </CTAButton>
+      <section id="hero" className="bg-raisin text-white">
+        <div className="container-custom py-16 md:py-24 lg:py-28">
+          <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+            <div className="max-w-2xl">
+              <p className="accent-label text-accent-300">For teachers and knowledge professionals</p>
+              <h1 className="mt-5 max-w-3xl text-white">
+                You have the skill. <span className="text-accent-300">Now build the income.</span>
+              </h1>
+              <p className="mt-6 max-w-2xl text-white/75">
+                I&apos;m Swaleh Kimani, a teacher who made the leap to digital. Now I help educators and
+                professionals turn what they already know into structured courses, digital products,
+                and sustainable online income without burnout or influencer pressure.
+              </p>
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                <CTAButton href="#courses" className="w-full sm:w-auto">
+                  See the Programmes
+                </CTAButton>
+                <CTAButton
+                  href="#about"
+                  variant="secondary"
+                  className="w-full border-white/30 text-white hover:bg-white/5 sm:w-auto"
+                >
+                  My Story
+                </CTAButton>
+              </div>
+            </div>
+
+            <div className="rounded-[28px] border border-accent-500/20 bg-white/5 p-8 shadow-soft-card">
+              <p className="font-serif text-xl italic leading-relaxed text-white/85">
+                “I had been teaching for 6 years and had no idea my lessons could become a product.
+                Swaleh&apos;s programme gave me a system, not just advice. I launched my first online
+                English course and signed my first 5 students within a month.”
+              </p>
+              <div className="mt-8 flex items-center gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent-500 text-sm font-semibold text-raisin">
+                  SL
+                </div>
+                <div>
+                  <p className="text-base font-semibold text-white">Sarah L.</p>
+                  <p className="text-sm text-white/55">Teacher, Cape Town</p>
                 </div>
               </div>
-              <div className="flex justify-center md:justify-end">
-                <div className="w-full max-w-sm rounded-[32px] border border-accent-500/50 bg-white/5 p-2 shadow-2xl">
-                  <div className="overflow-hidden rounded-[28px]">
-                    <Image
-                      src="/hero-portrait.svg"
-                      alt="Abstract illustration for digital teaching systems"
-                      width={480}
-                      height={640}
-                      priority
-                      className="h-auto w-full object-cover"
-                    />
+              <div className="mt-8 grid gap-5 border-t border-white/10 pt-6 sm:grid-cols-3">
+                {heroStats.map((stat) => (
+                  <div key={stat.label}>
+                    <p className="font-serif text-3xl font-semibold text-accent-300">{stat.value}</p>
+                    <p className="mt-1 text-xs uppercase tracking-[0.16em] text-white/45">{stat.label}</p>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section-padding bg-white" aria-labelledby="empathy-title">
+      <section className="section-padding bg-white" aria-labelledby="pain-title">
         <div className="container-custom">
-          <div className="mx-auto max-w-4xl rounded-[28px] border border-neutral-100 bg-neutral-50/70 p-10 shadow-soft-card">
-            <h2 id="empathy-title" className="section-heading text-center">
-              You want to grow your teaching impact, but feel stuck in one of these…
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="accent-label">You&apos;re not alone</p>
+            <h2 id="pain-title" className="mt-4 text-raisin">
+              If any of this sounds familiar, you&apos;re in exactly the right place.
             </h2>
-            <ul className="mt-10 space-y-6 text-lg text-neutral-800">
-              {empathyBullets.map((item) => (
-                <li key={item} className="flex items-start gap-4">
-                  <span className="mt-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-accent-50">
-                    <span className="h-2 w-2 rounded-full bg-accent-500" />
-                  </span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-8 text-center text-neutral-900">
-              If that sounds like you, you’re in the right place.
+            <p className="mt-4 text-neutral-600">
+              These are the real things teachers and professionals say before we work together.
             </p>
+          </div>
+          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {painPoints.map((point) => (
+              <article
+                key={point}
+                className="rounded-[24px] border-l-4 border-accent-500 bg-neutral-50/80 p-6 shadow-soft-card"
+              >
+                <p className="text-neutral-800">&ldquo;{point}&rdquo;</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
       <section id="roadmap" className="section-padding bg-raisin text-white" aria-labelledby="roadmap-title">
         <div className="container-custom">
-          <h2 id="roadmap-title" className="section-heading text-center">
-            How we turn your experience into online income
-          </h2>
-          <div className="mt-12 grid gap-6 lg:grid-cols-2">
-            {roadmapSteps.map((step, index) => (
-              <div
-                key={step.title}
-                className="rounded-[24px] border border-white/10 bg-white/5 p-6 shadow-soft-card"
-              >
-                <div className="flex items-center gap-4">
-                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-500/20 text-2xl font-semibold text-accent-400">
-                    {index + 1}
-                  </span>
-                  {step.href ? (
-                    <Link
-                      href={step.href}
-                      className="text-xl font-semibold leading-snug text-white underline-offset-4 hover:text-accent-200 hover:underline"
-                    >
-                      {step.title}
-                    </Link>
-                  ) : (
-                    <h3 className="text-xl font-semibold leading-snug">{step.title}</h3>
-                  )}
-                </div>
-                <p className="mt-4 text-base text-white/80">{step.description}</p>
-                {step.href && step.linkLabel && (
-                  <Link
-                    href={step.href}
-                    className="mt-4 inline-flex items-center text-sm font-semibold text-accent-200 underline-offset-4 hover:text-white hover:underline"
-                  >
-                    {step.linkLabel}
-                    <span className="ml-1" aria-hidden>
-                      →
-                    </span>
-                  </Link>
-                )}
-              </div>
-            ))}
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="accent-label text-accent-300">The path forward</p>
+            <h2 id="roadmap-title" className="mt-4 text-white">
+              From scattered knowledge to steady online income
+            </h2>
+            <p className="mt-4 text-white/60">
+              A simple four-step process that turns experience into an offer, a system, and a more
+              reliable business.
+            </p>
           </div>
-          <div className="mt-10 text-center">
-            <CTAButton href="/teach-english-online" className="inline-flex">
-              See the Teach English Online Program
-            </CTAButton>
+          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {pathSteps.map((step) => (
+              <article
+                key={step.number}
+                className="rounded-[24px] border border-accent-500/20 bg-white/5 p-6 shadow-soft-card"
+              >
+                <p className="font-serif text-5xl font-semibold text-accent-500/35">{step.number}</p>
+                <h3 className="mt-4 text-2xl text-white">{step.title}</h3>
+                <p className="mt-3 text-white/65">{step.description}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      <section id="courses" className="section-padding section-gradient" aria-labelledby="courses-title">
+      <section id="about" className="section-padding bg-white" aria-labelledby="about-title">
+        <div className="container-custom grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div className="relative">
+            <div className="flex aspect-[4/5] items-center justify-center rounded-[28px] border border-neutral-200 bg-neutral-50 shadow-soft-card">
+              <span className="font-display text-8xl text-accent-500/35">SK</span>
+            </div>
+            <div className="absolute -bottom-5 right-6 max-w-[220px] rounded-2xl border border-accent-500/20 bg-raisin px-5 py-4 text-sm italic text-accent-200 shadow-soft-card">
+              I built this because I wish it had existed when I was starting out.
+            </div>
+          </div>
+
+          <div>
+            <p className="accent-label">About Swaleh</p>
+            <h2 id="about-title" className="mt-4 text-raisin">
+              I was a teacher with real skills and no idea how to make them work online.
+            </h2>
+            <div className="mt-6 space-y-5 text-neutral-700">
+              <p>
+                I know what it feels like to sit on years of teaching experience and feel like it
+                is only useful inside a classroom. I&apos;ve been through the confusion, the false
+                starts, and the programs built for someone else&apos;s market.
+              </p>
+              <p>
+                So I figured it out the hard way. I built my first digital offer, found my first
+                students, and created a system that works for teachers and knowledge professionals
+                who want real income without reinventing themselves.
+              </p>
+              <p>
+                <strong className="text-raisin">30 Degrees East is what I built from that journey.</strong>{' '}
+                Every course, template, and piece of guidance here comes from what I actually did,
+                not what I read in a business book.
+              </p>
+            </div>
+            <div className="mt-8 grid gap-6 border-t border-neutral-200 pt-6 sm:grid-cols-3">
+              {founderStats.map((stat) => (
+                <div key={stat.label}>
+                  <p className="font-serif text-3xl font-semibold text-raisin">{stat.value}</p>
+                  <p className="mt-1 text-xs uppercase tracking-[0.16em] text-neutral-500">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="courses" className="section-padding bg-neutral-50/80" aria-labelledby="courses-title">
         <div className="container-custom">
-          <h2 id="courses-title" className="section-heading text-center">
-            Courses and programs
-          </h2>
-          <div className="mt-12 grid gap-8 lg:grid-cols-3">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="accent-label">Programmes and courses</p>
+              <h2 id="courses-title" className="mt-4 text-raisin">
+                Choose your path forward
+              </h2>
+            </div>
+            <Link href="/teach-english-online" className="text-sm font-semibold text-accent-600 hover:text-accent-700">
+              See the flagship programme
+            </Link>
+          </div>
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-3">
             {courses.map((course) => (
-              <div
+              <article
                 key={course.title}
-                className="flex h-full flex-col rounded-[28px] border border-white/80 bg-white p-8 shadow-soft-card"
+                className="flex h-full flex-col overflow-hidden rounded-[28px] border border-neutral-200 bg-white shadow-soft-card"
               >
-                <div className="flex flex-1 flex-col gap-6">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.3em] text-neutral-500">Program</p>
-                    <h3 className="mt-2 text-2xl text-neutral-900">{course.title}</h3>
-                  </div>
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.3em] text-neutral-500">Who it’s for</p>
-                    <p className="mt-2 text-base text-neutral-700">{course.audience}</p>
-                  </div>
-                  <ul className="space-y-3 text-neutral-700">
-                    {course.bullets.map((item) => (
-                      <li key={item} className="flex items-start gap-2">
-                        <span className="mt-1 h-2 w-2 rounded-full bg-accent-500" />
-                        <span>{item}</span>
+                <div className="flex min-h-[168px] flex-col bg-raisin px-7 py-8 text-white">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-300">
+                    {course.tag}
+                  </p>
+                  <h3 className="mt-3 text-2xl text-white">{course.title}</h3>
+                </div>
+                <div className="flex flex-1 flex-col p-7">
+                  <p className="text-neutral-700">{course.description}</p>
+                  <ul className="mt-6 flex-1 space-y-3">
+                    {course.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-3 text-sm text-neutral-700">
+                        <span className="mt-1 text-accent-500" aria-hidden="true">
+                          →
+                        </span>
+                        <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
-                  <div className="min-h-20 space-y-2 text-neutral-600">
-                    {course.meta.map((detail) => (
-                      <p key={detail}>{detail}</p>
-                    ))}
+                  <div className="mt-8 pt-2">
+                    <CTAButton
+                      href={course.ctaHref}
+                      variant={course.ctaVariant}
+                      className={`w-full ${course.ctaVariant === 'secondary' ? 'border-neutral-200 text-neutral-700 hover:bg-neutral-50' : ''}`}
+                    >
+                      {course.ctaLabel}
+                    </CTAButton>
                   </div>
                 </div>
-                <div className="mt-6 border-t border-neutral-100 pt-6">
-                  <CTAButton href={course.ctaHref ?? '#waitlist'} className="w-full">
-                    {course.ctaLabel ?? 'Join the Waiting List'}
-                  </CTAButton>
-                </div>
-              </div>
+              </article>
             ))}
           </div>
-          <div className="mt-12 text-center">
-            <CTAButton href="#waitlist" variant="secondary" className="inline-flex">
-              Join the Waiting List
-            </CTAButton>
-          </div>
         </div>
       </section>
 
-      <section id="products" className="section-padding bg-raisin text-white" aria-labelledby="products-title">
-        <div className="container-custom">
-          <div className="flex flex-col gap-4 text-center">
-            <h2 id="products-title" className="section-heading">
-              Digital Products Section – Here’s where your ready-to-use tools live
-            </h2>
-            <p className="text-white/75">
-              A curated shelf of templates, worksheets, and assets you can plug into your teaching systems.
-            </p>
-          </div>
-          <DigitalProductsShelf products={digitalProducts} />
-        </div>
-      </section>
-
-      <section id="freebies" className="section-padding bg-neutral-50" aria-labelledby="freebies-title">
+      <section id="products" className="section-padding bg-white" aria-labelledby="products-title">
         <div className="container-custom">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 id="freebies-title" className="section-heading">
-              Start with free resources
+            <p className="accent-label">Digital products</p>
+            <h2 id="products-title" className="mt-4 text-raisin">
+              Ready-to-use tools for your teaching business
             </h2>
+            <p className="mt-4 text-neutral-600">
+              Templates and systems you can plug into your next course, launch, or client workflow.
+            </p>
           </div>
-          <FreebiesWithWaitlist freebies={freebies} />
-          <div className="mt-10 flex justify-center">
-            <CTAButton href="/freebies">See All Freebies</CTAButton>
+          <div className="mt-12 grid gap-6 lg:grid-cols-3">
+            {digitalProducts.map((product) => (
+              <article
+                key={product.title}
+                className="rounded-[24px] border border-neutral-200 bg-neutral-50/70 p-6 shadow-soft-card"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-600">
+                  {product.format}
+                </p>
+                <h3 className="mt-3 text-2xl text-raisin">{product.title}</h3>
+                <p className="mt-4 text-neutral-700">{product.description}</p>
+                <a
+                  href={product.href}
+                  download
+                  className="mt-6 inline-flex text-sm font-semibold text-accent-600 underline-offset-4 hover:text-accent-700 hover:underline"
+                >
+                  {product.ctaLabel}
+                </a>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      <section id="stories" className="section-padding bg-raisin text-white" aria-labelledby="stories-title">
+      <section id="stories" className="section-padding bg-white" aria-labelledby="stories-title">
         <div className="container-custom">
-          <div className="mx-auto max-w-5xl text-center">
-            <h2 id="stories-title" className="section-heading">
-              Success stories from real teachers
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="accent-label">What people are saying</p>
+            <h2 id="stories-title" className="mt-4 text-raisin">
+              Real results from real educators
             </h2>
           </div>
-          <div className="mt-12">
+          <div className="mx-auto mt-10 max-w-5xl">
             <TestimonialsCarousel stories={successStories} />
           </div>
-          <div className="mt-10 text-center">
-            <CTAButton href="/teach-english-online">Read Full Testimonials</CTAButton>
+        </div>
+      </section>
+
+      <section id="freebies" className="section-padding bg-neutral-50/80" aria-labelledby="freebies-title">
+        <div className="container-custom">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="accent-label">Freebies</p>
+            <h2 id="freebies-title" className="mt-4 text-raisin">
+              Start with free resources
+            </h2>
+            <p className="mt-4 text-neutral-600">
+              Shortcuts, templates, and guides to help you move from idea to offer faster.
+            </p>
           </div>
+          <FreebiesWithWaitlist freebies={freebies} />
         </div>
       </section>
 
       <section id="waitlist" className="section-padding bg-raisin text-white" aria-labelledby="waitlist-title">
         <div className="container-custom">
-          <div className="mx-auto max-w-3xl rounded-[32px] border border-white/10 bg-[#1a171b] p-10 shadow-soft-card">
-            <h2 id="waitlist-title" className="section-heading text-center">
-              Ready to start teaching English online?
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="accent-label text-accent-300">Join the waiting list</p>
+            <h2 id="waitlist-title" className="mt-4 text-white">
+              Ready to turn your knowledge into income?
             </h2>
-            <p className="mt-4 text-center text-white/80">
-              Join the waiting list to be the first to hear when new pre-recorded lessons,
-              <Link href="/co-creation" className="ml-1 font-semibold text-accent-200 underline-offset-4 hover:underline">
-                co-creation labs
-              </Link>
-              , and live cohorts open.
+            <p className="mt-4 text-white/65">
+              Join to hear when new cohorts, digital products, and co-creation opportunities open.
             </p>
-            <WaitlistForm />
-            <nav className="mt-10 flex flex-wrap items-center justify-center gap-4 text-sm text-white/70">
-              <a href="#courses" className="underline-offset-4 hover:text-white hover:underline">
-                Courses
-              </a>
-              <a href="#products" className="underline-offset-4 hover:text-white hover:underline">
-                Digital Products
-              </a>
-              <a href="#freebies" className="underline-offset-4 hover:text-white hover:underline">
-                Freebies
-              </a>
-              <a href="#stories" className="underline-offset-4 hover:text-white hover:underline">
-                Success Stories
-              </a>
-              <a href="#waitlist" className="underline-offset-4 hover:text-white hover:underline">
-                Waiting List
-              </a>
-              <Link href="/co-creation" className="underline-offset-4 hover:text-white hover:underline">
-                Co-creation Labs
-              </Link>
-            </nav>
+          </div>
+          <div className="mx-auto mt-10 max-w-4xl rounded-[32px] border border-white/10 bg-white/5 p-8 shadow-soft-card md:p-10">
+            <WaitlistForm theme="light" submitLabel="Join the Waiting List" redirectOnSuccess="/thank-you" />
           </div>
         </div>
       </section>

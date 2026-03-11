@@ -59,7 +59,9 @@ export default function CoCreationLabs() {
         <div className="container-custom">
           <div className="mx-auto max-w-4xl text-center">
             <p className="text-sm uppercase tracking-[0.3em] text-white/70">Build together</p>
-            <h1 className="mt-6 text-white">Co-creation labs</h1>
+            <h1 className="mt-6 text-white">
+              Build faster together. <span className="text-accent-300">Ship stronger with support.</span>
+            </h1>
             <p className="mt-6 text-base text-white/80">
               Collaborative intensives for teachers who want to ship lessons, offers, or systems faster—with a strategy partner and real-time student insight.
             </p>

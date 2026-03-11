@@ -20,7 +20,9 @@ export default function Insights() {
         <div className="container-custom">
           <div className="mx-auto max-w-4xl text-center">
             <p className="text-sm uppercase tracking-[0.3em] text-white/70">Library</p>
-            <h1 className="mt-6 text-white">Insights</h1>
+            <h1 className="mt-6 text-white">
+              Watch the thinking. <span className="text-accent-300">Skip the noise.</span>
+            </h1>
             <p className="mt-6 text-xl text-white/80">
               Video insights on teaching, learning, systems, and building sustainable
               online work. No blog posts, no feeds—just focused thinking.

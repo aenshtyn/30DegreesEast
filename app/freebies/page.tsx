@@ -20,7 +20,9 @@ export default function FreebiesPage() {
     <section className="section-padding bg-neutral-50">
       <div className="container-custom">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="text-neutral-900">Freebies</h1>
+          <h1 className="text-neutral-900">
+            Start with free resources. <span className="text-accent-600">Build momentum first.</span>
+          </h1>
           <p className="mt-4 text-neutral-700">
             Download the same free resources referenced on the homepage to start mapping your online teaching systems.
           </p>

@@ -13,7 +13,7 @@ export default function Header() {
     { name: 'Success Stories', href: '/#stories' },
     { name: 'About Swaleh', href: '/about' },
     { name: 'Partner with Swaleh', href: '/partner-with-swaleh' },
-    { name: 'Waiting List', href: '/#waitlist' },
+    { name: 'Join Waitlist', href: '/#waitlist' },
   ]
 
   return (
@@ -23,7 +23,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex flex-col">
             <span className="text-xl font-semibold tracking-tight text-neutral-900">
-              30 Degrees East
+              <span className="text-accent-600">30 Degrees</span> East
             </span>
             <span className="text-sm text-neutral-600">by Swaleh Kimani</span>
           </Link>
@@ -35,8 +35,8 @@ export default function Header() {
                 key={item.name}
                 href={item.href}
                 className={
-                  item.name === 'Waiting List'
-                    ? 'inline-flex items-center justify-center rounded-full bg-accent-500 px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-raisin shadow-soft-card transition hover:bg-accent-400'
+                  item.name === 'Join Waitlist'
+                    ? 'inline-flex items-center justify-center rounded-full bg-accent-500 px-5 py-3 text-xs font-semibold tracking-[0.08em] text-raisin shadow-soft-card transition hover:bg-accent-400'
                     : 'text-sm font-medium text-neutral-700 transition-colors hover:text-brand-600'
                 }
               >
@@ -77,8 +77,8 @@ export default function Header() {
                 key={item.name}
                 href={item.href}
                 className={
-                  item.name === 'Waiting List'
-                    ? 'inline-flex items-center justify-center rounded-full bg-accent-500 px-5 py-3 text-base font-semibold uppercase tracking-[0.16em] text-raisin shadow-soft-card transition hover:bg-accent-400'
+                  item.name === 'Join Waitlist'
+                    ? 'inline-flex items-center justify-center rounded-full bg-accent-500 px-5 py-3 text-sm font-semibold tracking-[0.08em] text-raisin shadow-soft-card transition hover:bg-accent-400'
                     : 'text-base font-medium text-neutral-700 transition-colors hover:text-brand-600'
                 }
                 onClick={() => setIsMenuOpen(false)}

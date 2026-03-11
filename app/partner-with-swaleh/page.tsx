@@ -206,7 +206,8 @@ export default function PartnerWithSwalehPage() {
               Shadow Operator Program
             </span>
             <h1 className="mt-8 text-white">
-              You&apos;ve built something real. Let&apos;s package it and share it.
+              You&apos;ve built something real.{' '}
+              <span className="text-accent-300">Let&apos;s package it and share it.</span>
             </h1>
             <p className="mx-auto mt-6 max-w-3xl text-white/75">
               You bring the expertise. I handle everything else: the content, the platform, the

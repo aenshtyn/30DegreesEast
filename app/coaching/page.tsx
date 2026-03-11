@@ -14,7 +14,9 @@ export default function Coaching() {
         <div className="container-custom">
           <div className="mx-auto max-w-4xl text-center">
             <p className="text-sm uppercase tracking-[0.3em] text-white/70">Coaching + strategy</p>
-            <h1 className="mt-6 text-white">Coaching</h1>
+            <h1 className="mt-6 text-white">
+              Get strategic support. <span className="text-accent-300">Build with more clarity.</span>
+            </h1>
             <p className="mt-6 text-xl text-white/80">
               One-on-one guidance to help you package your expertise, build teaching
               systems, and create sustainable online income.
