@@ -1,8 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
+import {
+  escapeHtml,
+  getContactEmailConfig,
+  hasHoneypotContent,
+  isValidEmail,
+  trimFormValue,
+} from '@/lib/server/form-utils'
+
 export async function POST(request: NextRequest) {
-  // Initialize Resend at runtime to avoid build-time errors
   if (!process.env.RESEND_API_KEY) {
     console.error('RESEND_API_KEY is not configured')
     return NextResponse.json(
@@ -15,9 +22,19 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json()
-    const { name, email, service, message } = body
+    const name = trimFormValue(body.name)
+    const email = trimFormValue(body.email)
+    const service = trimFormValue(body.service)
+    const message = trimFormValue(body.message)
+    const website = trimFormValue(body.website)
 
-    // Validate required fields
+    if (hasHoneypotContent(website)) {
+      return NextResponse.json(
+        { error: 'Unable to send message. Please try again.' },
+        { status: 400 }
+      )
+    }
+
     if (!name || !email || !service || !message) {
       return NextResponse.json(
         { error: 'All fields are required' },
@@ -25,9 +42,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
+    if (!isValidEmail(email)) {
       return NextResponse.json(
         { error: 'Invalid email address' },
         { status: 400 }
@@ -44,11 +59,15 @@ export async function POST(request: NextRequest) {
     }
 
     const serviceName = serviceNames[service] || service
+    const contactEmailConfig = getContactEmailConfig()
+    const safeServiceName = escapeHtml(serviceName)
+    const safeName = escapeHtml(name)
+    const safeEmail = escapeHtml(email)
+    const safeMessage = escapeHtml(message)
 
-    // Send email using Resend
     const { data, error } = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
-      to: process.env.RESEND_TO_EMAIL || 'hello@30degreeseast.com',
+      from: contactEmailConfig.from,
+      to: contactEmailConfig.to,
       replyTo: email,
       subject: `New Contact Form Submission: ${serviceName}`,
       html: `
@@ -114,29 +133,29 @@ export async function POST(request: NextRequest) {
 
             <div class="section">
               <div class="label">Service Interest</div>
-              <div class="value">${serviceName}</div>
+              <div class="value">${safeServiceName}</div>
             </div>
 
             <div class="section">
               <div class="label">Name</div>
-              <div class="value">${name}</div>
+              <div class="value">${safeName}</div>
             </div>
 
             <div class="section">
               <div class="label">Email</div>
               <div class="value">
-                <a href="mailto:${email}" style="color: #171717;">${email}</a>
+                <a href="mailto:${safeEmail}" style="color: #171717;">${safeEmail}</a>
               </div>
             </div>
 
             <div class="section">
               <div class="label">Message</div>
-              <div class="message-box">${message}</div>
+              <div class="message-box">${safeMessage}</div>
             </div>
 
             <div class="footer">
               <p>This message was sent from the 30 Degrees East contact form.</p>
-              <p>Reply directly to this email to respond to ${name}.</p>
+              <p>Reply directly to this email to respond to ${safeName}.</p>
             </div>
           </body>
         </html>

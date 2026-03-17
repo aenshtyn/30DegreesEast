@@ -18,9 +18,9 @@ The contact form is integrated with [Resend](https://resend.com), a modern email
 4. Name it (e.g., "30 Degrees East Production")
 5. Copy the API key (you'll only see it once!)
 
-### 3. Configure Your Domain (Optional but Recommended)
+### 3. Configure Your Domain
 
-For production, you should verify your domain to send emails from your own domain (e.g., hello@30degreeseast.com).
+For production, verify `30degreeseast.com` so Resend can send from your real inbox identities.
 
 #### In Resend Dashboard:
 1. Go to "Domains"
@@ -40,16 +40,19 @@ Create a `.env.local` file in your project root:
 ```bash
 # .env.local
 RESEND_API_KEY=re_123456789_your_actual_api_key
-RESEND_FROM_EMAIL=hello@30degreeseast.com
-RESEND_TO_EMAIL=hello@30degreeseast.com
-RESEND_WAITLIST_TO_EMAIL=hello@30degreeseast.com
+CONTACT_FROM_EMAIL=hello@30degreeseast.com
+CONTACT_TO_EMAIL=hello@30degreeseast.com
+WAITLIST_FROM_EMAIL=waitlist@30degreeseast.com
+WAITLIST_TO_EMAIL=waitlist@30degreeseast.com
+EMAIL_FROM=hello@30degreeseast.com
 ```
 
 **Important:**
 - Replace `re_123456789_your_actual_api_key` with your actual Resend API key
-- Use `onboarding@resend.dev` for `RESEND_FROM_EMAIL` if you haven't verified your domain yet
-- `RESEND_TO_EMAIL` is where contact form submissions will be sent
-- `RESEND_WAITLIST_TO_EMAIL` (optional) lets you route waitlist alerts to a different inbox; defaults to `RESEND_TO_EMAIL`
+- `CONTACT_FROM_EMAIL` and `CONTACT_TO_EMAIL` are used only by the contact form route
+- `WAITLIST_FROM_EMAIL` and `WAITLIST_TO_EMAIL` are used only by the waitlist route
+- `EMAIL_FROM` is an optional fallback if you want one shared sender default
+- Legacy `RESEND_FROM_EMAIL`, `RESEND_TO_EMAIL`, and `RESEND_WAITLIST_TO_EMAIL` are still supported as fallbacks, but should not be the primary production setup
 
 ### 5. Test Locally
 
@@ -57,10 +60,11 @@ RESEND_WAITLIST_TO_EMAIL=hello@30degreeseast.com
 npm run dev
 ```
 
-1. Go to http://localhost:3000/about
+1. Go to http://localhost:3000/contact
 2. Fill out the contact form
 3. Submit
 4. Check your email inbox
+5. Repeat with the homepage waitlist form and confirm the email lands in the waitlist inbox and the contact appears in Resend Contacts
 
 ### 6. Deploy to Production
 
@@ -69,9 +73,11 @@ npm run dev
 2. Navigate to "Environment Variables"
 3. Add the three environment variables:
    - `RESEND_API_KEY`
-   - `RESEND_FROM_EMAIL`
-   - `RESEND_TO_EMAIL`
-   - `RESEND_WAITLIST_TO_EMAIL` (optional)
+   - `CONTACT_FROM_EMAIL`
+   - `CONTACT_TO_EMAIL`
+   - `WAITLIST_FROM_EMAIL`
+   - `WAITLIST_TO_EMAIL`
+   - `EMAIL_FROM` (optional fallback)
 4. Redeploy your site
 
 #### For Netlify:
@@ -83,19 +89,21 @@ npm run dev
 
 ### Contact Form Flow
 
-1. User fills out form at `/about#contact`
+1. User fills out form at `/contact`
 2. Form data is sent to `/api/contact` (POST request)
 3. API route validates the data
-4. Resend sends a formatted email to your inbox
+4. Resend sends a formatted email from `CONTACT_FROM_EMAIL` to `CONTACT_TO_EMAIL`
 5. User sees success/error message
 
 ### Waitlist Form Flow
 
 1. User fills out the homepage waitlist form
 2. Form data is sent to `/api/waitlist`
-3. API route validates the data
-4. Resend emails are sent to `RESEND_WAITLIST_TO_EMAIL` (or `RESEND_TO_EMAIL` if not set)
-5. User sees success/error confirmation on the page
+3. API route validates the data and rejects honeypot spam submissions
+4. The email is created or updated in Resend Contacts and added to the `30 Degrees East Waitlist` audience automatically
+5. Resend sends an internal notification from `WAITLIST_FROM_EMAIL` to `WAITLIST_TO_EMAIL`
+6. Resend sends a confirmation email to the user from `WAITLIST_FROM_EMAIL`
+7. User sees success/error confirmation on the page
 
 ### Email Format
 
@@ -104,6 +112,7 @@ The emails you receive will include:
 - Name
 - Email address (with reply-to set automatically)
 - Message
+- Waitlist source for waitlist joins
 - Clean, professional HTML formatting
 
 ### Reply Functionality
@@ -133,7 +142,9 @@ Check these:
 ### Email Not Arriving
 
 1. Check spam folder
-2. Verify `RESEND_TO_EMAIL` is correct
+2. Verify the route-specific destination email is correct
+   - Contact form: `CONTACT_TO_EMAIL`
+   - Waitlist route: `WAITLIST_TO_EMAIL`
 3. Check Resend dashboard logs
 4. If using a custom domain, ensure it's verified
 
@@ -142,7 +153,7 @@ Check these:
 1. Check DNS records are added correctly
 2. Wait at least 15-60 minutes for propagation
 3. Use `dig` or `nslookup` to verify DNS records
-4. In the meantime, use `onboarding@resend.dev` as `RESEND_FROM_EMAIL`
+4. In the meantime, use a verified sender for `CONTACT_FROM_EMAIL` and `WAITLIST_FROM_EMAIL`
 
 ### Rate Limits
 
@@ -163,7 +174,8 @@ The form includes:
 - Required field validation
 - Email format validation
 - Server-side validation
-- Rate limiting (via Resend)
+- Honeypot rejection
+- Trimmed input handling
 
 ### Spam Prevention
 
@@ -184,23 +196,10 @@ html: `
 `
 ```
 
-### Auto-Reply to Sender
+### Waitlist Persistence
 
-To send an auto-reply confirmation:
-
-```typescript
-// In /app/api/contact/route.ts, add another email send:
-await resend.emails.send({
-  from: process.env.RESEND_FROM_EMAIL!,
-  to: email, // sender's email
-  subject: 'Thank you for reaching out',
-  html: `
-    <p>Hi ${name},</p>
-    <p>Thank you for your message. I'll respond within 2-3 business days.</p>
-    <p>Best,<br>Swaleh</p>
-  `,
-})
-```
+Waitlist signups are stored in Resend Contacts and grouped in the `30 Degrees East Waitlist` audience.
+The route uses the submitted email as the canonical key, so repeat signups update the existing contact instead of creating duplicates.
 
 ### Multiple Recipients
 

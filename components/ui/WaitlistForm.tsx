@@ -15,6 +15,7 @@ type WaitlistFormProps = {
   theme?: 'dark' | 'light'
   submitLabel?: string
   redirectOnSuccess?: string | null
+  source?: 'homepage_waitlist' | 'freebie_unlock'
 }
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -26,6 +27,7 @@ export default function WaitlistForm({
   theme = 'dark',
   submitLabel = 'Join the Waiting List',
   redirectOnSuccess = '/thank-you',
+  source = 'homepage_waitlist',
 }: WaitlistFormProps = {}) {
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -49,9 +51,12 @@ export default function WaitlistForm({
 
     setIsSubmitting(true)
 
+    const formData = new FormData(event.currentTarget)
     const payload = {
       name: formValues.name.trim(),
       email: formValues.email.trim(),
+      source,
+      website: (formData.get('website') as string) || '',
     }
 
     try {
@@ -107,6 +112,17 @@ export default function WaitlistForm({
 
   return (
     <form onSubmit={handleSubmit} className={`mt-8 space-y-5 ${className ?? ''}`}>
+      <div className="hidden" aria-hidden="true">
+        <label htmlFor="waitlist-website">Website</label>
+        <input
+          id="waitlist-website"
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          disabled={isSubmitting}
+        />
+      </div>
       {isLight ? (
         <div className="grid gap-4 md:grid-cols-[1fr,1fr,auto] md:items-end">
           <div>

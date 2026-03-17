@@ -1,25 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-const parseEmails = (value?: string | null) =>
-  value
-    ?.split(',')
-    .map((email) => email.trim())
-    .filter(Boolean)
-
-const getWaitlistRecipients = () => {
-  const waitlistEmails = parseEmails(process.env.RESEND_WAITLIST_TO_EMAIL)
-  if (waitlistEmails && waitlistEmails.length > 0) {
-    return waitlistEmails
-  }
-
-  const defaultEmails = parseEmails(process.env.RESEND_TO_EMAIL)
-  if (defaultEmails && defaultEmails.length > 0) {
-    return defaultEmails
-  }
-
-  return ['hello@30degreeseast.com']
-}
+import {
+  escapeHtml,
+  formatWaitlistSource,
+  getWaitlistEmailConfig,
+  hasHoneypotContent,
+  isValidEmail,
+  normalizeWaitlistSource,
+  trimFormValue,
+} from '@/lib/server/form-utils'
+import { saveWaitlistEntry } from '@/lib/server/resend-waitlist'
 
 export async function POST(request: NextRequest) {
   if (!process.env.RESEND_API_KEY) {
@@ -34,7 +25,17 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json()
-    const { name, email } = body
+    const name = trimFormValue(body.name)
+    const email = trimFormValue(body.email)
+    const website = trimFormValue(body.website)
+    const source = normalizeWaitlistSource(body.source)
+
+    if (hasHoneypotContent(website)) {
+      return NextResponse.json(
+        { error: 'Unable to submit waitlist entry right now. Please try again soon.' },
+        { status: 400 }
+      )
+    }
 
     if (!name || !email) {
       return NextResponse.json(
@@ -43,19 +44,24 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
+    if (!isValidEmail(email)) {
       return NextResponse.json(
         { error: 'Please provide a valid email address.' },
         { status: 400 }
       )
     }
 
-    const recipients = getWaitlistRecipients()
+    await saveWaitlistEntry({ resend, email, name, source })
 
-    const { data, error } = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
-      to: recipients,
+    const waitlistEmailConfig = getWaitlistEmailConfig()
+    const safeName = escapeHtml(name)
+    const safeEmail = escapeHtml(email)
+    const sourceLabel = formatWaitlistSource(source)
+    const safeSourceLabel = escapeHtml(sourceLabel)
+
+    const internalEmail = await resend.emails.send({
+      from: waitlistEmailConfig.from,
+      to: waitlistEmailConfig.to,
       replyTo: email,
       subject: 'New Waitlist Signup',
       html: `
@@ -109,14 +115,18 @@ export async function POST(request: NextRequest) {
               <h1>New Waitlist Signup</h1>
               <div class="item">
                 <div class="label">Name</div>
-                <div class="value">${name}</div>
+                <div class="value">${safeName}</div>
               </div>
               <div class="item">
                 <div class="label">Email</div>
-                <div class="value"><a href="mailto:${email}">${email}</a></div>
+                <div class="value"><a href="mailto:${safeEmail}">${safeEmail}</a></div>
+              </div>
+              <div class="item">
+                <div class="label">Source</div>
+                <div class="value">${safeSourceLabel}</div>
               </div>
               <div class="footer">
-                This signup came from the homepage waitlist form.
+                This signup was saved to the 30 Degrees East waitlist audience.
               </div>
             </div>
           </body>
@@ -124,15 +134,73 @@ export async function POST(request: NextRequest) {
       `,
     })
 
-    if (error) {
-      console.error('Resend waitlist error:', error)
+    if (internalEmail.error) {
+      console.error('Resend waitlist internal email error:', internalEmail.error)
       return NextResponse.json(
         { error: 'Unable to submit waitlist entry right now. Please try again soon.' },
         { status: 500 }
       )
     }
 
-    return NextResponse.json({ message: 'Added to waitlist successfully', id: data?.id })
+    const confirmationEmail = await resend.emails.send({
+      from: waitlistEmailConfig.from,
+      to: email,
+      subject: 'You are on the 30 Degrees East waitlist',
+      html: `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="utf-8" />
+            <style>
+              body {
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                margin: 0;
+                padding: 24px;
+                background: #f5f5f5;
+                color: #111827;
+              }
+              .card {
+                max-width: 560px;
+                margin: 0 auto;
+                background: #ffffff;
+                border-radius: 16px;
+                border: 1px solid #e5e7eb;
+                padding: 32px;
+              }
+              h1 {
+                font-size: 22px;
+                margin-bottom: 16px;
+              }
+              p {
+                margin: 0 0 16px;
+                line-height: 1.6;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="card">
+              <h1>Waitlist confirmed</h1>
+              <p>Hi ${safeName},</p>
+              <p>Your details have been added to the 30 Degrees East waitlist.</p>
+              <p>You will hear when new cohorts, digital products, or openings are released.</p>
+            </div>
+          </body>
+        </html>
+      `,
+    })
+
+    if (confirmationEmail.error) {
+      console.error('Resend waitlist confirmation email error:', confirmationEmail.error)
+      return NextResponse.json(
+        { error: 'Unable to submit waitlist entry right now. Please try again soon.' },
+        { status: 500 }
+      )
+    }
+
+    return NextResponse.json({
+      message: 'Added to waitlist successfully',
+      id: internalEmail.data?.id,
+    })
   } catch (error) {
     console.error('Waitlist submission error:', error)
     return NextResponse.json(

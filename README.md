@@ -21,7 +21,7 @@ I help professionals, coaches, and educators build leverage through language, th
 
 ## Tech Stack
 
-- **Framework:** Next.js 15 (App Router)
+- **Framework:** Next.js 16 (App Router)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
 - **Fonts:** Inter (Google Fonts)
@@ -61,7 +61,7 @@ I help professionals, coaches, and educators build leverage through language, th
 3. **Coaching** (`/coaching`) - Three coaching service tracks
 4. **Teaching System Audit** (`/teaching-system-audit`) - Primary conversion page
 5. **Insights** (`/insights`) - Video library organized by themes
-6. **About** (`/about`) - About Swaleh + contact form
+6. **Contact** (`/contact`) - Contact page + inquiry form
 
 ## Getting Started
 
@@ -143,6 +143,7 @@ Replace all placeholder video URLs (`YOUR_VIDEO_ID`) with actual Vimeo or YouTub
 ### Configure Resend Emails
 
 The contact and waitlist forms use [Resend](https://resend.com) for email delivery.
+The waitlist is persisted in Resend Contacts and grouped into a dedicated waitlist audience automatically.
 
 **Setup Required:**
 
@@ -152,9 +153,11 @@ The contact and waitlist forms use [Resend](https://resend.com) for email delive
 
 ```bash
 RESEND_API_KEY=your_api_key_here
-RESEND_FROM_EMAIL=hello@30degreeseast.com
-RESEND_TO_EMAIL=hello@30degreeseast.com
-RESEND_WAITLIST_TO_EMAIL=hello@30degreeseast.com # optional override for waitlist alerts
+CONTACT_FROM_EMAIL=hello@30degreeseast.com
+CONTACT_TO_EMAIL=hello@30degreeseast.com
+WAITLIST_FROM_EMAIL=waitlist@30degreeseast.com
+WAITLIST_TO_EMAIL=waitlist@30degreeseast.com
+EMAIL_FROM=hello@30degreeseast.com # optional fallback only
 ```
 
 **Detailed Instructions:** See [RESEND_SETUP.md](./RESEND_SETUP.md) for complete setup guide.

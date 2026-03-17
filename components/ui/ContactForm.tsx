@@ -20,6 +20,7 @@ export default function ContactForm() {
       email: formData.get('email') as string,
       service: formData.get('service') as string,
       message: formData.get('message') as string,
+      website: formData.get('website') as string,
     }
 
     try {
@@ -59,6 +60,17 @@ export default function ContactForm() {
   return (
     <div className="mt-12 glass-panel">
       <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="hidden" aria-hidden="true">
+          <label htmlFor="contact-website">Website</label>
+          <input
+            id="contact-website"
+            type="text"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            disabled={isSubmitting}
+          />
+        </div>
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-neutral-900">
             Name
