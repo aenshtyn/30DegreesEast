@@ -1,9 +1,11 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 import FreebiesWithWaitlist, { type Freebie } from '@/components/home/FreebiesWithWaitlist'
 import TestimonialsCarousel from '@/components/home/TestimonialsCarousel'
 import CTAButton from '@/components/ui/CTAButton'
 import WaitlistForm from '@/components/ui/WaitlistForm'
+import swalehPortrait from '@/outside builds/Kimani.jpg'
 
 const painPoints = [
   'I have years of knowledge and experience, but I have no idea how to turn it into something people will actually pay for.',
@@ -290,9 +292,15 @@ export default function Home() {
 
       <section id="about" className="section-padding bg-white" aria-labelledby="about-title">
         <div className="container-custom grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-          <div className="relative">
-            <div className="flex aspect-[4/5] items-center justify-center rounded-[28px] border border-neutral-200 bg-neutral-50 shadow-soft-card">
-              <span className="font-display text-8xl text-accent-500/35">SK</span>
+          <div className="relative mx-auto w-full max-w-[360px] lg:mx-0">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[28px] border border-neutral-200 bg-neutral-50 shadow-soft-card">
+              <Image
+                src={swalehPortrait}
+                alt="Swaleh Kimani"
+                fill
+                sizes="(min-width: 1024px) 360px, (min-width: 640px) 320px, 78vw"
+                className="object-cover object-center"
+              />
             </div>
             <div className="absolute -bottom-5 right-6 max-w-[220px] rounded-2xl border border-accent-500/20 bg-raisin px-5 py-4 text-sm italic text-accent-200 shadow-soft-card">
               I built this because I wish it had existed when I was starting out.

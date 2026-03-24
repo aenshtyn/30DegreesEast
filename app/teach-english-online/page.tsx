@@ -1,7 +1,9 @@
+import Image from 'next/image'
 import type { Metadata } from 'next'
 
 import TestimonialsCarousel from '@/components/home/TestimonialsCarousel'
 import CTAButton from '@/components/ui/CTAButton'
+import swalehPortrait from '@/outside builds/Kimani.jpg'
 
 type IconName =
   | 'classroom'
@@ -562,9 +564,15 @@ export default function TeachEnglishOnlineProgram() {
       <section id="instructor" className="section-padding section-gradient-muted">
         <div className="container-custom">
           <div className="grid gap-10 lg:grid-cols-[220px_1fr] lg:items-start">
-            <div className="mx-auto w-full max-w-[220px] rounded-[24px] bg-raisin p-6 text-center text-white shadow-soft-card">
-              <div className="flex aspect-[3/4] items-center justify-center rounded-[18px] border border-accent-500/20 bg-raisin">
-                <span className="font-display text-7xl text-accent-500/40">SK</span>
+            <div className="mx-auto w-full max-w-[220px] rounded-[24px] bg-raisin p-4 text-center text-white shadow-soft-card">
+              <div className="relative aspect-[3/4] overflow-hidden rounded-[18px] border border-accent-500/20 bg-raisin">
+                <Image
+                  src={swalehPortrait}
+                  alt="Swaleh Kimani"
+                  fill
+                  sizes="220px"
+                  className="object-cover object-center"
+                />
               </div>
               <div className="-mt-4 inline-flex rounded-full bg-accent-500 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-raisin">
                 Founder, 30 Degrees East

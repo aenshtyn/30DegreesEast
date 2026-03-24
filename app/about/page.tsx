@@ -1,6 +1,8 @@
+import Image from 'next/image'
 import type { Metadata } from 'next'
 
 import CTAButton from '@/components/ui/CTAButton'
+import swalehPortrait from '@/outside builds/Kimani.jpg'
 
 const credibilityStats = [
   { value: '15', label: 'Years abroad' },
@@ -126,13 +128,17 @@ export default function About() {
             </p>
           </div>
 
-          <div className="rounded-[28px] border border-accent-500/20 bg-white/5 p-8 shadow-soft-card">
-            <div className="flex aspect-[4/5] items-center justify-center rounded-[22px] border border-accent-500/20 bg-raisin/60">
-              <span className="font-display text-8xl text-accent-500/35">SK</span>
+          <div className="mx-auto w-full max-w-[360px] rounded-[28px] border border-accent-500/20 bg-white/5 p-4 shadow-soft-card lg:mx-0">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[22px] border border-accent-500/20 bg-raisin/60">
+              <Image
+                src={swalehPortrait}
+                alt="Swaleh Kimani"
+                fill
+                priority
+                sizes="(min-width: 1024px) 360px, (min-width: 640px) 320px, 78vw"
+                className="object-cover object-center"
+              />
             </div>
-            <p className="mt-4 text-center text-xs uppercase tracking-[0.2em] text-accent-300/70">
-              Add photo here
-            </p>
           </div>
         </div>
 
