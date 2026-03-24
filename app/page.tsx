@@ -5,7 +5,6 @@ import FreebiesWithWaitlist, { type Freebie } from '@/components/home/FreebiesWi
 import TestimonialsCarousel from '@/components/home/TestimonialsCarousel'
 import CTAButton from '@/components/ui/CTAButton'
 import WaitlistForm from '@/components/ui/WaitlistForm'
-import swalehPortrait from '@/outside builds/Kimani.jpg'
 
 const painPoints = [
   'I have years of knowledge and experience, but I have no idea how to turn it into something people will actually pay for.',
@@ -295,7 +294,7 @@ export default function Home() {
           <div className="relative mx-auto w-full max-w-[360px] lg:mx-0">
             <div className="relative aspect-[4/5] overflow-hidden rounded-[28px] border border-neutral-200 bg-neutral-50 shadow-soft-card">
               <Image
-                src={swalehPortrait}
+                src="/testimonials/swaleh-kimani.jpeg"
                 alt="Swaleh Kimani"
                 fill
                 sizes="(min-width: 1024px) 360px, (min-width: 640px) 320px, 78vw"

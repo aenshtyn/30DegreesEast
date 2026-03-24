@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 
 import TestimonialsCarousel from '@/components/home/TestimonialsCarousel'
 import CTAButton from '@/components/ui/CTAButton'
-import swalehPortrait from '@/outside builds/Kimani.jpg'
 
 type IconName =
   | 'classroom'
@@ -567,7 +566,7 @@ export default function TeachEnglishOnlineProgram() {
             <div className="mx-auto w-full max-w-[220px] rounded-[24px] bg-raisin p-4 text-center text-white shadow-soft-card">
               <div className="relative aspect-[3/4] overflow-hidden rounded-[18px] border border-accent-500/20 bg-raisin">
                 <Image
-                  src={swalehPortrait}
+                  src="/testimonials/swaleh-kimani.jpeg"
                   alt="Swaleh Kimani"
                   fill
                   sizes="220px"

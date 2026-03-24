@@ -2,7 +2,6 @@ import Image from 'next/image'
 import type { Metadata } from 'next'
 
 import CTAButton from '@/components/ui/CTAButton'
-import swalehPortrait from '@/outside builds/Kimani.jpg'
 
 const credibilityStats = [
   { value: '15', label: 'Years abroad' },
@@ -131,7 +130,7 @@ export default function About() {
           <div className="mx-auto w-full max-w-[360px] rounded-[28px] border border-accent-500/20 bg-white/5 p-4 shadow-soft-card lg:mx-0">
             <div className="relative aspect-[4/5] overflow-hidden rounded-[22px] border border-accent-500/20 bg-raisin/60">
               <Image
-                src={swalehPortrait}
+                src="/testimonials/swaleh-kimani.jpeg"
                 alt="Swaleh Kimani"
                 fill
                 priority
