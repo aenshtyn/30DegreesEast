@@ -51,7 +51,8 @@ export default function WaitlistForm({
 
     setIsSubmitting(true)
 
-    const formData = new FormData(event.currentTarget)
+    const form = event.currentTarget
+    const formData = new FormData(form)
     const payload = {
       name: formValues.name.trim(),
       email: formValues.email.trim(),
@@ -73,9 +74,9 @@ export default function WaitlistForm({
       if (response.ok) {
         setStatus({
           type: 'success',
-          message: 'Thanks! You are on the Teach English Online waitlist.',
+          message: 'Thanks! You are on the 30 Degrees East waitlist.',
         })
-        event.currentTarget.reset()
+        form.reset()
         setFormValues({ name: '', email: '' })
         onValidityChange?.(false)
         onSuccess?.()
