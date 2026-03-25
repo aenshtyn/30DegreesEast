@@ -10,6 +10,7 @@ type SaveWaitlistEntryInput = {
   resend: Resend
   email: string
   name: string
+  signedUpAt: string
   source: WaitlistSource
 }
 
@@ -55,19 +56,18 @@ export const saveWaitlistEntry = async ({
   resend,
   email,
   name,
+  signedUpAt,
   source,
 }: SaveWaitlistEntryInput) => {
   const segmentId = await ensureWaitlistSegmentId(resend)
-  const contactIdentifier = encodeURIComponent(email)
   const { firstName, lastName } = splitName(name)
-  const timestamp = new Date().toISOString()
   const properties = {
     waitlist_name: name,
     waitlist_source: source,
-    waitlist_signed_up_at: timestamp,
+    waitlist_signed_up_at: signedUpAt,
   }
 
-  const existingContactResponse = await resend.contacts.get({ email: contactIdentifier })
+  const existingContactResponse = await resend.contacts.get({ email })
 
   if (existingContactResponse.error && existingContactResponse.error.name !== 'not_found') {
     throw new Error(`Failed to read existing waitlist contact: ${existingContactResponse.error.message}`)
@@ -75,7 +75,7 @@ export const saveWaitlistEntry = async ({
 
   if (existingContactResponse.data) {
     const updateResponse = await resend.contacts.update({
-      email: contactIdentifier,
+      email,
       firstName: firstName ?? null,
       lastName: lastName ?? null,
       properties,

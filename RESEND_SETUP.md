@@ -44,15 +44,12 @@ CONTACT_FROM_EMAIL=hello@30degreeseast.com
 CONTACT_TO_EMAIL=hello@30degreeseast.com
 WAITLIST_FROM_EMAIL=waitlist@30degreeseast.com
 WAITLIST_TO_EMAIL=waitlist@30degreeseast.com
-EMAIL_FROM=hello@30degreeseast.com
 ```
 
 **Important:**
 - Replace `re_123456789_your_actual_api_key` with your actual Resend API key
 - `CONTACT_FROM_EMAIL` and `CONTACT_TO_EMAIL` are used only by the contact form route
 - `WAITLIST_FROM_EMAIL` and `WAITLIST_TO_EMAIL` are used only by the waitlist route
-- `EMAIL_FROM` is an optional fallback if you want one shared sender default
-- Legacy `RESEND_FROM_EMAIL`, `RESEND_TO_EMAIL`, and `RESEND_WAITLIST_TO_EMAIL` are still supported as fallbacks, but should not be the primary production setup
 
 ### 5. Test Locally
 
@@ -71,13 +68,12 @@ npm run dev
 #### For Vercel:
 1. Go to your project settings
 2. Navigate to "Environment Variables"
-3. Add the three environment variables:
+3. Add the five environment variables:
    - `RESEND_API_KEY`
    - `CONTACT_FROM_EMAIL`
    - `CONTACT_TO_EMAIL`
    - `WAITLIST_FROM_EMAIL`
    - `WAITLIST_TO_EMAIL`
-   - `EMAIL_FROM` (optional fallback)
 4. Redeploy your site
 
 #### For Netlify:

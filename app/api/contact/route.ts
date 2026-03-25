@@ -4,23 +4,17 @@ import { Resend } from 'resend'
 import {
   escapeHtml,
   getContactEmailConfig,
+  getResendApiKey,
   hasHoneypotContent,
+  isMissingEnvVarError,
   isValidEmail,
   trimFormValue,
 } from '@/lib/server/form-utils'
 
 export async function POST(request: NextRequest) {
-  if (!process.env.RESEND_API_KEY) {
-    console.error('RESEND_API_KEY is not configured')
-    return NextResponse.json(
-      { error: 'Email service is not configured. Please contact us directly.' },
-      { status: 503 }
-    )
-  }
-
-  const resend = new Resend(process.env.RESEND_API_KEY)
-
   try {
+    const resend = new Resend(getResendApiKey())
+    const contactEmailConfig = getContactEmailConfig()
     const body = await request.json()
     const name = trimFormValue(body.name)
     const email = trimFormValue(body.email)
@@ -59,7 +53,6 @@ export async function POST(request: NextRequest) {
     }
 
     const serviceName = serviceNames[service] || service
-    const contactEmailConfig = getContactEmailConfig()
     const safeServiceName = escapeHtml(serviceName)
     const safeName = escapeHtml(name)
     const safeEmail = escapeHtml(email)
@@ -175,6 +168,14 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     )
   } catch (error) {
+    if (isMissingEnvVarError(error)) {
+      console.error(error.message)
+      return NextResponse.json(
+        { error: 'Email service is not configured. Please contact us directly.' },
+        { status: 503 }
+      )
+    }
+
     console.error('Error sending email:', error)
     return NextResponse.json(
       { error: 'Failed to send email. Please try again.' },

@@ -4,26 +4,26 @@ import { Resend } from 'resend'
 import {
   escapeHtml,
   formatWaitlistSource,
+  getResendApiKey,
   getWaitlistEmailConfig,
   hasHoneypotContent,
+  isMissingEnvVarError,
   isValidEmail,
   normalizeWaitlistSource,
   trimFormValue,
 } from '@/lib/server/form-utils'
+import {
+  appendWaitlistRowToGoogleSheets,
+  hasGoogleSheetsWaitlistConfig,
+} from '@/lib/server/google-sheets'
 import { saveWaitlistEntry } from '@/lib/server/resend-waitlist'
 
+export const runtime = 'nodejs'
+
 export async function POST(request: NextRequest) {
-  if (!process.env.RESEND_API_KEY) {
-    console.error('RESEND_API_KEY is not configured')
-    return NextResponse.json(
-      { error: 'Email service is not configured. Please contact us directly.' },
-      { status: 503 }
-    )
-  }
-
-  const resend = new Resend(process.env.RESEND_API_KEY)
-
   try {
+    const resend = new Resend(getResendApiKey())
+    const waitlistEmailConfig = getWaitlistEmailConfig()
     const body = await request.json()
     const name = trimFormValue(body.name)
     const email = trimFormValue(body.email)
@@ -51,13 +51,44 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    await saveWaitlistEntry({ resend, email, name, source })
+    const signedUpAt = new Date().toISOString()
+    let savedToResendWaitlist = false
 
-    const waitlistEmailConfig = getWaitlistEmailConfig()
+    try {
+      await saveWaitlistEntry({ resend, email, name, signedUpAt, source })
+      savedToResendWaitlist = true
+    } catch (error) {
+      console.error('Resend waitlist contact sync error:', error)
+    }
+
+    let savedToGoogleSheets = false
+
+    if (hasGoogleSheetsWaitlistConfig()) {
+      try {
+        await appendWaitlistRowToGoogleSheets({
+          email,
+          name,
+          resendContactSaved: savedToResendWaitlist,
+          signedUpAt,
+          source,
+        })
+        savedToGoogleSheets = true
+      } catch (error) {
+        console.error('Google Sheets waitlist append error:', error)
+      }
+    }
+
     const safeName = escapeHtml(name)
     const safeEmail = escapeHtml(email)
     const sourceLabel = formatWaitlistSource(source)
     const safeSourceLabel = escapeHtml(sourceLabel)
+    const internalFooterCopy = savedToGoogleSheets
+      ? savedToResendWaitlist
+        ? 'This signup was saved to Google Sheets and the Resend waitlist audience.'
+        : 'This signup was saved to Google Sheets, but the Resend contact sync failed. Check server logs.'
+      : savedToResendWaitlist
+        ? 'This signup was saved to the Resend waitlist audience, but the Google Sheets sync failed. Check server logs.'
+        : 'This signup came through the waitlist form, but both background saves failed. Check server logs.'
 
     const internalEmail = await resend.emails.send({
       from: waitlistEmailConfig.from,
@@ -126,7 +157,7 @@ export async function POST(request: NextRequest) {
                 <div class="value">${safeSourceLabel}</div>
               </div>
               <div class="footer">
-                This signup was saved to the 30 Degrees East waitlist audience.
+                ${internalFooterCopy}
               </div>
             </div>
           </body>
@@ -134,12 +165,10 @@ export async function POST(request: NextRequest) {
       `,
     })
 
-    if (internalEmail.error) {
+    const internalEmailSent = !internalEmail.error
+
+    if (!internalEmailSent) {
       console.error('Resend waitlist internal email error:', internalEmail.error)
-      return NextResponse.json(
-        { error: 'Unable to submit waitlist entry right now. Please try again soon.' },
-        { status: 500 }
-      )
     }
 
     const confirmationEmail = await resend.emails.send({
@@ -191,6 +220,9 @@ export async function POST(request: NextRequest) {
 
     if (confirmationEmail.error) {
       console.error('Resend waitlist confirmation email error:', confirmationEmail.error)
+    }
+
+    if (!savedToGoogleSheets && !savedToResendWaitlist && !internalEmailSent) {
       return NextResponse.json(
         { error: 'Unable to submit waitlist entry right now. Please try again soon.' },
         { status: 500 }
@@ -202,6 +234,14 @@ export async function POST(request: NextRequest) {
       id: internalEmail.data?.id,
     })
   } catch (error) {
+    if (isMissingEnvVarError(error)) {
+      console.error(error.message)
+      return NextResponse.json(
+        { error: 'Email service is not configured. Please contact us directly.' },
+        { status: 503 }
+      )
+    }
+
     console.error('Waitlist submission error:', error)
     return NextResponse.json(
       { error: 'Unable to submit waitlist entry right now. Please try again soon.' },

@@ -143,7 +143,7 @@ Replace all placeholder video URLs (`YOUR_VIDEO_ID`) with actual Vimeo or YouTub
 ### Configure Resend Emails
 
 The contact and waitlist forms use [Resend](https://resend.com) for email delivery.
-The waitlist is persisted in Resend Contacts and grouped into a dedicated waitlist audience automatically.
+The waitlist is persisted in Resend Contacts and can also be mirrored into Google Sheets automatically when the Google Sheets env vars are set.
 
 **Setup Required:**
 
@@ -157,7 +157,12 @@ CONTACT_FROM_EMAIL=hello@30degreeseast.com
 CONTACT_TO_EMAIL=hello@30degreeseast.com
 WAITLIST_FROM_EMAIL=waitlist@30degreeseast.com
 WAITLIST_TO_EMAIL=waitlist@30degreeseast.com
-EMAIL_FROM=hello@30degreeseast.com # optional fallback only
+
+# Optional Google Sheets mirror
+GOOGLE_SHEETS_CLIENT_EMAIL=your-service-account@project-id.iam.gserviceaccount.com
+GOOGLE_SHEETS_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+GOOGLE_SHEETS_SPREADSHEET_ID=your_google_sheet_id_here
+GOOGLE_SHEETS_SHEET_NAME=Waitlist
 ```
 
 **Detailed Instructions:** See [RESEND_SETUP.md](./RESEND_SETUP.md) for complete setup guide.

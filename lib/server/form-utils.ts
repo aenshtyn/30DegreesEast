@@ -7,10 +7,14 @@ type EmailConfig = {
   to: string[]
 }
 
-const CONTACT_FALLBACK_FROM = 'hello@30degreeseast.com'
-const CONTACT_FALLBACK_TO = 'hello@30degreeseast.com'
-const WAITLIST_FALLBACK_FROM = 'waitlist@30degreeseast.com'
-const WAITLIST_FALLBACK_TO = 'waitlist@30degreeseast.com'
+type RequiredEnvVar =
+  | 'RESEND_API_KEY'
+  | 'CONTACT_FROM_EMAIL'
+  | 'CONTACT_TO_EMAIL'
+  | 'WAITLIST_FROM_EMAIL'
+  | 'WAITLIST_TO_EMAIL'
+
+type RequiredListEnvVar = 'CONTACT_TO_EMAIL' | 'WAITLIST_TO_EMAIL'
 
 export const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -25,60 +29,44 @@ const parseEmailList = (value?: string | null) =>
     .map((email) => email.trim())
     .filter(Boolean)
 
-const resolveFromAddress = (values: Array<string | undefined>, fallback: string) => {
-  for (const value of values) {
-    const trimmed = trimEnvValue(value)
-    if (trimmed) {
-      return trimmed.split(',')[0].trim()
-    }
+export class MissingEnvVarError extends Error {
+  constructor(name: RequiredEnvVar) {
+    super(`${name} is not configured`)
+    this.name = 'MissingEnvVarError'
   }
-
-  return fallback
 }
 
-const resolveToAddresses = (values: Array<string | undefined>, fallback: string) => {
-  for (const value of values) {
-    const emails = parseEmailList(value)
-    if (emails.length > 0) {
-      return emails
-    }
+const getRequiredEnvValue = (name: RequiredEnvVar) => {
+  const value = trimEnvValue(process.env[name])
+  if (!value) {
+    throw new MissingEnvVarError(name)
   }
 
-  return [fallback]
+  return value
 }
+
+const getRequiredEnvEmailList = (name: RequiredListEnvVar) => {
+  const emails = parseEmailList(process.env[name])
+  if (emails.length === 0) {
+    throw new MissingEnvVarError(name)
+  }
+
+  return emails
+}
+
+export const isMissingEnvVarError = (error: unknown): error is MissingEnvVarError =>
+  error instanceof MissingEnvVarError
+
+export const getResendApiKey = () => getRequiredEnvValue('RESEND_API_KEY')
 
 export const getContactEmailConfig = (): EmailConfig => ({
-  from: resolveFromAddress(
-    [
-      process.env.CONTACT_FROM_EMAIL,
-      process.env.EMAIL_FROM,
-      process.env.RESEND_FROM_EMAIL,
-    ],
-    CONTACT_FALLBACK_FROM
-  ),
-  to: resolveToAddresses(
-    [process.env.CONTACT_TO_EMAIL, process.env.RESEND_TO_EMAIL],
-    CONTACT_FALLBACK_TO
-  ),
+  from: getRequiredEnvValue('CONTACT_FROM_EMAIL'),
+  to: getRequiredEnvEmailList('CONTACT_TO_EMAIL'),
 })
 
 export const getWaitlistEmailConfig = (): EmailConfig => ({
-  from: resolveFromAddress(
-    [
-      process.env.WAITLIST_FROM_EMAIL,
-      process.env.EMAIL_FROM,
-      process.env.RESEND_FROM_EMAIL,
-    ],
-    WAITLIST_FALLBACK_FROM
-  ),
-  to: resolveToAddresses(
-    [
-      process.env.WAITLIST_TO_EMAIL,
-      process.env.RESEND_WAITLIST_TO_EMAIL,
-      process.env.RESEND_TO_EMAIL,
-    ],
-    WAITLIST_FALLBACK_TO
-  ),
+  from: getRequiredEnvValue('WAITLIST_FROM_EMAIL'),
+  to: getRequiredEnvEmailList('WAITLIST_TO_EMAIL'),
 })
 
 export const escapeHtml = (value: string) =>
