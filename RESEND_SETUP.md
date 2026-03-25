@@ -40,9 +40,9 @@ Create a `.env.local` file in your project root:
 ```bash
 # .env.local
 RESEND_API_KEY=re_123456789_your_actual_api_key
-CONTACT_FROM_EMAIL=hello@30degreeseast.com
+CONTACT_FROM_EMAIL="30 Degrees East <hello@30degreeseast.com>"
 CONTACT_TO_EMAIL=hello@30degreeseast.com
-WAITLIST_FROM_EMAIL=waitlist@30degreeseast.com
+WAITLIST_FROM_EMAIL="30 Degrees East <waitlist@30degreeseast.com>"
 WAITLIST_TO_EMAIL=waitlist@30degreeseast.com
 ```
 

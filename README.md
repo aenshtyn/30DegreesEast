@@ -153,9 +153,9 @@ The waitlist is persisted in Resend Contacts and can also be mirrored into Googl
 
 ```bash
 RESEND_API_KEY=your_api_key_here
-CONTACT_FROM_EMAIL=hello@30degreeseast.com
+CONTACT_FROM_EMAIL="30 Degrees East <hello@30degreeseast.com>"
 CONTACT_TO_EMAIL=hello@30degreeseast.com
-WAITLIST_FROM_EMAIL=waitlist@30degreeseast.com
+WAITLIST_FROM_EMAIL="30 Degrees East <waitlist@30degreeseast.com>"
 WAITLIST_TO_EMAIL=waitlist@30degreeseast.com
 
 # Optional Google Sheets mirror
