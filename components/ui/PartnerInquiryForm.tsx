@@ -14,7 +14,8 @@ export default function PartnerInquiryForm() {
     setIsSubmitting(true)
     setSubmitStatus({ type: null, message: '' })
 
-    const formData = new FormData(e.currentTarget)
+    const form = e.currentTarget
+    const formData = new FormData(form)
     const data = {
       name: formData.get('name') as string,
       email: formData.get('email') as string,
@@ -36,9 +37,10 @@ export default function PartnerInquiryForm() {
       if (response.ok) {
         setSubmitStatus({
           type: 'success',
-          message: 'Thanks. Your message has been sent and you should get a reply within 2-3 business days.',
+          message:
+            'Thanks. Your message has been sent. If there is a fit, Swaleh will reply from swaleh@30degreeseast.com within 2-3 business days.',
         })
-        ;(e.target as HTMLFormElement).reset()
+        form.reset()
       } else {
         setSubmitStatus({
           type: 'error',
@@ -48,7 +50,7 @@ export default function PartnerInquiryForm() {
     } catch {
       setSubmitStatus({
         type: 'error',
-        message: 'Failed to send message. Please try again or email directly.',
+        message: 'Failed to send message. Please try again or email swaleh@30degreeseast.com directly.',
       })
     } finally {
       setIsSubmitting(false)

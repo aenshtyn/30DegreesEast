@@ -7,6 +7,8 @@ type EmailConfig = {
   to: string[]
 }
 
+const PARTNER_WITH_SWALEH_SERVICE = 'partner-with-swaleh'
+
 type RequiredEnvVar =
   | 'RESEND_API_KEY'
   | 'CONTACT_FROM_EMAIL'
@@ -59,10 +61,19 @@ export const isMissingEnvVarError = (error: unknown): error is MissingEnvVarErro
 
 export const getResendApiKey = () => getRequiredEnvValue('RESEND_API_KEY')
 
-export const getContactEmailConfig = (): EmailConfig => ({
-  from: getRequiredEnvValue('CONTACT_FROM_EMAIL'),
-  to: getRequiredEnvEmailList('CONTACT_TO_EMAIL'),
-})
+export const getContactEmailConfig = (service?: string): EmailConfig => {
+  if (service === PARTNER_WITH_SWALEH_SERVICE) {
+    return {
+      from: '30 Degrees East <swaleh@30degreeseast.com>',
+      to: ['swaleh@30degreeseast.com'],
+    }
+  }
+
+  return {
+    from: getRequiredEnvValue('CONTACT_FROM_EMAIL'),
+    to: getRequiredEnvEmailList('CONTACT_TO_EMAIL'),
+  }
+}
 
 export const getWaitlistEmailConfig = (): EmailConfig => ({
   from: getRequiredEnvValue('WAITLIST_FROM_EMAIL'),

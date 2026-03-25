@@ -351,17 +351,10 @@ export async function POST(request: NextRequest) {
 
                     <p class="section-title">While You Wait</p>
                     <p>
-                      If you want context before the next opening, start with the orientation page
-                      or browse the insights library.
+                      If you want context before the next opening, start with what is already live.
                     </p>
                     <p>
-                      <a class="button" href="${siteUrl}/start-here">Start Here</a>
-                    </p>
-                    <p class="links">
-                      Or go straight to
-                      <a href="${siteUrl}/insights"> Insights</a>,
-                      <a href="${siteUrl}/teaching-system-audit"> Teaching System Audit</a>, or
-                      <a href="${siteUrl}/co-creation"> Co-creation Labs</a>.
+                      <a class="button" href="${siteUrl}/#courses">Start Here</a>
                     </p>
 
                     <div class="footer">

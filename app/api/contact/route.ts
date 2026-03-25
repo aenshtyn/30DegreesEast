@@ -14,7 +14,6 @@ import {
 export async function POST(request: NextRequest) {
   try {
     const resend = new Resend(getResendApiKey())
-    const contactEmailConfig = getContactEmailConfig()
     const body = await request.json()
     const name = trimFormValue(body.name)
     const email = trimFormValue(body.email)
@@ -49,9 +48,11 @@ export async function POST(request: NextRequest) {
       'strategy-session': 'Thinking / Strategy Session',
       'teaching-audit': 'Teaching System Audit',
       'coaches-educators': 'Coaching for Coaches & Educators',
+      'partner-with-swaleh': 'Partner with Swaleh',
       'other': 'Other / General Inquiry',
     }
 
+    const contactEmailConfig = getContactEmailConfig(service)
     const serviceName = serviceNames[service] || service
     const safeServiceName = escapeHtml(serviceName)
     const safeName = escapeHtml(name)
