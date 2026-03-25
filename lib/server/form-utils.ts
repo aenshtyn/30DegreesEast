@@ -62,27 +62,35 @@ export const isMissingEnvVarError = (error: unknown): error is MissingEnvVarErro
 
 export const getResendApiKey = () => getRequiredEnvValue('RESEND_API_KEY')
 
+const getEmailFromName = () => trimEnvValue(process.env.EMAIL_FROM_NAME) || BRAND_DISPLAY_NAME
+
 const withDisplayName = (value: string, displayName: string) =>
   /<[^>]+>/.test(value) ? value : `${displayName} <${value}>`
 
 export const getContactEmailConfig = (service?: string): EmailConfig => {
+  const displayName = getEmailFromName()
+
   if (service === PARTNER_WITH_SWALEH_SERVICE) {
     return {
-      from: withDisplayName('swaleh@30degreeseast.com', BRAND_DISPLAY_NAME),
+      from: withDisplayName('swaleh@30degreeseast.com', displayName),
       to: ['swaleh@30degreeseast.com'],
     }
   }
 
   return {
-    from: withDisplayName(getRequiredEnvValue('CONTACT_FROM_EMAIL'), BRAND_DISPLAY_NAME),
+    from: withDisplayName(getRequiredEnvValue('CONTACT_FROM_EMAIL'), displayName),
     to: getRequiredEnvEmailList('CONTACT_TO_EMAIL'),
   }
 }
 
-export const getWaitlistEmailConfig = (): EmailConfig => ({
-  from: withDisplayName(getRequiredEnvValue('WAITLIST_FROM_EMAIL'), BRAND_DISPLAY_NAME),
-  to: getRequiredEnvEmailList('WAITLIST_TO_EMAIL'),
-})
+export const getWaitlistEmailConfig = (): EmailConfig => {
+  const displayName = getEmailFromName()
+
+  return {
+    from: withDisplayName(getRequiredEnvValue('WAITLIST_FROM_EMAIL'), displayName),
+    to: getRequiredEnvEmailList('WAITLIST_TO_EMAIL'),
+  }
+}
 
 export const escapeHtml = (value: string) =>
   value

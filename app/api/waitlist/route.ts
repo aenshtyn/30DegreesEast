@@ -346,8 +346,8 @@ export async function POST(request: NextRequest) {
                   </p>
 
                   <div class="footer">
-                    <p>This signup came through the ${safeSourceLabel.toLowerCase()} form.</p>
-                    <p>Swaleh Kimani<br />30 Degrees East</p>
+            
+                    <p>30 Degrees East <br/> by <br/> Swaleh Kimani </p>
                   </div>
                 </div>
               </div>

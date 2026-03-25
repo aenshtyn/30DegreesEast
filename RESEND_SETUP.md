@@ -40,14 +40,16 @@ Create a `.env.local` file in your project root:
 ```bash
 # .env.local
 RESEND_API_KEY=re_123456789_your_actual_api_key
-CONTACT_FROM_EMAIL="30 Degrees East <hello@30degreeseast.com>"
+EMAIL_FROM_NAME="30 Degrees East"
+CONTACT_FROM_EMAIL=hello@30degreeseast.com
 CONTACT_TO_EMAIL=hello@30degreeseast.com
-WAITLIST_FROM_EMAIL="30 Degrees East <waitlist@30degreeseast.com>"
+WAITLIST_FROM_EMAIL=waitlist@30degreeseast.com
 WAITLIST_TO_EMAIL=waitlist@30degreeseast.com
 ```
 
 **Important:**
 - Replace `re_123456789_your_actual_api_key` with your actual Resend API key
+- `EMAIL_FROM_NAME` is the display name shown in inboxes for outgoing contact and waitlist emails
 - `CONTACT_FROM_EMAIL` and `CONTACT_TO_EMAIL` are used only by the contact form route
 - `WAITLIST_FROM_EMAIL` and `WAITLIST_TO_EMAIL` are used only by the waitlist route
 
