@@ -14,7 +14,8 @@ export default function ContactForm() {
     setIsSubmitting(true)
     setSubmitStatus({ type: null, message: '' })
 
-    const formData = new FormData(e.currentTarget)
+    const form = e.currentTarget
+    const formData = new FormData(form)
     const data = {
       name: formData.get('name') as string,
       email: formData.get('email') as string,
@@ -39,8 +40,7 @@ export default function ContactForm() {
           type: 'success',
           message: 'Thank you for reaching out! I\'ll respond within 2-3 business days.',
         })
-        // Reset form
-        ;(e.target as HTMLFormElement).reset()
+        form.reset()
       } else {
         setSubmitStatus({
           type: 'error',

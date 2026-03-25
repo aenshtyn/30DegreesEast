@@ -19,8 +19,9 @@ export default function PartnerInquiryForm() {
     const data = {
       name: formData.get('name') as string,
       email: formData.get('email') as string,
+      business: formData.get('business') as string,
       service: 'partner-with-swaleh',
-      message: `Business / industry: ${formData.get('business') as string}\n\n${formData.get('message') as string}`,
+      message: formData.get('message') as string,
     }
 
     try {
