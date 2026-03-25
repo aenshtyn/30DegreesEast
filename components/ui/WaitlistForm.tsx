@@ -72,16 +72,18 @@ export default function WaitlistForm({
       const result = await response.json()
 
       if (response.ok) {
-        setStatus({
-          type: 'success',
-          message: 'Thanks! You are on the 30 Degrees East waitlist.',
-        })
         form.reset()
         setFormValues({ name: '', email: '' })
         onValidityChange?.(false)
         onSuccess?.()
+
         if (redirectOnSuccess) {
           router.push(redirectOnSuccess)
+        } else {
+          setStatus({
+            type: 'success',
+            message: 'Thanks! You are on the 30 Degrees East waitlist.',
+          })
         }
       } else {
         setStatus({
