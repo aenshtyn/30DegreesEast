@@ -27,50 +27,39 @@ const nextSteps = [
 export default function ThankYouPage() {
   return (
     <section className="bg-raisin text-white">
-      <div className="container-custom flex min-h-[calc(100vh-9rem)] items-center justify-center py-16">
-        <div className="w-full max-w-2xl text-center">
-          <div className="mx-auto flex h-[72px] w-[72px] items-center justify-center rounded-full border border-accent-500/30 bg-accent-500/10">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="h-8 w-8 text-accent-500"
-              aria-hidden="true"
-            >
-              <polyline points="5 13 9 17 19 7" />
-            </svg>
+      <div className="container-custom flex min-h-screen items-center justify-center py-16">
+        <div className="mx-auto max-w-3xl">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full border border-accent-500/30 bg-accent-500/10 text-3xl text-accent-300">
+            ✓
           </div>
 
-          <p className="mt-8 text-xs font-semibold uppercase tracking-[0.22em] text-accent-300">
+          <p className="mt-8 text-center text-xs font-semibold uppercase tracking-[0.2em] text-accent-300">
             You&apos;re confirmed
           </p>
-          <h1 className="mt-4 text-white">
+          <h1 className="mt-4 text-center text-white">
             You&apos;re on the list.
             <br />
             <span className="text-accent-300">Welcome.</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-xl text-white/70">
+          <p className="mx-auto mt-5 max-w-2xl text-center text-white/70">
             Your spot is saved. Keep an eye on your inbox. That&apos;s where everything important
             will land first.
           </p>
 
-          <div className="mt-10 rounded-[28px] border border-accent-500/15 bg-white/5 p-8 text-left shadow-soft-card">
-            <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-accent-300">
+          <div className="mt-10 rounded-[28px] border border-accent-500/20 bg-white/5 p-6 shadow-soft-card md:p-8">
+            <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-accent-300">
               What happens next
             </h2>
-            <div className="mt-6 space-y-4">
+            <div className="mt-5 space-y-5">
               {nextSteps.map((step, index) => (
                 <div
                   key={step.title}
-                  className="flex gap-4 border-b border-white/8 pb-4 last:border-b-0 last:pb-0"
+                  className="flex gap-4 border-b border-white/10 pb-5 last:border-b-0 last:pb-0"
                 >
-                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent-500/15 text-xs font-semibold text-accent-300">
+                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-accent-500/15 text-sm font-semibold text-accent-300">
                     {index + 1}
                   </div>
-                  <p className="text-white/75">
+                  <p className="text-sm leading-7 text-white/70">
                     <strong className="text-white">{step.title}.</strong> {step.description}
                   </p>
                 </div>
@@ -78,18 +67,26 @@ export default function ThankYouPage() {
             </div>
           </div>
 
-          <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-            <Link
-              href="/teach-english-online"
-              className="inline-flex items-center justify-center rounded-full bg-accent-500 px-8 py-4 text-base font-semibold text-raisin shadow-soft-card transition hover:bg-accent-400"
-            >
-              See the English Course
-            </Link>
+          <div className="mt-8 rounded-[24px] border border-accent-500/20 bg-accent-500/10 p-6 sm:flex sm:items-center sm:justify-between sm:gap-6">
+            <div>
+              <p className="font-semibold text-white">30 Degrees East Waitlist</p>
+              <p className="mt-1 text-sm text-white/50">New cohorts · digital products · co-creation openings</p>
+            </div>
+            <p className="mt-4 font-display text-4xl text-accent-300 sm:mt-0">Confirmed</p>
+          </div>
+
+          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
               href="/"
-              className="inline-flex items-center justify-center rounded-full border border-accent-500/35 px-8 py-4 text-base font-medium text-white/75 transition hover:border-accent-500 hover:text-accent-200"
+              className="inline-flex items-center justify-center rounded-full border border-white/20 px-8 py-3 text-sm font-semibold text-white/75 transition hover:border-accent-300 hover:text-accent-300"
             >
               Back to Homepage
+            </Link>
+            <Link
+              href="/teach-english-online"
+              className="inline-flex items-center justify-center rounded-full bg-accent-500 px-8 py-3 text-sm font-semibold text-raisin shadow-soft-card transition hover:bg-accent-400"
+            >
+              See the English Course
             </Link>
           </div>
         </div>
