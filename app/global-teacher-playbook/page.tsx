@@ -176,7 +176,7 @@ export default function GlobalTeacherPlaybookPage() {
                           alt={instructor.name}
                           fill
                           sizes="40px"
-                          className="object-cover object-center"
+                          className={`object-cover ${instructor.imagePosition ?? 'object-center'}`}
                         />
                       ) : (
                         instructor.initials

@@ -24,7 +24,7 @@ export default function InstructorStrip() {
                       alt={instructor.name}
                       fill
                       sizes="48px"
-                      className="object-cover object-center"
+                      className={`object-cover ${instructor.imagePosition ?? 'object-center'}`}
                     />
                   ) : (
                     instructor.initials
