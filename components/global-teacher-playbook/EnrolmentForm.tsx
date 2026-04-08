@@ -1,6 +1,6 @@
 'use client'
 
-import { FormEvent, useMemo, useState } from 'react'
+import { FormEvent, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
@@ -99,6 +99,7 @@ function FieldLabel({ children, required }: { children: React.ReactNode; require
 
 export default function EnrolmentForm() {
   const router = useRouter()
+  const formCardRef = useRef<HTMLDivElement>(null)
   const [activeStep, setActiveStep] = useState(0)
   const [formValues, setFormValues] = useState<FormValues>(initialValues)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -106,6 +107,12 @@ export default function EnrolmentForm() {
   const [status, setStatus] = useState<StatusState>({ type: null, message: '' })
   const isLastStep = activeStep === steps.length - 1
   const openInstructor = playbookInstructors.find((instructor) => instructor.name === openInstructorName)
+
+  const scrollToFormTop = () => {
+    window.requestAnimationFrame(() => {
+      formCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    })
+  }
 
   const completedSteps = useMemo(
     () => [
@@ -172,11 +179,13 @@ export default function EnrolmentForm() {
 
     if (error) {
       setStatus({ type: 'error', message: error })
+      scrollToFormTop()
       return
     }
 
     setStatus({ type: null, message: '' })
     setActiveStep((current) => Math.min(current + 1, steps.length - 1))
+    scrollToFormTop()
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -195,6 +204,7 @@ export default function EnrolmentForm() {
 
     if (error) {
       setStatus({ type: 'error', message: error })
+      scrollToFormTop()
       return
     }
 
@@ -233,7 +243,7 @@ export default function EnrolmentForm() {
 
       form.reset()
       setFormValues(initialValues)
-      router.push('/global-teacher-playbook/confirmed')
+      router.push('/global-teacher-playbook/confirmed', { scroll: true })
     } catch {
       setStatus({
         type: 'error',
@@ -247,7 +257,7 @@ export default function EnrolmentForm() {
   return (
     <div className="container-custom py-12 md:py-16">
       <div className="grid gap-8 lg:grid-cols-[1fr_380px] lg:items-start">
-        <div className="rounded-[32px] border border-white/70 bg-white/90 p-6 shadow-soft-card md:p-10">
+        <div ref={formCardRef} className="scroll-mt-28 rounded-[32px] border border-white/70 bg-white/90 p-6 shadow-soft-card md:p-10">
           <p className="accent-label">Your application</p>
           <h2 className="mt-4 section-heading">Reserve your place.</h2>
           <p className="mt-4 text-neutral-700">
@@ -259,7 +269,12 @@ export default function EnrolmentForm() {
               <button
                 key={step.label}
                 type="button"
-                onClick={() => index <= activeStep || completedSteps[index - 1] ? setActiveStep(index) : null}
+                onClick={() => {
+                  if (index <= activeStep || completedSteps[index - 1]) {
+                    setActiveStep(index)
+                    scrollToFormTop()
+                  }
+                }}
                 className={`min-w-0 rounded-2xl border px-3 py-3 text-left transition ${
                   index === activeStep
                     ? 'border-accent-500 bg-accent-50 text-raisin'
@@ -466,7 +481,10 @@ export default function EnrolmentForm() {
               <button
                 type="button"
                 disabled={activeStep === 0 || isSubmitting}
-                onClick={() => setActiveStep((current) => Math.max(current - 1, 0))}
+                onClick={() => {
+                  setActiveStep((current) => Math.max(current - 1, 0))
+                  scrollToFormTop()
+                }}
                 className="rounded-full border border-neutral-200 px-6 py-3 text-sm font-semibold text-neutral-700 transition hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Back
