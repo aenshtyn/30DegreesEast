@@ -252,13 +252,13 @@ export default function EnrolmentForm() {
             This helps us understand where you are and make sure the programme is the right fit.
           </p>
 
-          <div className="mt-8 grid gap-3 sm:grid-cols-5">
+          <div className="mt-8 grid grid-cols-[repeat(auto-fit,minmax(132px,1fr))] gap-3">
             {steps.map((step, index) => (
               <button
                 key={step.label}
                 type="button"
                 onClick={() => index <= activeStep || completedSteps[index - 1] ? setActiveStep(index) : null}
-                className={`rounded-2xl border px-4 py-3 text-left transition ${
+                className={`min-w-0 rounded-2xl border px-3 py-3 text-left transition ${
                   index === activeStep
                     ? 'border-accent-500 bg-accent-50 text-raisin'
                     : completedSteps[index]
@@ -266,10 +266,10 @@ export default function EnrolmentForm() {
                       : 'border-neutral-200 bg-neutral-50 text-neutral-400'
                 }`}
               >
-                <span className="block text-xs font-semibold uppercase tracking-[0.14em]">
+                <span className="block text-[0.68rem] font-semibold uppercase tracking-[0.12em]">
                   {completedSteps[index] ? 'Done' : `Step ${index + 1}`}
                 </span>
-                <span className="mt-1 block text-sm font-semibold">{step.label}</span>
+                <span className="mt-1 block text-sm font-semibold leading-snug">{step.label}</span>
               </button>
             ))}
           </div>
