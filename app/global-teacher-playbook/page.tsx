@@ -305,15 +305,15 @@ export default function GlobalTeacherPlaybookPage() {
         </div>
       </section>
 
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-raisin text-white">
         <div className="container-custom">
           <div className="mx-auto max-w-3xl">
-            <p className="accent-label">From our first cohort</p>
-            <h2 className="mt-4 section-heading">Real teachers. Real results.</h2>
-            <blockquote className="mt-8 rounded-[28px] border border-neutral-200 bg-neutral-50/80 p-8 font-display text-3xl leading-snug text-raisin shadow-soft-card">
+            <p className="accent-label text-accent-300">From our first cohort</p>
+            <h2 className="mt-4 text-white">Real teachers. Real results.</h2>
+            <blockquote className="mt-8 rounded-[28px] border border-accent-500/20 bg-white/5 p-8 font-display text-3xl leading-snug text-white/85 shadow-soft-card">
               I realised there is actually no perfect time to start. You just start where you are and grow from there. I now have a plan, structure, and direction.
             </blockquote>
-            <p className="mt-4 text-sm font-semibold text-accent-600">
+            <p className="mt-4 text-sm font-semibold text-accent-300">
               Veronica N., first cohort participant, Global Teacher Playbook
             </p>
           </div>
