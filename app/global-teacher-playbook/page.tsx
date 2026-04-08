@@ -46,6 +46,8 @@ const heroIncludes = [
   },
 ]
 
+const includeIconNames: PlaybookIconName[] = ['video', 'workbook', 'roadmap', 'globe', 'community', 'community']
+
 const audienceCards = [
   {
     icon: 'income' as const,
@@ -295,9 +297,12 @@ export default function GlobalTeacherPlaybookPage() {
             <h2 className="mt-4 section-heading">Everything you need. Nothing you do not.</h2>
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {playbookIncludes.map((item) => (
+            {playbookIncludes.map((item, index) => (
               <article key={item.title} className="rounded-[24px] border border-neutral-200 bg-neutral-50/70 p-6 shadow-soft-card">
-                <h3 className="text-xl text-raisin">{item.title}</h3>
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-500/10 text-accent-500">
+                  <PlaybookIcon name={includeIconNames[index] ?? 'workbook'} />
+                </div>
+                <h3 className="mt-5 text-xl text-raisin">{item.title}</h3>
                 <p className="mt-3 text-neutral-700">{item.description}</p>
               </article>
             ))}

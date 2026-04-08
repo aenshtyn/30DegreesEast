@@ -102,8 +102,10 @@ export default function EnrolmentForm() {
   const [activeStep, setActiveStep] = useState(0)
   const [formValues, setFormValues] = useState<FormValues>(initialValues)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [openInstructorName, setOpenInstructorName] = useState<string | null>(null)
   const [status, setStatus] = useState<StatusState>({ type: null, message: '' })
   const isLastStep = activeStep === steps.length - 1
+  const openInstructor = playbookInstructors.find((instructor) => instructor.name === openInstructorName)
 
   const completedSteps = useMemo(
     () => [
@@ -517,7 +519,12 @@ export default function EnrolmentForm() {
             <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-accent-300">Your instructors</h3>
             <div className="mt-5 space-y-4">
               {playbookInstructors.map((instructor) => (
-                <div key={instructor.name} className="flex gap-3 border-b border-white/10 pb-4 last:border-b-0 last:pb-0">
+                <button
+                  key={instructor.name}
+                  type="button"
+                  onClick={() => setOpenInstructorName(instructor.name)}
+                  className="flex w-full gap-3 border-b border-white/10 pb-4 text-left transition hover:text-accent-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-300 last:border-b-0 last:pb-0"
+                >
                   <div className="relative flex h-11 w-11 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-accent-500/15 text-xs font-semibold text-accent-300">
                     {instructor.image ? (
                       <Image
@@ -535,12 +542,48 @@ export default function EnrolmentForm() {
                     <p className="text-sm font-semibold text-white">{instructor.name}</p>
                     <p className="text-xs leading-5 text-white/50">{instructor.shortRole}</p>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           </div>
         </aside>
       </div>
+
+      {openInstructor ? (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-raisin/80 px-6 py-10 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="enrolment-instructor-modal-title"
+          onClick={() => setOpenInstructorName(null)}
+        >
+          <div
+            className="w-full max-w-xl rounded-[28px] border border-neutral-200 bg-white p-6 text-raisin shadow-soft-card md:p-8"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-6">
+              <div>
+                <p className="accent-label">Instructor</p>
+                <h2 id="enrolment-instructor-modal-title" className="mt-3 text-3xl text-raisin">
+                  {openInstructor.name}
+                </h2>
+                <p className="mt-2 text-sm font-semibold uppercase tracking-[0.16em] text-accent-600">
+                  {openInstructor.role}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setOpenInstructorName(null)}
+                className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-neutral-200 text-xl text-neutral-500 transition hover:bg-neutral-50 hover:text-raisin"
+                aria-label="Close instructor details"
+              >
+                x
+              </button>
+            </div>
+            <p className="mt-6 text-neutral-700">{openInstructor.bio}</p>
+          </div>
+        </div>
+      ) : null}
     </div>
   )
 }
