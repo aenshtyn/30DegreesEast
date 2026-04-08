@@ -15,6 +15,7 @@ export const playbookInstructors = [
   },
   {
     initials: 'SK',
+    image: '/testimonials/swaleh-kimani.jpeg',
     name: 'Swaleh Kimani',
     role: 'Co-creator & Instructor',
     shortRole: 'Digital education builder, 30 Degrees East',

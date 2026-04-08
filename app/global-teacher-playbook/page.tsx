@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 
 import CTAButton from '@/components/ui/CTAButton'
 import {
@@ -152,11 +153,21 @@ export default function GlobalTeacherPlaybookPage() {
                   {playbookInstructors.map((instructor, index) => (
                     <div
                       key={instructor.name}
-                      className={`flex h-10 w-10 items-center justify-center rounded-full border-2 border-raisin text-xs font-semibold ${
+                      className={`relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border-2 border-raisin text-xs font-semibold ${
                         index === 0 ? 'bg-accent-500 text-raisin' : 'bg-brand-400 text-white'
                       }`}
                     >
-                      {instructor.initials}
+                      {instructor.image ? (
+                        <Image
+                          src={instructor.image}
+                          alt={instructor.name}
+                          fill
+                          sizes="40px"
+                          className="object-cover object-center"
+                        />
+                      ) : (
+                        instructor.initials
+                      )}
                     </div>
                   ))}
                 </div>
@@ -195,8 +206,18 @@ export default function GlobalTeacherPlaybookPage() {
           <div className="grid gap-6 md:grid-cols-2">
             {playbookInstructors.map((instructor) => (
               <article key={instructor.name} className="flex gap-5 rounded-[28px] border border-accent-500/20 bg-white/5 p-6">
-                <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full border border-accent-500/30 bg-accent-500/10 font-semibold text-accent-300">
-                  {instructor.initials}
+                <div className="relative flex h-16 w-16 flex-shrink-0 items-center justify-center overflow-hidden rounded-full border border-accent-500/30 bg-accent-500/10 font-semibold text-accent-300">
+                  {instructor.image ? (
+                    <Image
+                      src={instructor.image}
+                      alt={instructor.name}
+                      fill
+                      sizes="64px"
+                      className="object-cover object-center"
+                    />
+                  ) : (
+                    instructor.initials
+                  )}
                 </div>
                 <div>
                   <h2 className="text-xl text-white">{instructor.name} · {instructor.role}</h2>

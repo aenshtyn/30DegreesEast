@@ -1,6 +1,7 @@
 'use client'
 
 import { FormEvent, useState } from 'react'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 import { applicationOptions, playbookIncludes, playbookInstructors } from '@/lib/data/global-teacher-playbook'
@@ -274,8 +275,18 @@ export default function EnrolmentForm() {
             <div className="mt-5 space-y-4">
               {playbookInstructors.map((instructor) => (
                 <div key={instructor.name} className="flex gap-3 border-b border-white/10 pb-4 last:border-b-0 last:pb-0">
-                  <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-accent-500/15 text-xs font-semibold text-accent-300">
-                    {instructor.initials}
+                  <div className="relative flex h-11 w-11 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-accent-500/15 text-xs font-semibold text-accent-300">
+                    {instructor.image ? (
+                      <Image
+                        src={instructor.image}
+                        alt={instructor.name}
+                        fill
+                        sizes="44px"
+                        className="object-cover object-center"
+                      />
+                    ) : (
+                      instructor.initials
+                    )}
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-white">{instructor.name}</p>
