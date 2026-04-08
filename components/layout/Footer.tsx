@@ -32,7 +32,7 @@ export default function Footer() {
 
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-white/60">Quick links</h3>
-            <ul className="mt-6 grid grid-cols-2 gap-3">
+            <ul className="mt-6 grid gap-3">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-sm text-white/80 transition hover:text-accent-200">

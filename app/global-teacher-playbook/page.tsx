@@ -48,23 +48,33 @@ const heroIncludes = [
 const audienceCards = [
   {
     icon: 'income' as const,
-    title: 'Kenyan teachers ready to earn more',
-    description: 'You know your skills are worth more than your current salary.',
+    title: 'Your skills are worth more',
+    description: 'You are a Kenyan teacher who knows your skills are worth more than your current salary.',
   },
   {
     icon: 'globe' as const,
-    title: 'Teachers ready to go global',
-    description: 'You want students beyond one school, one contract, or one local market.',
+    title: 'You want to teach online',
+    description: 'You have thought about teaching online but feel overwhelmed by platforms, pricing, and where to begin.',
   },
   {
     icon: 'roadmap' as const,
-    title: 'Teachers who need a clear starting path',
-    description: 'You want practical steps for platforms, pricing, profiles, and launch.',
+    title: 'You want income options',
+    description: 'You want income that does not depend entirely on one school, one salary, or one contract.',
   },
   {
     icon: 'community' as const,
-    title: 'Teachers ready to do the work',
-    description: 'You want live support and accountability, not another generic online course.',
+    title: 'You are ready to execute',
+    description: 'You are ready to do the actual work, not just consume content about it.',
+  },
+  {
+    icon: 'community' as const,
+    title: 'You want teacher community',
+    description: 'You want a community of teachers on the same journey, not a generic online course.',
+  },
+  {
+    icon: 'roadmap' as const,
+    title: 'You want a 90-day plan',
+    description: 'You want a clear 90-day plan you can start executing immediately after the programme.',
   },
 ]
 
@@ -202,17 +212,17 @@ export default function GlobalTeacherPlaybookPage() {
       </section>
 
       <section className="bg-neutral-900 text-white">
-        <div className="container-custom py-12">
-          <div className="grid gap-6 md:grid-cols-2">
+        <div className="container-custom py-8">
+          <div className="grid gap-4 md:grid-cols-2">
             {playbookInstructors.map((instructor) => (
-              <article key={instructor.name} className="flex gap-5 rounded-[28px] border border-accent-500/20 bg-white/5 p-6">
-                <div className="relative flex h-16 w-16 flex-shrink-0 items-center justify-center overflow-hidden rounded-full border border-accent-500/30 bg-accent-500/10 font-semibold text-accent-300">
+              <article key={instructor.name} className="flex items-center gap-4 rounded-[20px] border border-accent-500/20 bg-white/5 p-5">
+                <div className="relative flex h-14 w-14 flex-shrink-0 items-center justify-center overflow-hidden rounded-full border border-accent-500/30 bg-accent-500/10 font-semibold text-accent-300">
                   {instructor.image ? (
                     <Image
                       src={instructor.image}
                       alt={instructor.name}
                       fill
-                      sizes="64px"
+                      sizes="56px"
                       className="object-cover object-center"
                     />
                   ) : (
@@ -221,7 +231,7 @@ export default function GlobalTeacherPlaybookPage() {
                 </div>
                 <div>
                   <h2 className="text-xl text-white">{instructor.name} · {instructor.role}</h2>
-                  <p className="mt-3 text-sm leading-7 text-white/65">{instructor.bio}</p>
+                  <p className="mt-1 text-sm text-white/55">{instructor.shortRole}</p>
                 </div>
               </article>
             ))}
@@ -231,20 +241,19 @@ export default function GlobalTeacherPlaybookPage() {
 
       <section className="section-padding bg-white">
         <div className="container-custom">
-          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
             <div>
               <p className="accent-label">Is this for you?</p>
-              <h2 className="mt-4 section-heading">Built for teachers who are ready to go global.</h2>
+              <h2 className="mt-4 section-heading">You are in the right place if...</h2>
               <p className="mt-6 text-neutral-700">
-                This programme is for teachers who want a practical path into global online teaching,
-                not more scattered advice.
+                This programme is built around the real transition from local classroom work to
+                global online teaching.
               </p>
               <p className="mt-4 text-neutral-700">
-                If platforms, pricing, profiles, and getting your first students feel unclear, this
-                is the guided starting point.
+                If any of these sound familiar, the curriculum is designed for your current stage.
               </p>
             </div>
-            <div className="grid gap-4">
+            <div className="grid gap-4 md:grid-cols-2">
               {audienceCards.map((card) => (
                 <article
                   key={card.title}
@@ -323,24 +332,24 @@ export default function GlobalTeacherPlaybookPage() {
         </div>
       </section>
 
-      <section className="section-padding bg-raisin text-white">
+      <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="mx-auto max-w-3xl">
-            <p className="accent-label text-accent-300">From our first cohort</p>
-            <h2 className="mt-4 text-white">Real teachers. Real results.</h2>
-            <blockquote className="mt-8 rounded-[28px] border border-accent-500/20 bg-white/5 p-8 font-display text-3xl leading-snug text-white/85 shadow-soft-card">
+            <p className="accent-label">From our first cohort</p>
+            <h2 className="mt-4 section-heading">Real teachers. Real results.</h2>
+            <blockquote className="mt-8 rounded-[28px] border border-neutral-200 bg-neutral-50/80 p-8 font-display text-3xl leading-snug text-raisin shadow-soft-card">
               I realised there is actually no perfect time to start. You just start where you are and grow from there. I now have a plan, structure, and direction.
             </blockquote>
-            <p className="mt-4 text-sm font-semibold text-accent-300">
+            <p className="mt-4 text-sm font-semibold text-accent-600">
               Veronica N., first cohort participant, Global Teacher Playbook
             </p>
           </div>
         </div>
       </section>
 
-      <section id="pricing" className="section-padding bg-raisin text-white">
+      <section id="pricing" className="section-padding section-gradient-muted">
         <div className="container-custom">
-          <div className="mx-auto max-w-2xl rounded-[32px] border border-accent-500/20 bg-white/5 p-8 text-center shadow-soft-card md:p-10">
+          <div className="mx-auto max-w-2xl rounded-[32px] border border-accent-500/20 bg-raisin p-8 text-center text-white shadow-soft-card md:p-10">
             <p className="accent-label text-accent-300">Enrolment</p>
             <h2 className="mt-4 text-white">One investment. Six weeks that change your direction.</h2>
             <p className="mt-6 font-display text-7xl text-white">KES 6,500</p>
@@ -371,6 +380,23 @@ export default function GlobalTeacherPlaybookPage() {
                   <p className="mt-4 max-w-2xl text-neutral-700">{faq.answer}</p>
                 </details>
               ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding bg-raisin text-white">
+        <div className="container-custom">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="text-white">
+              Your classroom skills already travel. Build the route.
+            </h2>
+            <p className="mt-6 text-white/65">
+              Come in with your experience. Leave with your platform plan, positioning, pricing,
+              profiles, and next 90 days mapped out.
+            </p>
+            <div className="mt-10">
+              <CTAButton href="/global-teacher-playbook/enrol">Secure Your Spot</CTAButton>
             </div>
           </div>
         </div>
