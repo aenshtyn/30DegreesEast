@@ -532,7 +532,8 @@ export default function EnrolmentForm() {
                         alt={instructor.name}
                         fill
                         sizes="44px"
-                        className={`object-cover ${instructor.imagePosition ?? 'object-center'}`}
+                        className="object-cover"
+                        style={{ objectPosition: instructor.imagePosition ?? 'center' }}
                       />
                     ) : (
                       instructor.initials

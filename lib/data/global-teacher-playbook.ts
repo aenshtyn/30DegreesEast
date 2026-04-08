@@ -16,7 +16,7 @@ export const playbookInstructors = [
   {
     initials: 'SK',
     image: '/testimonials/swaleh-kimani.jpeg',
-    imagePosition: 'object-[50%_35%]',
+    imagePosition: '50% 28%',
     name: 'Swaleh Kimani',
     role: 'Co-creator & Instructor',
     shortRole: 'Digital education builder, 30 Degrees East',
