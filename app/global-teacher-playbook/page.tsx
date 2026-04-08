@@ -211,12 +211,12 @@ export default function GlobalTeacherPlaybookPage() {
         </div>
       </section>
 
-      <section className="bg-neutral-900 text-white">
+      <section className="section-gradient-muted">
         <div className="container-custom py-8">
           <div className="grid gap-4 md:grid-cols-2">
             {playbookInstructors.map((instructor) => (
-              <article key={instructor.name} className="flex items-center gap-4 rounded-[20px] border border-accent-500/20 bg-white/5 p-5">
-                <div className="relative flex h-14 w-14 flex-shrink-0 items-center justify-center overflow-hidden rounded-full border border-accent-500/30 bg-accent-500/10 font-semibold text-accent-300">
+              <article key={instructor.name} className="flex items-center gap-4 rounded-[20px] border border-neutral-100 bg-white/80 p-5 shadow-soft-card">
+                <div className="relative flex h-14 w-14 flex-shrink-0 items-center justify-center overflow-hidden rounded-full border border-accent-500/20 bg-accent-500/10 font-semibold text-accent-600">
                   {instructor.image ? (
                     <Image
                       src={instructor.image}
@@ -230,8 +230,8 @@ export default function GlobalTeacherPlaybookPage() {
                   )}
                 </div>
                 <div>
-                  <h2 className="text-xl text-white">{instructor.name} · {instructor.role}</h2>
-                  <p className="mt-1 text-sm text-white/55">{instructor.shortRole}</p>
+                  <h2 className="text-xl text-raisin">{instructor.name} · {instructor.role}</h2>
+                  <p className="mt-1 text-sm text-neutral-600">{instructor.shortRole}</p>
                 </div>
               </article>
             ))}
