@@ -4,6 +4,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
   const quickLinks = [
     { label: 'Teach English Online', href: '/teach-english-online' },
+    { label: 'Global Teacher Playbook', href: '/global-teacher-playbook' },
     { label: 'Freebies', href: '/freebies' },
     { label: 'About Swaleh', href: '/about' },
     { label: 'Partner with Swaleh', href: '/partner-with-swaleh' },

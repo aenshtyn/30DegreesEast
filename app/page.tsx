@@ -59,19 +59,19 @@ const courses = [
     ctaVariant: 'primary' as const,
   },
   {
-    tag: 'Coming Soon',
+    tag: 'Live Programme',
     title: 'Build Your Teaching Brand Online',
     description:
-      'A practical playbook for teachers who want a clear path from “I can teach” to “I have an offer that sells.”',
+      'A practical playbook for teachers who want to turn their skills into global online teaching income.',
     features: [
-      'Pick the best opportunity path for your skills and goals',
-      'Shift from local teacher to global educator with a clear niche and promise',
-      'Build messaging, pricing, and a simple lead magnet to sales funnel',
-      'Launch with systems that compound instead of draining your energy',
+      'Launch on 3-5 global teaching platforms with a clear starting plan',
+      'Shift from local teacher to global educator with a strong profile and promise',
+      'Set rates that reflect your expertise and income goals',
+      'Build a 30-60-90 day roadmap with live support and community accountability',
     ],
-    ctaLabel: 'Join the Waiting List',
-    ctaHref: '#waitlist',
-    ctaVariant: 'secondary' as const,
+    ctaLabel: 'See Programme Details',
+    ctaHref: '/global-teacher-playbook',
+    ctaVariant: 'primary' as const,
   },
   {
     tag: 'Coming Soon',
