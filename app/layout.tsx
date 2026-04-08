@@ -3,6 +3,7 @@ import { Caveat, Inter } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import RouteScrollRestoration from '@/components/layout/RouteScrollRestoration'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -39,6 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${caveat.variable}`}>
       <body className="font-sans">
+        <RouteScrollRestoration />
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />

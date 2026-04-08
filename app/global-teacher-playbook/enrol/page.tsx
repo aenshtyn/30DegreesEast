@@ -15,7 +15,7 @@ export default function GlobalTeacherPlaybookEnrolPage() {
       <section className="bg-raisin text-white">
         <div className="container-custom py-14 text-center md:py-20">
           <p className="mx-auto inline-flex rounded-full border border-accent-500/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent-300">
-            Enrolment
+            Enrollment
           </p>
           <h1 className="mx-auto mt-6 max-w-3xl text-white">
             Secure your spot in <span className="text-accent-300">The Global Teacher Playbook.</span>

@@ -329,7 +329,7 @@ export default function GlobalTeacherPlaybookPage() {
       <section id="pricing" className="section-padding section-gradient-muted">
         <div className="container-custom">
           <div className="mx-auto max-w-2xl rounded-[32px] border border-accent-500/20 bg-raisin p-8 text-center text-white shadow-soft-card md:p-10">
-            <p className="accent-label text-accent-300">Enrolment</p>
+            <p className="accent-label text-accent-300">Enrollment</p>
             <h2 className="mt-4 text-white">One investment. Six weeks that change your direction.</h2>
             <p className="mt-6 font-display text-7xl text-white">KES 6,500</p>
             <p className="mt-3 text-sm text-white/50">One-time payment · M-Pesa accepted · Limited spots per cohort</p>

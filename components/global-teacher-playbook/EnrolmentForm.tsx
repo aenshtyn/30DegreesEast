@@ -1,6 +1,6 @@
 'use client'
 
-import { FormEvent, useMemo, useRef, useState } from 'react'
+import { FormEvent, useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
@@ -100,6 +100,8 @@ function FieldLabel({ children, required }: { children: React.ReactNode; require
 export default function EnrolmentForm() {
   const router = useRouter()
   const formCardRef = useRef<HTMLDivElement>(null)
+  const stepSectionRef = useRef<HTMLElement>(null)
+  const shouldScrollToStepRef = useRef(false)
   const [activeStep, setActiveStep] = useState(0)
   const [formValues, setFormValues] = useState<FormValues>(initialValues)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -108,11 +110,36 @@ export default function EnrolmentForm() {
   const isLastStep = activeStep === steps.length - 1
   const openInstructor = playbookInstructors.find((instructor) => instructor.name === openInstructorName)
 
-  const scrollToFormTop = () => {
+  const scrollToTarget = (target: HTMLElement | null) => {
     window.requestAnimationFrame(() => {
-      formCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      if (!target) {
+        return
+      }
+
+      const headerHeight = document.querySelector('header')?.getBoundingClientRect().height ?? 0
+      const scrollOffset = headerHeight + 40
+      const targetTop = target.getBoundingClientRect().top + window.scrollY - scrollOffset
+
+      window.scrollTo({ top: Math.max(targetTop, 0), left: 0, behavior: 'smooth' })
     })
   }
+
+  const scrollToFormTop = () => {
+    scrollToTarget(formCardRef.current)
+  }
+
+  const scrollToStepStart = () => {
+    scrollToTarget(stepSectionRef.current)
+  }
+
+  useEffect(() => {
+    if (!shouldScrollToStepRef.current) {
+      return
+    }
+
+    shouldScrollToStepRef.current = false
+    scrollToStepStart()
+  }, [activeStep])
 
   const completedSteps = useMemo(
     () => [
@@ -179,13 +206,13 @@ export default function EnrolmentForm() {
 
     if (error) {
       setStatus({ type: 'error', message: error })
-      scrollToFormTop()
+      scrollToStepStart()
       return
     }
 
     setStatus({ type: null, message: '' })
+    shouldScrollToStepRef.current = true
     setActiveStep((current) => Math.min(current + 1, steps.length - 1))
-    scrollToFormTop()
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -204,7 +231,7 @@ export default function EnrolmentForm() {
 
     if (error) {
       setStatus({ type: 'error', message: error })
-      scrollToFormTop()
+      scrollToStepStart()
       return
     }
 
@@ -257,7 +284,7 @@ export default function EnrolmentForm() {
   return (
     <div className="container-custom py-12 md:py-16">
       <div className="grid gap-8 lg:grid-cols-[1fr_380px] lg:items-start">
-        <div ref={formCardRef} className="scroll-mt-28 rounded-[32px] border border-white/70 bg-white/90 p-6 shadow-soft-card md:p-10">
+        <div ref={formCardRef} className="rounded-[32px] border border-white/70 bg-white/90 p-6 shadow-soft-card md:p-10">
           <p className="accent-label">Your application</p>
           <h2 className="mt-4 section-heading">Reserve your place.</h2>
           <p className="mt-4 text-neutral-700">
@@ -271,8 +298,13 @@ export default function EnrolmentForm() {
                 type="button"
                 onClick={() => {
                   if (index <= activeStep || completedSteps[index - 1]) {
+                    if (index === activeStep) {
+                      scrollToStepStart()
+                      return
+                    }
+
+                    shouldScrollToStepRef.current = true
                     setActiveStep(index)
-                    scrollToFormTop()
                   }
                 }}
                 className={`min-w-0 rounded-2xl border px-3 py-3 text-left transition ${
@@ -298,7 +330,7 @@ export default function EnrolmentForm() {
             </div>
 
             {activeStep === 0 ? (
-            <section className="space-y-5 rounded-[28px] border border-neutral-200 bg-neutral-50/70 p-6">
+            <section ref={stepSectionRef} className="space-y-5 rounded-[28px] border border-neutral-200 bg-neutral-50/70 p-6">
               <p className="border-b border-neutral-200 pb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent-600">
                 Personal details
               </p>
@@ -346,7 +378,7 @@ export default function EnrolmentForm() {
             ) : null}
 
             {activeStep === 1 ? (
-            <section className="space-y-6 rounded-[28px] border border-neutral-200 bg-neutral-50/70 p-6">
+            <section ref={stepSectionRef} className="space-y-6 rounded-[28px] border border-neutral-200 bg-neutral-50/70 p-6">
               <p className="border-b border-neutral-200 pb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent-600">
                 Your teaching background
               </p>
@@ -374,7 +406,7 @@ export default function EnrolmentForm() {
             ) : null}
 
             {activeStep === 2 ? (
-            <section className="space-y-6 rounded-[28px] border border-neutral-200 bg-neutral-50/70 p-6">
+            <section ref={stepSectionRef} className="space-y-6 rounded-[28px] border border-neutral-200 bg-neutral-50/70 p-6">
               <p className="border-b border-neutral-200 pb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent-600">
                 Your goals
               </p>
@@ -418,7 +450,7 @@ export default function EnrolmentForm() {
             ) : null}
 
             {activeStep === 3 ? (
-            <section className="space-y-6 rounded-[28px] border border-neutral-200 bg-neutral-50/70 p-6">
+            <section ref={stepSectionRef} className="space-y-6 rounded-[28px] border border-neutral-200 bg-neutral-50/70 p-6">
               <p className="border-b border-neutral-200 pb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent-600">
                 Commitment & investment
               </p>
@@ -433,7 +465,7 @@ export default function EnrolmentForm() {
                 />
               </div>
               <div>
-                <FieldLabel required>Would you like access to early-bird pricing when enrolment opens?</FieldLabel>
+                <FieldLabel required>Would you like access to early-bird pricing when enrollment opens?</FieldLabel>
                 <OptionGroup
                   name="earlybird"
                   options={applicationOptions.earlybird}
@@ -446,7 +478,7 @@ export default function EnrolmentForm() {
             ) : null}
 
             {activeStep === 4 ? (
-            <section className="rounded-[28px] border border-neutral-200 bg-neutral-50/70 p-6">
+            <section ref={stepSectionRef} className="rounded-[28px] border border-neutral-200 bg-neutral-50/70 p-6">
               <p className="border-b border-neutral-200 pb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent-600">
                 One last thing
               </p>
@@ -482,8 +514,8 @@ export default function EnrolmentForm() {
                 type="button"
                 disabled={activeStep === 0 || isSubmitting}
                 onClick={() => {
+                  shouldScrollToStepRef.current = true
                   setActiveStep((current) => Math.max(current - 1, 0))
-                  scrollToFormTop()
                 }}
                 className="rounded-full border border-neutral-200 px-6 py-3 text-sm font-semibold text-neutral-700 transition hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
               >
