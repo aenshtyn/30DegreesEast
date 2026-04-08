@@ -216,32 +216,30 @@ export default function GlobalTeacherPlaybookPage() {
 
       <section className="section-padding bg-white">
         <div className="container-custom">
-          <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-            <div>
-              <p className="accent-label">Is this for you?</p>
-              <h2 className="mt-4 section-heading">You are in the right place if...</h2>
-              <p className="mt-6 text-neutral-700">
-                This programme is built around the real transition from local classroom work to
-                global online teaching.
-              </p>
-              <p className="mt-4 text-neutral-700">
-                If any of these sound familiar, the curriculum is designed for your current stage.
-              </p>
-            </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              {audienceCards.map((card) => (
-                <article
-                  key={card.title}
-                  className="rounded-[24px] border border-neutral-100 bg-neutral-50/70 p-6 shadow-soft-card"
-                >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-500/10 text-accent-500">
-                    <PlaybookIcon name={card.icon} />
-                  </div>
-                  <h3 className="mt-3 text-xl text-raisin">{card.title}</h3>
-                  <p className="mt-3 text-neutral-700">{card.description}</p>
-                </article>
-              ))}
-            </div>
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="accent-label">Is this for you?</p>
+            <h2 className="mt-4 section-heading">You are in the right place if...</h2>
+            <p className="mt-6 text-neutral-700">
+              This programme is built around the real transition from local classroom work to
+              global online teaching.
+            </p>
+            <p className="mt-4 text-neutral-700">
+              If any of these sound familiar, the curriculum is designed for your current stage.
+            </p>
+          </div>
+          <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {audienceCards.map((card) => (
+              <article
+                key={card.title}
+                className="rounded-[24px] border border-neutral-100 bg-neutral-50/70 p-6 shadow-soft-card"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-500/10 text-accent-500">
+                  <PlaybookIcon name={card.icon} />
+                </div>
+                <h3 className="mt-3 text-xl text-raisin">{card.title}</h3>
+                <p className="mt-3 text-neutral-700">{card.description}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
