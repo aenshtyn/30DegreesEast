@@ -27,7 +27,7 @@ export default function GlobalTeacherPlaybookEnrolPage() {
         </div>
       </section>
 
-      <section className="bg-neutral-900 text-white">
+      <section className="border-t border-accent-500/10 bg-raisin text-white">
         <div className="container-custom flex flex-wrap justify-center gap-x-10 gap-y-4 py-5 text-center">
           {playbookStats.map((stat) => (
             <div key={stat.label} className="min-w-[130px]">
