@@ -609,18 +609,34 @@ export default function EnrolmentForm() {
           onClick={() => setOpenInstructorName(null)}
         >
           <div
-            className="w-full max-w-xl rounded-[28px] border border-neutral-200 bg-white p-6 text-raisin shadow-soft-card md:p-8"
+            className="max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-[28px] border border-neutral-200 bg-white p-6 text-raisin shadow-soft-card md:p-8"
             onClick={(event) => event.stopPropagation()}
           >
             <div className="flex items-start justify-between gap-6">
-              <div>
-                <p className="accent-label">Instructor</p>
-                <h2 id="enrolment-instructor-modal-title" className="mt-3 text-3xl text-raisin">
-                  {openInstructor.name}
-                </h2>
-                <p className="mt-2 text-sm font-semibold uppercase tracking-[0.16em] text-accent-600">
-                  {openInstructor.role}
-                </p>
+              <div className="flex items-center gap-4">
+                <div className="relative flex h-32 w-32 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-accent-500/15 text-lg font-semibold text-accent-600">
+                  {openInstructor.image ? (
+                    <Image
+                      src={openInstructor.image}
+                      alt={openInstructor.name}
+                      fill
+                      sizes="128px"
+                      className="object-cover"
+                      style={{ objectPosition: openInstructor.imagePosition ?? 'center' }}
+                    />
+                  ) : (
+                    openInstructor.initials
+                  )}
+                </div>
+                <div>
+                  <p className="accent-label">Instructor</p>
+                  <h2 id="enrolment-instructor-modal-title" className="mt-3 text-3xl text-raisin">
+                    {openInstructor.name}
+                  </h2>
+                  <p className="mt-2 text-sm font-semibold uppercase tracking-[0.16em] text-accent-600">
+                    {openInstructor.role}
+                  </p>
+                </div>
               </div>
               <button
                 type="button"

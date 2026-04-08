@@ -60,7 +60,7 @@ const courses = [
   },
   {
     tag: 'Live Programme',
-    title: 'Build Your Teaching Brand Online',
+    title: 'Beyond the classroom: the global teacher playbook',
     description:
       'A practical playbook for teachers who want to turn their skills into global online teaching income.',
     features: [

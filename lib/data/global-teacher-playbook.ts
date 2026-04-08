@@ -8,9 +8,11 @@ export const playbookStats = [
 export const playbookInstructors = [
   {
     initials: 'JK',
+    image: '/testimonials/juliet.jpeg',
+    imagePosition: '50% 35%',
     name: 'Juliet Karimi',
-    role: 'Lead Instructor',
-    shortRole: 'Global educator and career strategist',
+    role: 'Educator, Teacher hub KE',
+    shortRole: 'Educator, Teacher hub KE',
     bio: "Juliet started her career with the Teachers Service Commission in Kenya, believing she had found stability and purpose. The rigid system left her feeling stuck, and like many teachers, she told herself she was not qualified enough for international schools. When courage finally outweighed fear, she applied and got the role. She found creative freedom, financial elevation, and a renewed love for teaching. She now helps other teachers overcome the same limiting beliefs and make the same transition.",
   },
   {
