@@ -142,11 +142,11 @@ export default function About() {
         </div>
 
         <div className="border-t border-accent-500/10">
-          <div className="container-custom grid gap-8 py-10 text-center sm:grid-cols-2 xl:grid-cols-4">
+          <div className="container-custom flex flex-wrap justify-center gap-x-10 gap-y-4 py-5 text-center">
             {credibilityStats.map((stat) => (
-              <div key={stat.label}>
-                <p className="font-display text-5xl text-accent-500">{stat.value}</p>
-                <p className="mt-2 text-xs uppercase tracking-[0.18em] text-white/55">{stat.label}</p>
+              <div key={stat.label} className="min-w-[130px]">
+                <p className="font-display text-4xl text-accent-500">{stat.value}</p>
+                <p className="mt-1 text-xs uppercase tracking-[0.18em] text-white/55">{stat.label}</p>
               </div>
             ))}
           </div>

@@ -28,11 +28,11 @@ export default function GlobalTeacherPlaybookEnrolPage() {
       </section>
 
       <section className="bg-neutral-900 text-white">
-        <div className="container-custom flex flex-wrap justify-center gap-x-6 gap-y-2 py-4">
+        <div className="container-custom flex flex-wrap justify-center gap-x-10 gap-y-4 py-5 text-center">
           {playbookStats.map((stat) => (
-            <div key={stat.label} className="flex items-center gap-2 text-sm">
-              <p className="font-semibold text-accent-300">{stat.value}</p>
-              <p className="text-white/40">{stat.label}</p>
+            <div key={stat.label} className="min-w-[130px]">
+              <p className="font-display text-4xl text-accent-300">{stat.value}</p>
+              <p className="mt-1 text-xs uppercase tracking-[0.18em] text-white/55">{stat.label}</p>
             </div>
           ))}
         </div>
