@@ -1,6 +1,6 @@
 'use client'
 
-import { FormEvent, useState } from 'react'
+import { FormEvent, useMemo, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
@@ -11,19 +11,59 @@ type StatusState = {
   message: string
 }
 
+type FormValues = {
+  background: string
+  challenge: string
+  earlybird: string
+  email: string
+  goal: string
+  interests: string[]
+  invest: string
+  name: string
+  source: string
+  status: string
+  whatsapp: string
+}
+
+const initialValues: FormValues = {
+  background: '',
+  challenge: '',
+  earlybird: '',
+  email: '',
+  goal: '',
+  interests: [],
+  invest: '',
+  name: '',
+  source: '',
+  status: '',
+  whatsapp: '',
+}
+
+const steps = [
+  { label: 'Personal Details', description: 'Name, email, and WhatsApp' },
+  { label: 'Teaching Background', description: 'Where you are starting from' },
+  { label: 'Your Goals', description: 'What you want to build next' },
+  { label: 'Commitment', description: 'Investment and early-bird access' },
+  { label: 'Source', description: 'How you heard about us' },
+]
+
 const inputClass =
   'mt-2 block w-full rounded-2xl border border-neutral-200 bg-white px-4 py-3 text-neutral-900 placeholder-neutral-400 focus:border-accent-400 focus:outline-none focus:ring-2 focus:ring-accent-200/70 disabled:cursor-not-allowed disabled:opacity-70'
 
 function OptionGroup({
+  onChange,
   name,
   options,
   required,
   type = 'radio',
+  value,
 }: {
+  onChange: (value: string) => void
   name: string
   options: string[]
   required?: boolean
   type?: 'radio' | 'checkbox'
+  value: string | string[]
 }) {
   return (
     <div className={type === 'checkbox' ? 'mt-3 grid gap-3 sm:grid-cols-2' : 'mt-3 space-y-3'}>
@@ -36,6 +76,8 @@ function OptionGroup({
             type={type}
             name={name}
             value={option}
+            checked={Array.isArray(value) ? value.includes(option) : value === option}
+            onChange={() => onChange(option)}
             required={type === 'radio' && required && index === 0}
             className="mt-1 accent-accent-500"
           />
@@ -57,36 +99,117 @@ function FieldLabel({ children, required }: { children: React.ReactNode; require
 
 export default function EnrolmentForm() {
   const router = useRouter()
+  const [activeStep, setActiveStep] = useState(0)
+  const [formValues, setFormValues] = useState<FormValues>(initialValues)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [status, setStatus] = useState<StatusState>({ type: null, message: '' })
+  const isLastStep = activeStep === steps.length - 1
+
+  const completedSteps = useMemo(
+    () => [
+      Boolean(formValues.name && formValues.email && formValues.whatsapp),
+      Boolean(formValues.background && formValues.status),
+      Boolean(formValues.interests.length > 0 && formValues.goal && formValues.challenge),
+      Boolean(formValues.invest && formValues.earlybird),
+      Boolean(formValues.source),
+    ],
+    [formValues]
+  )
+
+  const updateValue = (name: keyof FormValues, value: string) => {
+    setStatus({ type: null, message: '' })
+    setFormValues((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const toggleInterest = (value: string) => {
+    setStatus({ type: null, message: '' })
+    setFormValues((prev) => ({
+      ...prev,
+      interests: prev.interests.includes(value)
+        ? prev.interests.filter((interest) => interest !== value)
+        : [...prev.interests, value],
+    }))
+  }
+
+  const getCurrentStepError = () => {
+    if (activeStep === 0) {
+      if (!formValues.name.trim() || !formValues.email.trim() || !formValues.whatsapp.trim()) {
+        return 'Add your name, email, and WhatsApp number to continue.'
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formValues.email.trim())) {
+        return 'Enter a valid email address to continue.'
+      }
+    }
+
+    if (activeStep === 1 && (!formValues.background || !formValues.status)) {
+      return 'Select your teaching background and current status to continue.'
+    }
+
+    if (activeStep === 2) {
+      if (formValues.interests.length === 0) {
+        return 'Select at least one learning interest to continue.'
+      }
+      if (!formValues.goal.trim() || !formValues.challenge.trim()) {
+        return 'Add your goal and current challenge to continue.'
+      }
+    }
+
+    if (activeStep === 3 && (!formValues.invest || !formValues.earlybird)) {
+      return 'Select both commitment options to continue.'
+    }
+
+    if (activeStep === 4 && !formValues.source) {
+      return 'Select where you heard about us before submitting.'
+    }
+
+    return ''
+  }
+
+  const goToNextStep = () => {
+    const error = getCurrentStepError()
+
+    if (error) {
+      setStatus({ type: 'error', message: error })
+      return
+    }
+
+    setStatus({ type: null, message: '' })
+    setActiveStep((current) => Math.min(current + 1, steps.length - 1))
+  }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setStatus({ type: null, message: '' })
-    setIsSubmitting(true)
 
-    const form = event.currentTarget
-    const formData = new FormData(form)
-    const interests = formData.getAll('interests').map(String)
-
-    if (interests.length === 0) {
-      setIsSubmitting(false)
-      setStatus({ type: 'error', message: 'Select at least one learning interest to continue.' })
+    if (!isLastStep) {
+      goToNextStep()
       return
     }
 
+    const form = event.currentTarget
+    const formData = new FormData(form)
+
+    const error = getCurrentStepError()
+
+    if (error) {
+      setStatus({ type: 'error', message: error })
+      return
+    }
+
+    setIsSubmitting(true)
+
     const payload = {
-      name: String(formData.get('name') ?? ''),
-      email: String(formData.get('email') ?? ''),
-      whatsapp: String(formData.get('whatsapp') ?? ''),
-      background: String(formData.get('background') ?? ''),
-      status: String(formData.get('status') ?? ''),
-      interests,
-      goal: String(formData.get('goal') ?? ''),
-      challenge: String(formData.get('challenge') ?? ''),
-      invest: String(formData.get('invest') ?? ''),
-      earlybird: String(formData.get('earlybird') ?? ''),
-      source: String(formData.get('source') ?? ''),
+      name: formValues.name.trim(),
+      email: formValues.email.trim(),
+      whatsapp: formValues.whatsapp.trim(),
+      background: formValues.background,
+      status: formValues.status,
+      interests: formValues.interests,
+      goal: formValues.goal.trim(),
+      challenge: formValues.challenge.trim(),
+      invest: formValues.invest,
+      earlybird: formValues.earlybird,
+      source: formValues.source,
       website: String(formData.get('website') ?? ''),
     }
 
@@ -107,6 +230,7 @@ export default function EnrolmentForm() {
       }
 
       form.reset()
+      setFormValues(initialValues)
       router.push('/global-teacher-playbook/confirmed')
     } catch {
       setStatus({
@@ -128,53 +252,124 @@ export default function EnrolmentForm() {
             This helps us understand where you are and make sure the programme is the right fit.
           </p>
 
-          <form onSubmit={handleSubmit} className="mt-8 space-y-10">
+          <div className="mt-8 grid gap-3 sm:grid-cols-5">
+            {steps.map((step, index) => (
+              <button
+                key={step.label}
+                type="button"
+                onClick={() => index <= activeStep || completedSteps[index - 1] ? setActiveStep(index) : null}
+                className={`rounded-2xl border px-4 py-3 text-left transition ${
+                  index === activeStep
+                    ? 'border-accent-500 bg-accent-50 text-raisin'
+                    : completedSteps[index]
+                      ? 'border-accent-200 bg-white text-neutral-700'
+                      : 'border-neutral-200 bg-neutral-50 text-neutral-400'
+                }`}
+              >
+                <span className="block text-xs font-semibold uppercase tracking-[0.14em]">
+                  {completedSteps[index] ? 'Done' : `Step ${index + 1}`}
+                </span>
+                <span className="mt-1 block text-sm font-semibold">{step.label}</span>
+              </button>
+            ))}
+          </div>
+
+          <form onSubmit={handleSubmit} className="mt-8 space-y-8">
             <div className="hidden" aria-hidden="true">
               <label htmlFor="playbook-website">Website</label>
               <input id="playbook-website" name="website" tabIndex={-1} autoComplete="off" disabled={isSubmitting} />
             </div>
 
-            <section className="space-y-5">
+            {activeStep === 0 ? (
+            <section className="space-y-5 rounded-[28px] border border-neutral-200 bg-neutral-50/70 p-6">
               <p className="border-b border-neutral-200 pb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent-600">
                 Personal details
               </p>
               <div>
                 <FieldLabel required>Full Name</FieldLabel>
-                <input name="name" required placeholder="Your full name" disabled={isSubmitting} className={inputClass} />
+                <input
+                  name="name"
+                  required
+                  placeholder="Your full name"
+                  disabled={isSubmitting}
+                  className={inputClass}
+                  value={formValues.name}
+                  onChange={(event) => updateValue('name', event.target.value)}
+                />
               </div>
               <div className="grid gap-5 md:grid-cols-2">
                 <div>
                   <FieldLabel required>Email Address</FieldLabel>
-                  <input name="email" type="email" required placeholder="you@email.com" disabled={isSubmitting} className={inputClass} />
+                  <input
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="you@email.com"
+                    disabled={isSubmitting}
+                    className={inputClass}
+                    value={formValues.email}
+                    onChange={(event) => updateValue('email', event.target.value)}
+                  />
                 </div>
                 <div>
                   <FieldLabel required>WhatsApp Number</FieldLabel>
-                  <input name="whatsapp" type="tel" required placeholder="+254 7XX XXX XXX" disabled={isSubmitting} className={inputClass} />
+                  <input
+                    name="whatsapp"
+                    type="tel"
+                    required
+                    placeholder="+254 7XX XXX XXX"
+                    disabled={isSubmitting}
+                    className={inputClass}
+                    value={formValues.whatsapp}
+                    onChange={(event) => updateValue('whatsapp', event.target.value)}
+                  />
                 </div>
               </div>
             </section>
+            ) : null}
 
-            <section className="space-y-6">
+            {activeStep === 1 ? (
+            <section className="space-y-6 rounded-[28px] border border-neutral-200 bg-neutral-50/70 p-6">
               <p className="border-b border-neutral-200 pb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent-600">
                 Your teaching background
               </p>
               <div>
                 <FieldLabel required>What is your teaching background?</FieldLabel>
-                <OptionGroup name="background" options={applicationOptions.background} required />
+                <OptionGroup
+                  name="background"
+                  options={applicationOptions.background}
+                  required
+                  value={formValues.background}
+                  onChange={(value) => updateValue('background', value)}
+                />
               </div>
               <div>
                 <FieldLabel required>What best describes you right now?</FieldLabel>
-                <OptionGroup name="status" options={applicationOptions.status} required />
+                <OptionGroup
+                  name="status"
+                  options={applicationOptions.status}
+                  required
+                  value={formValues.status}
+                  onChange={(value) => updateValue('status', value)}
+                />
               </div>
             </section>
+            ) : null}
 
-            <section className="space-y-6">
+            {activeStep === 2 ? (
+            <section className="space-y-6 rounded-[28px] border border-neutral-200 bg-neutral-50/70 p-6">
               <p className="border-b border-neutral-200 pb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent-600">
                 Your goals
               </p>
               <div>
                 <FieldLabel required>What are you most interested in learning?</FieldLabel>
-                <OptionGroup name="interests" options={applicationOptions.interests} type="checkbox" />
+                <OptionGroup
+                  name="interests"
+                  options={applicationOptions.interests}
+                  type="checkbox"
+                  value={formValues.interests}
+                  onChange={toggleInterest}
+                />
               </div>
               <div>
                 <FieldLabel required>What is your biggest goal in the next 6 months?</FieldLabel>
@@ -185,6 +380,8 @@ export default function EnrolmentForm() {
                   placeholder="Example: I want to earn an additional KES 30,000 per month from online teaching."
                   disabled={isSubmitting}
                   className={inputClass}
+                  value={formValues.goal}
+                  onChange={(event) => updateValue('goal', event.target.value)}
                 />
               </div>
               <div>
@@ -196,33 +393,58 @@ export default function EnrolmentForm() {
                   placeholder="Example: I do not know which platform to start with or how to price my lessons."
                   disabled={isSubmitting}
                   className={inputClass}
+                  value={formValues.challenge}
+                  onChange={(event) => updateValue('challenge', event.target.value)}
                 />
               </div>
             </section>
+            ) : null}
 
-            <section className="space-y-6">
+            {activeStep === 3 ? (
+            <section className="space-y-6 rounded-[28px] border border-neutral-200 bg-neutral-50/70 p-6">
               <p className="border-b border-neutral-200 pb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent-600">
                 Commitment & investment
               </p>
               <div>
                 <FieldLabel required>Would you be willing to invest KES 6,500?</FieldLabel>
-                <OptionGroup name="invest" options={applicationOptions.invest} required />
+                <OptionGroup
+                  name="invest"
+                  options={applicationOptions.invest}
+                  required
+                  value={formValues.invest}
+                  onChange={(value) => updateValue('invest', value)}
+                />
               </div>
               <div>
                 <FieldLabel required>Would you like access to early-bird pricing when enrolment opens?</FieldLabel>
-                <OptionGroup name="earlybird" options={applicationOptions.earlybird} required />
+                <OptionGroup
+                  name="earlybird"
+                  options={applicationOptions.earlybird}
+                  required
+                  value={formValues.earlybird}
+                  onChange={(value) => updateValue('earlybird', value)}
+                />
               </div>
             </section>
+            ) : null}
 
-            <section>
+            {activeStep === 4 ? (
+            <section className="rounded-[28px] border border-neutral-200 bg-neutral-50/70 p-6">
               <p className="border-b border-neutral-200 pb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent-600">
                 One last thing
               </p>
               <div className="mt-6">
                 <FieldLabel required>Where did you hear about us?</FieldLabel>
-                <OptionGroup name="source" options={applicationOptions.source} required />
+                <OptionGroup
+                  name="source"
+                  options={applicationOptions.source}
+                  required
+                  value={formValues.source}
+                  onChange={(value) => updateValue('source', value)}
+                />
               </div>
             </section>
+            ) : null}
 
             {status.type ? (
               <div
@@ -238,13 +460,34 @@ export default function EnrolmentForm() {
               </div>
             ) : null}
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full rounded-full bg-accent-500 px-8 py-4 text-base font-semibold text-raisin shadow-soft-card transition hover:bg-accent-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 disabled:cursor-not-allowed disabled:opacity-70"
-            >
-              {isSubmitting ? 'Submitting...' : 'Submit My Application'}
-            </button>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <button
+                type="button"
+                disabled={activeStep === 0 || isSubmitting}
+                onClick={() => setActiveStep((current) => Math.max(current - 1, 0))}
+                className="rounded-full border border-neutral-200 px-6 py-3 text-sm font-semibold text-neutral-700 transition hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                Back
+              </button>
+              {isLastStep ? (
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="rounded-full bg-accent-500 px-8 py-4 text-base font-semibold text-raisin shadow-soft-card transition hover:bg-accent-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 disabled:cursor-not-allowed disabled:opacity-70 sm:min-w-[240px]"
+                >
+                  {isSubmitting ? 'Submitting...' : 'Submit My Application'}
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  disabled={isSubmitting}
+                  onClick={goToNextStep}
+                  className="rounded-full bg-accent-500 px-8 py-4 text-base font-semibold text-raisin shadow-soft-card transition hover:bg-accent-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 disabled:cursor-not-allowed disabled:opacity-70 sm:min-w-[180px]"
+                >
+                  Continue
+                </button>
+              )}
+            </div>
             <p className="text-center text-sm text-neutral-500">
               After submitting, you will hear from us within 24 hours with payment details and your confirmed spot.
             </p>

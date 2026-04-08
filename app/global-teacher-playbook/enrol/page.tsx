@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 
 import EnrolmentForm from '@/components/global-teacher-playbook/EnrolmentForm'
 import { playbookStats } from '@/lib/data/global-teacher-playbook'
@@ -15,10 +14,7 @@ export default function GlobalTeacherPlaybookEnrolPage() {
     <>
       <section className="bg-raisin text-white">
         <div className="container-custom py-14 text-center md:py-20">
-          <Link href="/global-teacher-playbook" className="text-sm font-medium text-white/55 transition hover:text-accent-300">
-            Back to course
-          </Link>
-          <p className="mx-auto mt-8 inline-flex rounded-full border border-accent-500/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent-300">
+          <p className="mx-auto inline-flex rounded-full border border-accent-500/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent-300">
             Enrolment
           </p>
           <h1 className="mx-auto mt-6 max-w-3xl text-white">
@@ -32,11 +28,11 @@ export default function GlobalTeacherPlaybookEnrolPage() {
       </section>
 
       <section className="bg-neutral-900 text-white">
-        <div className="container-custom grid gap-6 py-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="container-custom flex flex-wrap justify-center gap-x-6 gap-y-2 py-4">
           {playbookStats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <p className="font-display text-3xl text-accent-300">{stat.value}</p>
-              <p className="mt-1 text-xs uppercase tracking-[0.16em] text-white/40">{stat.label}</p>
+            <div key={stat.label} className="flex items-center gap-2 text-sm">
+              <p className="font-semibold text-accent-300">{stat.value}</p>
+              <p className="text-white/40">{stat.label}</p>
             </div>
           ))}
         </div>
