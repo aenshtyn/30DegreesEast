@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 
+import InstructorStrip from '@/components/global-teacher-playbook/InstructorStrip'
 import CTAButton from '@/components/ui/CTAButton'
 import {
   playbookFaqs,
@@ -211,33 +212,7 @@ export default function GlobalTeacherPlaybookPage() {
         </div>
       </section>
 
-      <section className="border-t border-accent-500/10 bg-raisin text-white">
-        <div className="container-custom py-5">
-          <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 text-center">
-            {playbookInstructors.map((instructor) => (
-              <article key={instructor.name} className="flex min-w-[220px] items-center justify-center gap-3">
-                <div className="relative flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-full border border-accent-500/30 bg-accent-500/10 font-semibold text-accent-300">
-                  {instructor.image ? (
-                    <Image
-                      src={instructor.image}
-                      alt={instructor.name}
-                      fill
-                      sizes="48px"
-                      className="object-cover object-center"
-                    />
-                  ) : (
-                    instructor.initials
-                  )}
-                </div>
-                <div className="text-left">
-                  <h2 className="text-base font-semibold text-white">{instructor.name}</h2>
-                  <p className="mt-1 text-xs uppercase tracking-[0.16em] text-white/55">{instructor.role}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <InstructorStrip />
 
       <section className="section-padding bg-white">
         <div className="container-custom">
