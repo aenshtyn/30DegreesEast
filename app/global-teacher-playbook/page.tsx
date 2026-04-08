@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 
 import CTAButton from '@/components/ui/CTAButton'
 import {
-  playbookAudience,
   playbookFaqs,
   playbookIncludes,
   playbookInstructors,
@@ -13,6 +12,108 @@ export const metadata: Metadata = {
   title: 'The Global Teacher Playbook | 30 Degrees East',
   description:
     'A five-module live programme helping Kenyan teachers turn their teaching skills into global online income.',
+}
+
+type PlaybookIconName = 'globe' | 'video' | 'workbook' | 'roadmap' | 'community' | 'income'
+
+const heroIncludes = [
+  {
+    icon: 'video' as const,
+    title: '5 Live Modules',
+    description: 'Guided Google Meet sessions.',
+  },
+  {
+    icon: 'workbook' as const,
+    title: 'Worksheets & Templates',
+    description: 'Tools you can use immediately.',
+  },
+  {
+    icon: 'roadmap' as const,
+    title: '30-60-90 Day Roadmap',
+    description: 'A clear post-programme launch plan.',
+  },
+  {
+    icon: 'globe' as const,
+    title: 'Platform Profiles',
+    description: 'Profiles ready for global teaching platforms.',
+  },
+  {
+    icon: 'community' as const,
+    title: 'Community Support',
+    description: 'WhatsApp support and accountability.',
+  },
+]
+
+const audienceCards = [
+  {
+    icon: 'income' as const,
+    title: 'Kenyan teachers ready to earn more',
+    description: 'You know your skills are worth more than your current salary.',
+  },
+  {
+    icon: 'globe' as const,
+    title: 'Teachers ready to go global',
+    description: 'You want students beyond one school, one contract, or one local market.',
+  },
+  {
+    icon: 'roadmap' as const,
+    title: 'Teachers who need a clear starting path',
+    description: 'You want practical steps for platforms, pricing, profiles, and launch.',
+  },
+  {
+    icon: 'community' as const,
+    title: 'Teachers ready to do the work',
+    description: 'You want live support and accountability, not another generic online course.',
+  },
+]
+
+function PlaybookIcon({ name }: { name: PlaybookIconName }) {
+  switch (name) {
+    case 'globe':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3 12h18M12 3c2.2 2.4 3.3 5.4 3.3 9S14.2 18.6 12 21c-2.2-2.4-3.3-5.4-3.3-9S9.8 5.4 12 3Z" />
+        </svg>
+      )
+    case 'video':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5">
+          <rect x="3" y="6" width="13" height="12" rx="2" />
+          <path d="m16 10 5-3v10l-5-3" />
+        </svg>
+      )
+    case 'workbook':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5">
+          <path d="M6 4h10l3 3v13H6z" />
+          <path d="M16 4v4h4M9 12h6M9 16h4" />
+        </svg>
+      )
+    case 'roadmap':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5">
+          <path d="M5 19V5l5 3 5-3 4 2v14l-4-2-5 3-5-3Z" />
+          <path d="M10 8v14M15 5v14" />
+        </svg>
+      )
+    case 'community':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5">
+          <path d="M16 19v-1a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v1" />
+          <circle cx="10" cy="8" r="3" />
+          <path d="M20 19v-1a4 4 0 0 0-3-3.87M14 5.13a3 3 0 0 1 0 5.74" />
+        </svg>
+      )
+    case 'income':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5">
+          <path d="M4 7h16v10H4z" />
+          <circle cx="12" cy="12" r="2.5" />
+          <path d="M7 10V9h1M17 14v1h-1" />
+        </svg>
+      )
+  }
 }
 
 export default function GlobalTeacherPlaybookPage() {
@@ -72,10 +173,10 @@ export default function GlobalTeacherPlaybookPage() {
                 One payment. A clear launch path from platform choice to first students.
               </h2>
               <ul className="mt-8 space-y-4">
-                {playbookIncludes.slice(0, 5).map((item, index) => (
+                {heroIncludes.map((item) => (
                   <li key={item.title} className="flex gap-4 border-b border-white/10 pb-4 last:border-b-0 last:pb-0">
-                    <div className="mt-1 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-accent-500/15 text-sm font-semibold text-accent-300">
-                      {String(index + 1).padStart(2, '0')}
+                    <div className="mt-1 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-accent-500/15 text-accent-300">
+                      <PlaybookIcon name={item.icon} />
                     </div>
                     <div>
                       <p className="font-semibold text-white">{item.title}</p>
@@ -109,16 +210,33 @@ export default function GlobalTeacherPlaybookPage() {
 
       <section className="section-padding bg-white">
         <div className="container-custom">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="accent-label">Who this is for</p>
-            <h2 className="mt-4 section-heading">You are in the right place if...</h2>
-          </div>
-          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {playbookAudience.map((item) => (
-              <article key={item} className="rounded-[24px] border border-neutral-200 bg-neutral-50/80 p-6 shadow-soft-card">
-                <p className="text-neutral-800"><span className="mr-2 text-accent-600">✓</span>{item}</p>
-              </article>
-            ))}
+          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <div>
+              <p className="accent-label">Is this for you?</p>
+              <h2 className="mt-4 section-heading">Built for teachers who are ready to go global.</h2>
+              <p className="mt-6 text-neutral-700">
+                This programme is for teachers who want a practical path into global online teaching,
+                not more scattered advice.
+              </p>
+              <p className="mt-4 text-neutral-700">
+                If platforms, pricing, profiles, and getting your first students feel unclear, this
+                is the guided starting point.
+              </p>
+            </div>
+            <div className="grid gap-4">
+              {audienceCards.map((card) => (
+                <article
+                  key={card.title}
+                  className="rounded-[24px] border border-neutral-100 bg-neutral-50/70 p-6 shadow-soft-card"
+                >
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-500/10 text-accent-500">
+                    <PlaybookIcon name={card.icon} />
+                  </div>
+                  <h3 className="mt-3 text-xl text-raisin">{card.title}</h3>
+                  <p className="mt-3 text-neutral-700">{card.description}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -192,7 +310,25 @@ export default function GlobalTeacherPlaybookPage() {
             <blockquote className="mt-8 rounded-[28px] border border-accent-500/20 bg-white/5 p-8 font-display text-3xl leading-snug text-white/85 shadow-soft-card">
               I realised there is actually no perfect time to start. You just start where you are and grow from there. I now have a plan, structure, and direction.
             </blockquote>
-            <p className="mt-4 text-sm font-semibold text-accent-300">First cohort participant, Global Teacher Playbook</p>
+            <p className="mt-4 text-sm font-semibold text-accent-300">
+              Veronica N., first cohort participant, Global Teacher Playbook
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="pricing" className="section-padding bg-raisin text-white">
+        <div className="container-custom">
+          <div className="mx-auto max-w-2xl rounded-[32px] border border-accent-500/20 bg-white/5 p-8 text-center shadow-soft-card md:p-10">
+            <p className="accent-label text-accent-300">Enrolment</p>
+            <h2 className="mt-4 text-white">One investment. Six weeks that change your direction.</h2>
+            <p className="mt-6 font-display text-7xl text-white">KES 6,500</p>
+            <p className="mt-3 text-sm text-white/50">One-time payment · M-Pesa accepted · Limited spots per cohort</p>
+            <div className="mt-8">
+              <CTAButton href="/global-teacher-playbook/enrol" className="w-full sm:w-auto">
+                Secure Your Spot
+              </CTAButton>
+            </div>
           </div>
         </div>
       </section>
@@ -214,22 +350,6 @@ export default function GlobalTeacherPlaybookPage() {
                   <p className="mt-4 max-w-2xl text-neutral-700">{faq.answer}</p>
                 </details>
               ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="pricing" className="section-padding bg-raisin text-white">
-        <div className="container-custom">
-          <div className="mx-auto max-w-2xl rounded-[32px] border border-accent-500/20 bg-white/5 p-8 text-center shadow-soft-card md:p-10">
-            <p className="accent-label text-accent-300">Enrolment</p>
-            <h2 className="mt-4 text-white">One investment. Six weeks that change your direction.</h2>
-            <p className="mt-6 font-display text-7xl text-white">KES 6,500</p>
-            <p className="mt-3 text-sm text-white/50">One-time payment · M-Pesa accepted · Limited spots per cohort</p>
-            <div className="mt-8">
-              <CTAButton href="/global-teacher-playbook/enrol" className="w-full sm:w-auto">
-                Secure Your Spot
-              </CTAButton>
             </div>
           </div>
         </div>
