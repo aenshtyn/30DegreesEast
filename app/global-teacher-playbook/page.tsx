@@ -211,27 +211,27 @@ export default function GlobalTeacherPlaybookPage() {
         </div>
       </section>
 
-      <section className="section-gradient-muted">
-        <div className="container-custom py-8">
-          <div className="grid gap-4 md:grid-cols-2">
+      <section className="border-t border-accent-500/10 bg-raisin text-white">
+        <div className="container-custom py-5">
+          <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 text-center">
             {playbookInstructors.map((instructor) => (
-              <article key={instructor.name} className="flex items-center gap-4 rounded-[20px] border border-neutral-100 bg-white/80 p-5 shadow-soft-card">
-                <div className="relative flex h-14 w-14 flex-shrink-0 items-center justify-center overflow-hidden rounded-full border border-accent-500/20 bg-accent-500/10 font-semibold text-accent-600">
+              <article key={instructor.name} className="flex min-w-[220px] items-center justify-center gap-3">
+                <div className="relative flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-full border border-accent-500/30 bg-accent-500/10 font-semibold text-accent-300">
                   {instructor.image ? (
                     <Image
                       src={instructor.image}
                       alt={instructor.name}
                       fill
-                      sizes="56px"
+                      sizes="48px"
                       className="object-cover object-center"
                     />
                   ) : (
                     instructor.initials
                   )}
                 </div>
-                <div>
-                  <h2 className="text-xl text-raisin">{instructor.name} · {instructor.role}</h2>
-                  <p className="mt-1 text-sm text-neutral-600">{instructor.shortRole}</p>
+                <div className="text-left">
+                  <h2 className="text-base font-semibold text-white">{instructor.name}</h2>
+                  <p className="mt-1 text-xs uppercase tracking-[0.16em] text-white/55">{instructor.role}</p>
                 </div>
               </article>
             ))}
