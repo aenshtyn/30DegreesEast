@@ -18,31 +18,72 @@ export const metadata: Metadata = {
 export default function GlobalTeacherPlaybookPage() {
   return (
     <>
-      <section className="bg-raisin text-white">
-        <div className="container-custom py-16 md:py-24">
-          <div className="max-w-4xl">
-            <p className="inline-flex rounded-full border border-accent-500/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent-300">
-              5-module live programme
-            </p>
-            <h1 className="mt-6 max-w-4xl text-white">
-              The Global Teacher <span className="text-accent-300">Playbook.</span>
-            </h1>
-            <p className="mt-5 max-w-2xl font-display text-3xl leading-tight text-accent-300">
-              Turn your teaching skills into global income, without leaving Kenya.
-            </p>
-            <p className="mt-6 max-w-3xl text-white/75">
-              Launch on 3-5 global teaching platforms, position yourself to attract premium students,
-              set rates that reflect your expertise, and build $1,200-2,000/month income within your
-              first year while teaching from Kenya.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4 text-sm text-white/55">
-              <span><strong className="text-accent-300">5 modules</strong> · 10-12 hours</span>
-              <span><strong className="text-accent-300">Google Meet</strong> sessions</span>
-              <span><strong className="text-accent-300">WhatsApp</strong> community</span>
-              <span><strong className="text-accent-300">Kenyan teachers</strong> going global</span>
+      <section className="section-padding bg-raisin text-white">
+        <div className="container-custom">
+          <div className="grid gap-8 rounded-[32px] border border-white/10 bg-white/5 p-8 shadow-soft-card md:grid-cols-[1.1fr_0.9fr] md:p-10">
+            <div className="space-y-6">
+              <div className="flex items-center gap-3">
+                <span className="h-px w-10 bg-accent-500" />
+                <p className="text-sm uppercase tracking-[0.25em] text-accent-300">
+                  Global Teacher Playbook · Live Programme
+                </p>
+              </div>
+              <h1 className="max-w-3xl text-white">
+                Turn your teaching skills into{' '}
+                <span className="text-accent-300">global income.</span>
+              </h1>
+              <p className="max-w-2xl font-display text-3xl leading-tight text-accent-300">
+                Without leaving Kenya.
+              </p>
+              <p className="max-w-2xl text-white/75">
+                A five-module live programme for Kenyan teachers who want to launch on global
+                teaching platforms, position themselves for premium students, and build income with
+                practical systems instead of guesswork.
+              </p>
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+                <CTAButton href="/global-teacher-playbook/enrol" className="w-full sm:w-auto">
+                  Secure Your Spot
+                </CTAButton>
+                <p className="text-sm text-white/50">KES 6,500 · Live on Google Meet</p>
+              </div>
+              <div className="flex items-center gap-4 border-t border-white/10 pt-6">
+                <div className="flex -space-x-2">
+                  {playbookInstructors.map((instructor, index) => (
+                    <div
+                      key={instructor.name}
+                      className={`flex h-10 w-10 items-center justify-center rounded-full border-2 border-raisin text-xs font-semibold ${
+                        index === 0 ? 'bg-accent-500 text-raisin' : 'bg-brand-400 text-white'
+                      }`}
+                    >
+                      {instructor.initials}
+                    </div>
+                  ))}
+                </div>
+                <div className="text-sm text-white/60">
+                  <strong className="block text-white/90">Built for Kenyan teachers going global</strong>
+                  With Juliet Karimi and Swaleh Kimani
+                </div>
+              </div>
             </div>
-            <div className="mt-10">
-              <CTAButton href="/global-teacher-playbook/enrol">Secure Your Spot</CTAButton>
+
+            <div className="rounded-[28px] border border-accent-500/30 bg-raisin/70 p-8">
+              <p className="text-sm uppercase tracking-[0.25em] text-accent-300">Everything included</p>
+              <h2 className="mt-4 text-2xl text-white">
+                One payment. A clear launch path from platform choice to first students.
+              </h2>
+              <ul className="mt-8 space-y-4">
+                {playbookIncludes.slice(0, 5).map((item, index) => (
+                  <li key={item.title} className="flex gap-4 border-b border-white/10 pb-4 last:border-b-0 last:pb-0">
+                    <div className="mt-1 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-accent-500/15 text-sm font-semibold text-accent-300">
+                      {String(index + 1).padStart(2, '0')}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white">{item.title}</p>
+                      <p className="text-sm leading-6 text-white/70">{item.description}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
