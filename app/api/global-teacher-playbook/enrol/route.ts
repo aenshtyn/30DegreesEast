@@ -10,6 +10,12 @@ import {
   isValidEmail,
   trimFormValue,
 } from '@/lib/server/form-utils'
+import {
+  appendPlaybookApplicationRowToGoogleSheets,
+  hasGoogleSheetsPlaybookConfig,
+} from '@/lib/server/google-sheets'
+
+export const runtime = 'nodejs'
 
 const escapeList = (values: unknown) =>
   Array.isArray(values)
@@ -159,6 +165,185 @@ const buildApplicationEmailHtml = ({
   </html>
 `
 
+const buildApplicantConfirmationEmailHtml = ({
+  name,
+  siteUrl,
+}: {
+  name: string
+  siteUrl: string
+}) => `
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8" />
+      <style>
+        body {
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+          margin: 0;
+          padding: 24px;
+          background: #f5f6fb;
+          color: #171717;
+        }
+        .card {
+          max-width: 640px;
+          margin: 0 auto;
+          background: #ffffff;
+          border-radius: 24px;
+          border: 1px solid #e5e7eb;
+          overflow: hidden;
+        }
+        .hero {
+          padding: 32px 32px 24px;
+          background: linear-gradient(135deg, #211d20 0%, #121a2e 100%);
+          color: #ffffff;
+        }
+        .eyebrow {
+          margin: 0 0 12px;
+          font-size: 12px;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: #ffc068;
+        }
+        h1 {
+          margin: 0 0 12px;
+          font-size: 30px;
+          line-height: 1.15;
+        }
+        p {
+          margin: 0 0 16px;
+          line-height: 1.65;
+        }
+        .hero-copy {
+          color: rgba(255, 255, 255, 0.82);
+          font-size: 16px;
+          margin: 0;
+        }
+        .content {
+          padding: 32px;
+        }
+        .section-title {
+          font-size: 14px;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: #737373;
+          margin: 32px 0 12px;
+        }
+        .next-list {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+        .next-item {
+          border: 1px solid #e5e5e5;
+          border-radius: 18px;
+          padding: 18px 18px 16px;
+          margin-bottom: 12px;
+          background: #faf8f4;
+        }
+        .next-item strong {
+          display: block;
+          font-size: 16px;
+          color: #171717;
+          margin-bottom: 6px;
+        }
+        .next-item span {
+          color: #525252;
+          font-size: 15px;
+          line-height: 1.6;
+        }
+        .course-box {
+          margin-top: 28px;
+          padding: 20px;
+          border-radius: 18px;
+          border: 1px solid #f4c27b;
+          background: #fff5e7;
+        }
+        .button {
+          display: inline-block;
+          margin-top: 8px;
+          padding: 14px 22px;
+          border-radius: 999px;
+          background: #ffac4a;
+          color: #211d20 !important;
+          text-decoration: none;
+          font-weight: 700;
+        }
+        .footer {
+          margin-top: 28px;
+          padding-top: 20px;
+          border-top: 1px solid #e5e5e5;
+          font-size: 14px;
+          color: #737373;
+        }
+        .preheader {
+          display: none !important;
+          visibility: hidden;
+          opacity: 0;
+          color: transparent;
+          height: 0;
+          width: 0;
+          overflow: hidden;
+          mso-hide: all;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="preheader">
+        Your Global Teacher Playbook application has been received.
+      </div>
+      <div class="card">
+        <div class="hero">
+          <p class="eyebrow">The Global Teacher Playbook</p>
+          <h1>Application received, ${name}.</h1>
+          <p class="hero-copy">
+            You are one step closer to teaching globally from Kenya.
+          </p>
+        </div>
+        <div class="content">
+          <p>
+            Thanks for applying for The Global Teacher Playbook. We have received your details and
+            will review your application before sending the next steps.
+          </p>
+
+          <p class="section-title">What happens next</p>
+          <ul class="next-list">
+            <li class="next-item">
+              <strong>Check your WhatsApp and email.</strong>
+              <span>We will reach out within 24 hours with your payment details and cohort start date.</span>
+            </li>
+            <li class="next-item">
+              <strong>Complete your payment.</strong>
+              <span>Once you receive our message, you will have 48 hours to complete payment via M-Pesa to secure your spot.</span>
+            </li>
+            <li class="next-item">
+              <strong>Receive your welcome pack.</strong>
+              <span>After payment is confirmed, you will receive your module schedule, pre-course materials, WhatsApp community access, and first session link.</span>
+            </li>
+          </ul>
+
+          <div class="course-box">
+            <p><strong>The Global Teacher Playbook</strong></p>
+            <p>5 modules · Live Google Meet · WhatsApp community · KES 6,500</p>
+          </div>
+
+          <p class="section-title">Course page</p>
+          <p>
+            You can revisit the programme details here:
+          </p>
+          <p>
+            <a class="button" href="${siteUrl}/global-teacher-playbook">View Programme Details</a>
+          </p>
+
+          <div class="footer">
+            <p>30 Degrees East<br />by Swaleh Kimani</p>
+          </div>
+        </div>
+      </div>
+    </body>
+  </html>
+`
+
 export async function POST(request: NextRequest) {
   try {
     const resend = new Resend(getResendApiKey())
@@ -209,9 +394,14 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    const submittedAt = new Date().toISOString()
     const contactEmailConfig = getContactEmailConfig()
     const safeName = escapeHtml(name)
     const safeEmail = escapeHtml(email)
+    const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL?.trim() || 'https://30degreeseast.com').replace(
+      /\/+$/,
+      ''
+    )
     const html = buildApplicationEmailHtml({
       background: escapeHtml(background),
       challenge: escapeHtml(challenge),
@@ -225,17 +415,64 @@ export async function POST(request: NextRequest) {
       status: escapeHtml(status),
       whatsapp: escapeHtml(whatsapp),
     })
-
-    const { data, error } = await resend.emails.send({
-      from: contactEmailConfig.from,
-      to: contactEmailConfig.to,
-      replyTo: email,
-      subject: `New Global Teacher Playbook Application: ${name}`,
-      html,
+    const confirmationHtml = buildApplicantConfirmationEmailHtml({
+      name: safeName,
+      siteUrl,
     })
 
-    if (error) {
-      console.error('Resend playbook application error:', error)
+    const [internalEmail, confirmationEmail] = await Promise.all([
+      resend.emails.send({
+        from: contactEmailConfig.from,
+        to: contactEmailConfig.to,
+        replyTo: email,
+        subject: `New Global Teacher Playbook Application: ${name}`,
+        html,
+      }),
+      resend.emails.send({
+        from: contactEmailConfig.from,
+        to: email,
+        subject: 'Your Global Teacher Playbook application was received',
+        html: confirmationHtml,
+      }),
+    ])
+
+    if (internalEmail.error) {
+      console.error('Resend playbook internal email error:', internalEmail.error)
+    }
+
+    if (confirmationEmail.error) {
+      console.error('Resend playbook confirmation email error:', confirmationEmail.error)
+    }
+
+    let savedToGoogleSheets = false
+
+    if (hasGoogleSheetsPlaybookConfig()) {
+      try {
+        await appendPlaybookApplicationRowToGoogleSheets({
+          background,
+          challenge,
+          confirmationEmailSent: !confirmationEmail.error,
+          earlybird,
+          email,
+          goal,
+          internalEmailSent: !internalEmail.error,
+          interests,
+          invest,
+          name,
+          sheetSavedAt: submittedAt,
+          source,
+          status,
+          whatsapp,
+        })
+        savedToGoogleSheets = true
+      } catch (error) {
+        console.error('Google Sheets playbook application append error:', error)
+      }
+    }
+
+    const applicationHandled = savedToGoogleSheets || !internalEmail.error || !confirmationEmail.error
+
+    if (!applicationHandled) {
       return NextResponse.json(
         { error: 'Unable to submit application. Please try again.' },
         { status: 500 }
@@ -243,7 +480,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { message: 'Application submitted successfully', id: data?.id },
+      { message: 'Application submitted successfully' },
       { status: 200 }
     )
   } catch (error) {
